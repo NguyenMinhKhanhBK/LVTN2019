@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+</head>
+
+<body>
+
+  <p>Drag the ball.</p>
+
+  <img src="https://en.js.cx/clipart/soccer-gate.svg" id="gate" class="droppable" draggable="false">
+
+  <img src="https://en.js.cx/clipart/ball.svg" id="ball">
+  <div>
+    <button type="button" class="btn btn-primary">Primary</button>
+
+  </div>
+
+  <script>
+    let currentDroppable = null;
+
+    ball.onmousedown = function (event) {
+
+      console.log(event);
+      console.log(ball.getBoundingClientRect());
+
+       let shiftX = event.clientX - ball.getBoundingClientRect().left;
+       let shiftY = event.clientY - ball.getBoundingClientRect().top;
+       console.log('shiftX : ' + shiftX + ' - shiftY : ' + shiftY);
+
+      ball.style.position = 'absolute';
+      ball.style.zIndex = 1000;
+      // document.body.appendChild(ball);
+
+      moveAt(event.pageX, event.pageY);
+
+      function moveAt(pageX, pageY) {
+        ball.style.left = pageX - shiftX + 'px';
+        ball.style.top = pageY - shiftY  + 'px';
+
+        console.log('Left: ' + ball.style.left);
+                    
+        console.log('Top: ' + ball.style.top);
+      }
+
+      function onMouseMove(event) {
+        moveAt(event.pageX, event.pageY);
+
+        ball.hidden = true;
+        let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+
+        console.log('Element below: ' + elemBelow);
+        ball.hidden = false;
+
+        if (!elemBelow) return;
+
+        let droppableBelow = elemBelow.closest('.droppable');
+        console.log('DroppableBelow: ' + droppableBelow);
+
+        if (currentDroppable != droppableBelow) {
+          if (currentDroppable) { // null when we were not over a droppable before this event
+            leaveDroppable(currentDroppable);
+          }
+          currentDroppable = droppableBelow;
+          if (currentDroppable) { // null if we're not coming over a droppable now
+            // (maybe just left the droppable)
+            enterDroppable(currentDroppable);
+          }
+        }
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+
+      ball.onmouseup = function () {
+        document.removeEventListener('mousemove', onMouseMove);
+        ball.onmouseup = null;
+      };
+
+    };
+
+    function enterDroppable(elem) {
+      elem.style.background = 'pink';
+    }
+
+    function leaveDroppable(elem) {
+      elem.style.background = '';
+    }
+
+    ball.ondragstart = function () {
+      return false;
+    };
+  </script>
+  <script src="../public/js/jquery-3.3.1.slim.min.js"></script>
+  <script src="../public/js/popper.min.js"></script>
+  <script src="../public/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

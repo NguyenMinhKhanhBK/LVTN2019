@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>jQuery UI Draggable - Default functionality</title>
+
+    <!-- JQuery CSS -->
+    <link rel="stylesheet" href="../public/jquery-ui/jquery-ui.css">
+    <!-- /JQuery CSS -->
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <!-- /Bootstrap CSS -->
+
+    <!-- Own style -->
+    <link rel="stylesheet" href="style.css">
+    <!-- /Own style -->
+
+    <style>
+        #draggable {
+            width: 150px;
+            height: 150px;
+            padding: 0.5em;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 holder ">
+                <p class="draggable1">Button</p>
+                <p class="draggable1">Label</p>
+            </div>
+
+            <div class="col holder droppable" id="designZone" style="z-index: 1;">
+                    <button onclick="console.log(this.parentNode)" type="button" class="btn btn-primary draggable">Primary</button>
+                    <button onclick="console.log(this.parentNode)" type="button" class="btn btn-primary">Secondary</button>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+
+    <!-- JQuery scripts -->
+    <script src="../public/jquery-ui/external/jquery/jquery.js"></script>
+    <script src="../public/jquery-ui/jquery-ui.js"></script>
+    <script>
+
+        //Worked code
+
+        var leftOffset = document.getElementById('designZone').getBoundingClientRect().left;
+
+        $(function () {
+            $(".draggable").draggable({
+                cancel:false,
+                containment: '#designZone',
+                opacity: 0.35,
+                refreshPositions: true,
+                scroll: true,
+                snap: true,
+                zIndex:100,
+                
+
+
+                });
+
+            $('.draggable1').draggable({
+                zindex: 1000,
+                stack: '.droppable',
+                revert: true,
+                helper: 'clone',
+                revertDuration: 0,
+            });
+
+            $(".droppable").droppable({
+                accept: '.draggable1',
+                // disabled: true,
+                drop: function( event, ui ) {
+                var itemType = ui.draggable.context.innerHTML;
+                console.log(event);
+                var left = event.pageX - leftOffset + 'px';
+                var top = event.pageY + 'px';
+                
+                console.log('Top : ' + top + ' - Left: ' + left);
+                var buttonCode = '<button type="button" style="position: absolute; top: ' + top + '; left: ' + left + ' " class="btn btn-primary draggable">Primary</button>';
+                $('#designZone').append(buttonCode);
+                $(".draggable").draggable({
+                cancel:false,
+                containment: '#designZone',
+                opacity: 0.35,
+                refreshPositions: true,
+                scroll: true,
+                snap: true,
+                zIndex:100,
+                
+
+
+                });
+
+        }
+            })
+                
+        });
+
+       
+
+
+        
+
+
+
+    </script>
+    <!-- /JQuery scripts -->
+
+    <!-- BootStrap scripts -->
+    <!-- <script src="../public/js/jquery-3.3.1.slim.min.js"></script> -->
+    <script src="../public/js/popper.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+    <!-- /BootStrap scripts -->
+
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+
+    <style>
+        .box {
+            height: 100px;
+            width: 100px;
+            background-color: black;
+            position: relative;
+            top: 5px;
+            left: 5px;
+            cursor: pointer;
+        }
+
+        .held {
+            border: solid 10px black;
+            background-color: black;
+        }
+
+        .holder {
+            height: 600px;
+            margin: 10px;
+            border: solid 5px black;
+            background-color: rgb(141, 61, 61);
+            display: inline-block;
+        }
+
+        .hovered {
+            border: dotted 5px black;
+        }
+
+        .invisible {
+            display: none;
+        }
+
+        #container {
+            margin: auto;
+            top: 100px;
+            width: 400px;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 holder">
+                <p draggable="true" class="btn" ondragstart="drag(event)">Button</p>
+
+            </div>
+
+            <div class="col holder" id="designZone">
+                <h2>Design</h2>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var designZone = document.getElementById('designZone');
+        var txtButton = document.getElementById('btn');
+        designZone.addEventListener('dragover', dragover);
+        designZone.addEventListener('dragenter', dragenter);
+        designZone.addEventListener('drop', drop);
+        let bouderLeft = designZone.getBoundingClientRect().left;
+        let bouderTop = designZone.getBoundingClientRect().top;
+        let bouderRight = designZone.getBoundingClientRect().right;
+        let bouderBottom = designZone.getBoundingClientRect().bottom;
+
+
+
+        function drag(ev) {
+            //ev.dataTransfer.setData("text", ev.target.id);
+        }
+        function dragover(e) {
+            e.preventDefault()
+        }
+
+        function dragenter(e) {
+            e.preventDefault();
+        }
+
+        function drop(ev) {
+            //var data = ev.dataTransfer.getData("text");
+            var para = document.createElement("button");
+            var t = document.createTextNode("This is a paragraph.");
+            para.appendChild(t);
+            ev.target.appendChild(para);
+
+            console.log(para.getBoundingClientRect());
+            para.onmousedown = function (event) {
+
+                let shiftX = event.pageX - para.getBoundingClientRect().left;
+                let shiftY = event.pageY - para.getBoundingClientRect().top;
+                console.log('shiftX : ' + shiftX + ' - shiftY : ' + shiftY);
+                console.log(event);
+                para.style.background = 'red';
+                para.style.position = 'absolute';
+                para.style.zIndex = 1000;
+
+
+                function moveAt(pageX, pageY) {
+
+                    if (!(para.style.left < bouderLeft || para.style.right > bouderRight || para.style.top > bouderTop || para.style.bottom < bouderBottom)) {
+                        para.style.left = pageX - shiftX - bouderLeft + 'px';
+                        console.log('Left: ' + para.style.left);
+                        para.style.top = pageY - shiftY - bouderTop + 'px';
+                        console.log('Top: ' + para.style.top);
+                    }
+
+
+                }
+
+                function onMouseMove(event, element) {
+                    moveAt(event.pageX, event.pageY);
+                    console.log(event);
+                }
+
+                document.onmouseup = function () {
+                    designZone.removeEventListener('mousemove', onMouseMove);
+                    para.onmouseup = null;
+                    para.style.background = 'white';
+                    console.log('Mouse up');
+                }
+                designZone.addEventListener('mousemove', onMouseMove);
+
+            }
+
+
+
+
+        }
+
+
+
+
+
+    </script>
+
+
+    <script src="../public/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="../public/js/popper.min.js"></script>
+    <script src="../public/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

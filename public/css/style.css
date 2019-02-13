@@ -1,0 +1,56 @@
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
+.no-gutter-all  {
+    padding: 0;
+    margin: 0;
+}
+
+.no-gutter-margin{
+    margin: 0;
+    padding: 1px;
+}
+
+.icon-gutter{
+    padding: 1px;
+    margin: 0;
+}
+
+.button-icon{
+    -webkit-transition-duration: 0.1s; /* Safari */
+  transition-duration: 0.1s;
+  padding: 3px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.button-icon:hover{
+    background-color: #b3b3b3;
+}
+
+.img-icon{
+   max-height: 40px;
+    max-width: 40px;
+}
+.full-div{
+    height: 100%;
+    width:100%;
+}
+
+[data-toggle="collapse"] .fa:before {  
+    content: "\f13a";
+  }
+  
+  [data-toggle="collapse"].collapsed .fa:before {
+    content: "\f138";
+  }
+
+.toggle-nav a{
+    color: white;
+}
+
+.full-height{
+    height: 100vh;
+}
