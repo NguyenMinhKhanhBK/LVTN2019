@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "7SEG";
+    src: url('../font/7Segment.ttf') format('opentype');
+  }
+
 .no-gutter > [class*='col-'] {
     padding-right:0;
     padding-left:0;
@@ -54,5 +59,7 @@
 .full-height{
     height: 100vh;
 }
+
+
 
 
