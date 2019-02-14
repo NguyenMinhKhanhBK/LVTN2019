@@ -2,34 +2,47 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<style>
+#drawing {
+  border: 1px solid #ccc;
+  height: 800px;
+}</style>
+  
 </head>
 
 <body>
-Div:
-    <div id="myDrawing" style="height:800px">
+  <div id="drawing"></div>
+  Shape:
+  <select id="shape">
+    <option value="mouse paint">Mouse paint</option>
+    <option value="rect">Recangle</option>
+    <option value="ellipse">Circle</option>
+  </select> Color:
+  <select id="color">
+    <option value="#ff0099">Pink</option>
+    <option value="#f3f313">Yellow</option>
+    <option value="#0dd5fc">Blue</option>
+    <option value="#83f52c">Green</option>
+  </select>
+
+  <button type="button" class="btn btn-primary" onclick="startDraw()">Draw</button>
+  <button type="button" class="btn btn-primary" onclick="stopDraw()">Stop</button>
 
 
-    </div>
 
-    <script src="../public/js/svg.min.js"></script>
-    <script src="../public/js/svg.draw.js"></script>
+  <script src="../public/js/svg.min.js"></script>
+  <script src="../public/js/svg.draw.js"></script>
+<script src="../public/js/svg.js"></script>
 
-    <!-- My script -->
-    <script>
-        var draw = SVG('myDrawing');
-        var rect = draw.rect().draw();
-        rect.on('drawstart', function (event) {
-            console.log(event.detail); // Holds event, current Point-coords and matrix
-        });
-    </script>
 
 </body>
+
 
 </html>

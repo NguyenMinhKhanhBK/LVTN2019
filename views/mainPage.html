@@ -28,7 +28,7 @@
 <body>
 
     <!-- NavBar -->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
         <a class="navbar-brand mx-2" href="#">
             <i class="fa fa-home"> HCMUT</i>
         </a>
@@ -93,37 +93,37 @@
                                     <div class="card-body icon-gutter">
                                         <div class="d-flex justify-content-start flex-wrap">
                                             <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Line">
+                                                title="Line" onclick="startDraw('line')">
                                                 <img src="../public/img/toolboxIcon/line.png" class="img-icon"
                                                     alt="Line">
                                             </button>
 
                                             <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Ellipse">
+                                                title="Ellipse" onclick="startDraw('ellipse')">
                                                 <img src="../public/img/toolboxIcon/ellipse.png" class="img-icon"
                                                     alt="Ellipse">
                                             </button>
 
                                             <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Circle">
+                                                title="Circle" onclick="startDraw('circle')">
                                                 <img src="../public/img/toolboxIcon/circle.png" class="img-icon"
                                                     alt="Circle">
                                             </button>
 
                                             <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Rectangle">
+                                                title="Rectangle" onclick="startDraw('rect')">
                                                 <img src="../public/img/toolboxIcon/rectangle.png" class="img-icon"
                                                     alt="Rectangle">
                                             </button>
 
                                             <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Round rectangle">
+                                                title="Round rectangle" onclick="startDraw('roundRect')">
                                                 <img src="../public/img/toolboxIcon/rounded-rectangle.png"
                                                     class="img-icon" alt="Round rectangle">
                                             </button>
 
                                             <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Polygon">
+                                                title="Polygon" onclick="drawPoly()">
                                                 <img src="../public/img/toolboxIcon/polygon.png" class="img-icon"
                                                     alt="Polygon">
                                             </button>
@@ -331,7 +331,7 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div id="home" class="container-fluid tab-pane active bg-white full-height"><br>
+                        <div id="mainPage1" class="container-fluid tab-pane active bg-white full-height no-gutter-all"><br>
                             
                             
                         </div>
@@ -372,7 +372,15 @@
 
     <!-- Split script -->
     <script src="../public/js/split.min.js"></script>
-    <!-- Split script -->
+    <!-- /Split script -->
+
+    <!-- SVG script -->
+    <script src="../public/js/svg.min.js"></script>
+    <!-- /SVG script -->
+
+    <!-- SVG draw script -->
+    <script src="../public/js/svg.draw.js"></script>
+    <!-- /SVG draw script -->
 
     <!-- My script -->
     <script src="../public/js/myScript.js"></script>
