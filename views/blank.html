@@ -1,82 +1,63 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
+  <!-- Required meta tags -->
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    type="text/css">
-  <link rel="stylesheet" href="theme.css" type="text/css">
-  <link rel="stylesheet" href="../public/css/style.css" type="text/css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <style>
-    .GaugeMeter {
-      Position: Relative;
-      Text-Align: Center;
-      Overflow: Hidden;
-      Cursor: Default;
-    }
-
-    .GaugeMeter SPAN,
-    .GaugeMeter B {
-      Margin: 0 23%;
-      Width: 54%;
-      Position: Absolute;
-      Text-align: Center;
-      Display: Inline-Block;
-      Color: RGBa(0, 0, 0, .8);
-      Font-Weight: 100;
-      Font-Family: "Open Sans", Arial;
-      Overflow: Hidden;
-      White-Space: NoWrap;
-      Text-Overflow: Ellipsis;
-    }
-
-    .GaugeMeter[data-style="Semi"] B {
-      Margin: 0 10%;
-      Width: 80%;
-    }
-
-    .GaugeMeter S,
-    .GaugeMeter U {
-      Text-Decoration: None;
-      Font-Size: .5em;
-      Opacity: .5;
-    }
-
-    .GaugeMeter B {
-      Color: Black;
-      Font-Weight: 300;
-      Font-Size: .5em;
-      Opacity: .8;
-    }
-  </style>
-
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+  <title>Hello, world!</title>
 </head>
 
 <body>
+  <div class="container">
+    <div class="contextMenu" id="example" style="width:500px;height:500px;background:green">
+      <p>Right click</p>
+    </div>
+  </div>
 
-  <div class="GaugeMeter" id="GaugeMeter_1" data-percent="10"></div>
 
+  <!-- Context menu -->
+  <div class="dropdown-menu" id="context-menu">
+      <h5 class="dropdown-header">Dropdown header</h5>
+      <a class="dropdown-item" href="#">Link 1</a>
+      <a class="dropdown-item" href="#">Link 2</a>
+      <a class="dropdown-item" href="#">Link 3</a>
+      <h5 class="dropdown-header">Dropdown header</h5>
+      <a class="dropdown-item" href="#">Another link</a>
+    </div>
+  <!-- /Context menu -->
 
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="../public/js/jquery-3.3.1.min.js"></script>
+
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-    crossorigin="anonymous"></script>
-  <script src="../public/js/GaugeMeter.js"></script>
+  <script src="../public/js/contextmenu.js"></script>
+
   <script>
-    $(document).ready(function () {
-      $(".GaugeMeter").gaugeMeter();
-      
+    $('.contextMenu').on('contextmenu', function (e) {
+      var top = e.pageY - 10;
+      var left = e.pageX - 90;
+      $("#context-menu").css({
+        display: "block",
+        top: top,
+        left: left
+      }).addClass("show");
+      return false; //blocks default Webbrowser right click menu
+    }).on("click", function () {
+      $("#context-menu").removeClass("show").hide();
     });
-    $("#GaugeMeter_1").gaugeMeter({percent:15});
-  </script>
 
+    $("#context-menu a").on("click", function () {
+      $(this).parent().removeClass("show").hide();
+    });
+
+  </script>
 </body>
 
 </html>

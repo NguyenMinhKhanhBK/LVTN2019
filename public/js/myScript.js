@@ -15,7 +15,7 @@ $(document).ready(function () {
 
 /*
 ***********************************************************************************************
-                                Global variable
+                                Global variables and functions
 ***********************************************************************************************
 */
 //SVG global variable
@@ -37,6 +37,30 @@ const defaultLineOption = {
   'stroke-width': 5,
   'stroke-linecap': 'round'
 };
+
+//Add context menu
+function addContextMenu(){
+  $('.contextMenu').on('contextmenu', function (e) {
+    console.log(e);
+    var top = e.pageY + 10;
+    var left = e.pageX + 10;
+    $("#context-menu").css({
+      display: "block",
+      top: top,
+      left: left
+    }).addClass("show");
+    return false; //blocks default Webbrowser right click menu
+  });
+  $('#mainPage1').on("click", function () {
+    $("#context-menu").removeClass("show").hide();
+  });
+  
+  $("#context-menu a").on("click", function () {
+    $(this).parent().removeClass("show").hide();
+  });
+  
+}
+
 
 /*
 ***********************************************************************************************
@@ -93,12 +117,19 @@ var startDraw = function (shape) {
     //Subscribe mouse over event for each object
     shapes[index].on('mouseover', function (event) {
       event.target.style.opacity = 0.4;
-      event.target.style.cursor = 'move';
+      //event.target.style.cursor = 'move';
     });
     //Subscribe mouse out event for each object
     shapes[index].on('mouseout', function (event) {
       event.target.style.opacity = 1;
     })
+
+    //Add draggable feature
+    draggable = new PlainDraggable(document.getElementById(shapes[index].node.id));
+    draggable.autoScroll = true;
+    draggable.containment = document.getElementById('mainPage1');
+   
+    
 
     //Increase index to append the array
     index++;
@@ -124,12 +155,19 @@ var drawPolygon = function () {
     //Subscribe mouseover event for each polygon
     shapes[index].on('mouseover', function (event) {
       event.target.style.opacity = 0.4;
-      event.target.style.cursor = 'move';
+      //event.target.style.cursor = 'move';
     });
     //Subscribe mouseout event for each polygon
     shapes[index].on('mouseout', function (event) {
       event.target.style.opacity = 1;
     });
+
+    //Add draggable feature
+    draggable = new PlainDraggable(document.getElementById(shapes[index].node.id));
+    draggable.autoScroll = true;
+    draggable.containment = document.getElementById('mainPage1');
+
+
     //Subscribe keydown event to detect ENTER key
     document.addEventListener('keydown', keyEnterDownHandler);
   });
@@ -161,12 +199,18 @@ var drawPolyline = function () {
     //Subscribe mouseover event for each polygon
     shapes[index].on('mouseover', function (event) {
       event.target.style.opacity = 0.4;
-      event.target.style.cursor = 'move';
+      //event.target.style.cursor = 'move';
     });
     //Subscribe mouseout event for each polygon
     shapes[index].on('mouseout', function (event) {
       event.target.style.opacity = 1;
     });
+
+    //Add draggable feature
+    draggable = new PlainDraggable(document.getElementById(shapes[index].node.id));
+    draggable.autoScroll = true;
+    draggable.containment = document.getElementById('mainPage1');
+
     //Subscribe keydown event to detect ENTER key
     document.addEventListener('keydown', keyEnterDownHandler);
   });
@@ -289,6 +333,7 @@ function imageMouseDownEventHandler(event) {
   var img = document.createElement('img');
   img.id = 'img' + index;
 
+
   //Image css style
   img.src = defaultImageSrc;
   img.style.height = '150px';
@@ -301,16 +346,24 @@ function imageMouseDownEventHandler(event) {
   //Image mouse events
   $(img).on('mouseover', function (event) {
     event.target.style.opacity = 0.4;
-    event.target.style.cursor = 'move';
+    //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
   $(img).on('mouseout', function (event) {
     event.target.style.opacity = 1;
   });
 
+
   $('#mainPage1').append(img);
   shapes[index] = img;
   index++;
+
+  //Add draggable feature
+  draggable = new PlainDraggable(img);
+  draggable.autoScroll = true;
+  draggable.containment = document.getElementById('mainPage1');
+
+
 }
 
 //Text mouse down event handler: To create new text
@@ -337,7 +390,7 @@ function textMouseDownEventHandler(event) {
   //Image mouse events
   $(para).on('mouseover', function (event) {
     event.target.style.opacity = 0.4;
-    event.target.style.cursor = 'move';
+    //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
   $(para).on('mouseout', function (event) {
@@ -348,7 +401,12 @@ function textMouseDownEventHandler(event) {
   shapes[index] = para;
   index++;
 
-  console.log(shapes);
+  //Add draggable feature
+  draggable = new PlainDraggable(para);
+  draggable.autoScroll = true;
+  draggable.containment = document.getElementById('mainPage1');
+
+  //console.log(shapes);
 }
 
 //Display Value mouse down event handler: To create new DisplayValue
@@ -375,7 +433,7 @@ function displayValueMouseDownEventHandler(event) {
   //Image mouse events
   $(para).on('mouseover', function (event) {
     event.target.style.opacity = 0.4;
-    event.target.style.cursor = 'move';
+    //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
   $(para).on('mouseout', function (event) {
@@ -386,7 +444,12 @@ function displayValueMouseDownEventHandler(event) {
   shapes[index] = para;
   index++;
 
-  console.log(shapes);
+  //Add draggable feature
+  draggable = new PlainDraggable(para);
+  draggable.autoScroll = true;
+  draggable.containment = document.getElementById('mainPage1');
+
+  //console.log(shapes);
 }
 
 //Button mouse down event handler: To create new button
@@ -413,7 +476,7 @@ function buttonMouseDownEventHandler(event) {
   //Image mouse events
   $(btn).on('mouseover', function (event) {
     event.target.style.opacity = 0.4;
-    event.target.style.cursor = 'move';
+    //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
   $(btn).on('mouseout', function (event) {
@@ -424,7 +487,12 @@ function buttonMouseDownEventHandler(event) {
   shapes[index] = btn;
   index++;
 
-  console.log(shapes);
+  //Add draggable feature
+  draggable = new PlainDraggable(btn);
+  draggable.autoScroll = true;
+  draggable.containment = document.getElementById('mainPage1');
+
+ // console.log(shapes);
 }
 
 //Switch mouse down event handler: To create new switch
@@ -460,7 +528,7 @@ function switchMouseDownEventHandler(event) {
   //Image mouse events
   $(sw).on('mouseover', function (event) {
     event.target.style.opacity = 0.65;
-    event.target.style.cursor = 'move';
+    //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
   $(sw).on('mouseout', function (event) {
@@ -471,7 +539,12 @@ function switchMouseDownEventHandler(event) {
   shapes[index] = sw;
   index++;
 
-  console.log(shapes);
+//Add draggable feature
+draggable = new PlainDraggable(sw);
+draggable.autoScroll = true;
+draggable.containment = document.getElementById('mainPage1');
+
+  //console.log(shapes);
 }
 
 // function switchMouseDownEventHandler(event) {
@@ -549,7 +622,7 @@ function inputMouseDownEventHandler(event) {
   //Image mouse events
   $(input).on('mouseover', function (event) {
     event.target.style.opacity = 0.4;
-    event.target.style.cursor = 'move';
+    //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
   $(input).on('mouseout', function (event) {
@@ -560,7 +633,12 @@ function inputMouseDownEventHandler(event) {
   shapes[index] = input;
   index++;
 
-  console.log(shapes);
+  //Add draggable feature
+  draggable = new PlainDraggable(input);
+  draggable.autoScroll = true;
+  draggable.containment = document.getElementById('mainPage1');
+  
+  //console.log(shapes);
 }
 
 //Checkbox mouse down event handler: To create new Checkbox
@@ -599,7 +677,7 @@ function checkboxMouseDownEventHandler(event) {
   //Image mouse events
   $(checkbox).on('mouseover', function (event) {
     event.target.style.opacity = 0.4;
-    event.target.style.cursor = 'move';
+    //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
   $(checkbox).on('mouseout', function (event) {
@@ -610,7 +688,12 @@ function checkboxMouseDownEventHandler(event) {
   shapes[index] = checkbox;
   index++;
 
-  console.log(shapes);
+  //Add draggable feature
+  draggable = new PlainDraggable(checkbox);
+  draggable.autoScroll = true;
+  draggable.containment = document.getElementById('mainPage1');
+
+  //console.log(shapes);
 }
 
 //Slider mouse down event handler: To create new Checkbox
@@ -637,7 +720,7 @@ function sliderMouseDownEventHandler(event) {
   //Image mouse events
   $(slider).on('mouseover', function (event) {
     event.target.style.opacity = 0.4;
-    event.target.style.cursor = 'move';
+    //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
   $(slider).on('mouseout', function (event) {
@@ -648,7 +731,12 @@ function sliderMouseDownEventHandler(event) {
   shapes[index] = slider;
   index++;
 
-  console.log(shapes);
+  //Add draggable feature
+  draggable = new PlainDraggable(slider);
+  draggable.autoScroll = true;
+  draggable.containment = document.getElementById('mainPage1');
+
+  //console.log(shapes);
 }
 
 //Process bar mouse down event handler: To create new Checkbox
@@ -684,7 +772,7 @@ function processbarMouseDownEventHandler(event) {
   //Image mouse events
   $(progressbar).on('mouseover', function (event) {
     event.target.style.opacity = 0.4;
-    event.target.style.cursor = 'move';
+    //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
   $(progressbar).on('mouseout', function (event) {
@@ -695,7 +783,12 @@ function processbarMouseDownEventHandler(event) {
   shapes[index] = progressbar;
   index++;
 
-  console.log(shapes);
+  //Add draggable feature
+  draggable = new PlainDraggable(progressbar);
+  draggable.autoScroll = true;
+  draggable.containment = document.getElementById('mainPage1');
+
+  //console.log(shapes);
 }
 
 //Symbol Set mouse down event handler: To create new image
@@ -710,6 +803,8 @@ function symbolsetMouseDownEventHandler(event) {
   var defaultSymbolSet = '../public/img/symbol-set/light-off.png';
   var symbolSet = document.createElement('img');
   symbolSet.id = 'symbolSet' + index;
+  symbolSet.className += ' contextMenu';
+
 
   //Image css style
   symbolSet.src = defaultSymbolSet;
@@ -722,7 +817,7 @@ function symbolsetMouseDownEventHandler(event) {
   //Image mouse events
   $(symbolSet).on('mouseover', function (event) {
     event.target.style.opacity = 0.4;
-    event.target.style.cursor = 'move';
+    //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
   $(symbolSet).on('mouseout', function (event) {
@@ -733,5 +828,16 @@ function symbolsetMouseDownEventHandler(event) {
   shapes[index] = symbolSet;
   index++;
   
-  console.log(shapes);
+  //Add draggable feature
+  draggable = new PlainDraggable(symbolSet);
+  draggable.autoScroll = true;
+  draggable.containment = document.getElementById('mainPage1');
+
+  addContextMenu();
+  
+  
+  //console.log(shapes);
 }
+
+
+

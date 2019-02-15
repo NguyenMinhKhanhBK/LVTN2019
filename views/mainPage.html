@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Main Page</title>
 
-    <!-- JQuery CSS -->
-    <link rel="stylesheet" href="../public/jquery-ui/jquery-ui.css">
-    <!-- /JQuery CSS -->
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../public/css/bootstrap.min.css">
     <!-- /Bootstrap CSS -->
@@ -70,7 +66,7 @@
 
     <!-- Main -->
     <div class="container-fluid" style="background: #282d30;">
-        <div class="row no-gutter" >
+        <div class="row no-gutter">
 
             <!-- toolBoxPanel -->
             <div id="toolBoxPanle" class="col-md-2 m-1">
@@ -229,7 +225,7 @@
 
                                             <!-- Process bar -->
                                             <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Process bar" onclick="addNewProcessbar()">
+                                                title="Progress bar" onclick="addNewProcessbar()">
                                                 <img src="../public/img/toolboxIcon/process-bar.png" class="img-icon"
                                                     alt="Process bar">
                                             </button>
@@ -265,7 +261,7 @@
                             </div> <!-- /Card Elements div -->
                             <!-- /Elements -->
 
-                            
+
 
                         </div> <!-- /collapseGroup -->
                         <!-- /Collapse group -->
@@ -292,9 +288,8 @@
 
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div id="mainPage1" class="container-fluid tab-pane active bg-white full-height no-gutter-all"><br>
-                            
-                            
+                        <div id="mainPage1" class="container-fluid tab-pane active bg-white full-height no-gutter-all">
+                            <br>
                         </div>
                         <div id="menu1" class="container-fluid tab-pane fade bg-white full-height"><br>
                             <h3>Menu 1</h3>
@@ -315,15 +310,17 @@
     </div>
     <!-- /Main -->
 
-
-
+   <!-- Context menu -->
+  <div class="dropdown-menu" id="context-menu">
+        <a class="dropdown-item" href="#"><i class="fas fa-trash mr-4"></i>Delete</a>
+      </div>
+    <!-- /Context menu -->
 
 
 
 
     <!-- JQuery scripts -->
-    <script src="../public/jquery-ui/external/jquery/jquery.js"></script>
-    <script src="../public/jquery-ui/jquery-ui.js"></script>
+    <script src="../public/js/jquery-3.3.1.min.js"></script>
     <!-- /JQuery scripts -->
 
     <!-- BootStrap scripts -->
@@ -342,6 +339,14 @@
     <!-- SVG draw script -->
     <script src="../public/js/svg.draw.js"></script>
     <!-- /SVG draw script -->
+
+    <!-- Draggable script -->
+    <script src="../public/js/plain-draggable.min.js"></script>
+    <!-- /Draggable script -->
+
+    <!-- Context menu script -->
+    <script src="../public/js/contextmenu.js"></script>
+    <!-- /Context menu script -->
 
     <!-- My script -->
     <script src="../public/js/myScript.js"></script>
