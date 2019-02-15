@@ -105,8 +105,8 @@ var startDraw = function (shape) {
   }, false);
 }
 
-//drawPoly function: Draw polygon
-var drawPoly = function () {
+//drawPolygon function: Draw polygon
+var drawPolygon = function () {
   stopDraw();
   shapes[index] = draw.polygon().draw();
 
@@ -142,6 +142,42 @@ var drawPoly = function () {
   });
 }
 
+//drawPolyline function: Draw polyline
+var drawPolyline = function () {
+  stopDraw();
+  shapes[index] = draw.polyline().draw();
+
+  //Polygon attribute
+  shapes[index].attr({
+    'fill-opacity':0,
+    'stroke-width': 3,
+  })
+
+  //Subscribe drawstart event 
+  shapes[index].on('drawstart', function (e) {
+    shapes[index].on('click', function (event) {
+      alert('Click on item ' + event.target.id);
+    });
+    //Subscribe mouseover event for each polygon
+    shapes[index].on('mouseover', function (event) {
+      event.target.style.opacity = 0.4;
+      event.target.style.cursor = 'move';
+    });
+    //Subscribe mouseout event for each polygon
+    shapes[index].on('mouseout', function (event) {
+      event.target.style.opacity = 1;
+    });
+    //Subscribe keydown event to detect ENTER key
+    document.addEventListener('keydown', keyEnterDownHandler);
+  });
+
+  //Subscribe drawstop event: This event fires when <object>.draw('done') executes 
+  shapes[index].on('drawstop', function () {
+    console.log(shapes);
+    //Remove enter key event
+    document.removeEventListener('keydown', keyEnterDownHandler);
+  });
+}
 
 //Add new image
 function addNewImage() {
