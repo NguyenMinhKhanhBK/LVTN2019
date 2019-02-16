@@ -2,355 +2,724 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Main Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Main Page</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
-    <!-- /Bootstrap CSS -->
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+  <!-- /Bootstrap CSS -->
 
-    <!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="../public/css/all.css">
-    <!-- /Font Awesome CSS -->
+  <!-- Font Awesome CSS -->
+  <link rel="stylesheet" href="../public/css/all.css">
+  <!-- /Font Awesome CSS -->
 
-    <!-- Own style -->
-    <link rel="stylesheet" href="../public/css/style.css">
-    <!-- /Own style -->
+  <!-- Bootstrap form helpers -->
+  <link rel="stylesheet" href="../public/css/bootstrap-formhelpers.min.css">
+  <!-- /Bootstrap form helpers -->
+
+  <!-- Own style -->
+  <link rel="stylesheet" href="../public/css/style.css">
+  <!-- /Own style -->
 
 
 </head>
 
 <body>
 
-    <!-- NavBar -->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
-        <a class="navbar-brand mx-2" href="#">
-            <i class="fa fa-home"> HCMUT</i>
-        </a>
+  <!-- NavBar -->
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark ">
+    <a class="navbar-brand mx-2" href="#">
+      <i class="fa fa-home"> HCMUT</i>
+    </a>
 
-        <div class="btn-toolbar mr-auto" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group" role="group" aria-label="Clipboard group">
-                <button type="button" class="btn btn-dark"><i class="far fa-file mr-2"></i>New</button>
-            </div>
-            <div class="btn-group" role="group" aria-label="Clipboard group">
-                <button type="button" class="btn btn-dark"><i class="far fa-folder-open mr-2"></i>Open</button>
-            </div>
-            <div class="btn-group" role="group" aria-label="Clipboard group">
-                <button type="button" class="btn btn-dark"><i class="far fa-save mr-2"></i>Save</button>
-            </div>
-            <div class="btn-group" role="group" aria-label="Clipboard group">
-                <button type="button" class="btn btn-dark"><i class="fas fa-cog mr-2"></i>Settings</button>
-            </div>
-            <div class="btn-group" role="group" aria-label="Clipboard group">
-                <button type="button" class="btn btn-dark"><i class="fas fa-undo mr-2"></i>Undo</button>
-            </div>
-            <div class="btn-group" role="group" aria-label="Clipboard group">
-                <button type="button" class="btn btn-dark"><i class="fas fa-redo mr-2"></i>Redo</button>
-            </div>
-        </div>
+    <div class="btn-toolbar mr-auto" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="btn-group" role="group" aria-label="Clipboard group">
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#lineModal"><i
+            class="far fa-file mr-2"></i>New</button>
+      </div>
+      <div class="btn-group" role="group" aria-label="Clipboard group">
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#shapeModal"><i
+            class="far fa-folder-open mr-2"></i>Open</button>
+      </div>
+      <div class="btn-group" role="group" aria-label="Clipboard group">
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#textModal"><i
+            class="far fa-save mr-2"></i>Save</button>
+      </div>
+      <div class="btn-group" role="group" aria-label="Clipboard group">
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#imageModal"><i
+            class="fas fa-cog mr-2"></i>Settings</button>
+      </div>
+      <div class="btn-group" role="group" aria-label="Clipboard group">
+        <button type="button" class="btn btn-dark"><i class="fas fa-undo mr-2"></i>Undo</button>
+      </div>
+      <div class="btn-group" role="group" aria-label="Clipboard group">
+        <button type="button" class="btn btn-dark"><i class="fas fa-redo mr-2"></i>Redo</button>
+      </div>
+    </div>
 
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="btn-group" role="group" aria-label="Clipboard group">
-                <button type="button" class="btn btn-dark"><i class="fas fa-play mr-2"></i>Run</button>
-            </div>
-            <div class="btn-group" role="group" aria-label="Clipboard group">
-                <button type="button" class="btn btn-dark"><i class="fas fa-upload mr-2"></i>Publish</button>
-            </div>
-            <div class="btn-group" role="group" aria-label="Clipboard group">
-                <button type="button" class="btn btn-dark"><i class="fas fa-sign-out-alt mr-2"></i>Logout</button>
-            </div>
-        </div>
-    </nav>
-    <!-- /NavBar -->
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="btn-group" role="group" aria-label="Clipboard group">
+        <button type="button" class="btn btn-dark"><i class="fas fa-play mr-2"></i>Run</button>
+      </div>
+      <div class="btn-group" role="group" aria-label="Clipboard group">
+        <button type="button" class="btn btn-dark"><i class="fas fa-upload mr-2"></i>Publish</button>
+      </div>
+      <div class="btn-group" role="group" aria-label="Clipboard group">
+        <button type="button" class="btn btn-dark"><i class="fas fa-sign-out-alt mr-2"></i>Logout</button>
+      </div>
+    </div>
+  </nav>
+  <!-- /NavBar -->
 
-    <!-- Main -->
-    <div class="container-fluid" style="background: #282d30;">
-        <div class="row no-gutter">
+  <!-- Main -->
+  <div class="container-fluid" style="background: #282d30;">
+    <div class="row no-gutter">
 
-            <!-- toolBoxPanel -->
-            <div id="toolBoxPanle" class="col-md-2 m-1">
-                <div class="card bg-dark">
-                    <div class="card-header bg-secondary  text-white"><strong>Toolbox</strong></div>
-                    <div class="card-body no-gutter-all ">
+      <!-- toolBoxPanel -->
+      <div id="toolBoxPanle" class="col-md-2 m-1">
+        <div class="card bg-dark">
+          <div class="card-header bg-secondary  text-white"><strong>Toolbox</strong></div>
+          <div class="card-body no-gutter-all ">
 
-                        <!-- Collapse group -->
-                        <div id="accordion" class="full-div">
+            <!-- Collapse group -->
+            <div id="accordion" class="full-div">
 
-                            <!-- Basic objects -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <a class="card-link" data-toggle="collapse" href="#collapseOne">
-                                        <i class="fa" aria-hidden="true"></i>
-                                        Basic objects
-                                    </a>
-                                </div>
-                                <div id="collapseOne" class="collapse show">
-                                    <div class="card-body icon-gutter">
-                                        <div class="d-flex justify-content-start flex-wrap">
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Line" onclick="startDraw('line')">
-                                                <img src="../public/img/toolboxIcon/line.png" class="img-icon"
-                                                    alt="Line">
-                                            </button>
+              <!-- Basic objects -->
+              <div class="card">
+                <div class="card-header">
+                  <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                    <i class="fa" aria-hidden="true"></i>
+                    Basic objects
+                  </a>
+                </div>
+                <div id="collapseOne" class="collapse show">
+                  <div class="card-body icon-gutter">
+                    <div class="d-flex justify-content-start flex-wrap">
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Line"
+                        onclick="startDraw('line')">
+                        <img src="../public/img/toolboxIcon/line.png" class="img-icon" alt="Line">
+                      </button>
 
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Polyline" onclick="drawPolyline()">
-                                                <img src="../public/img/toolboxIcon/polyline.png" class="img-icon"
-                                                    alt="Polyline">
-                                            </button>
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Polyline"
+                        onclick="drawPolyline()">
+                        <img src="../public/img/toolboxIcon/polyline.png" class="img-icon" alt="Polyline">
+                      </button>
 
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Ellipse" onclick="startDraw('ellipse')">
-                                                <img src="../public/img/toolboxIcon/ellipse.png" class="img-icon"
-                                                    alt="Ellipse">
-                                            </button>
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Ellipse"
+                        onclick="startDraw('ellipse')">
+                        <img src="../public/img/toolboxIcon/ellipse.png" class="img-icon" alt="Ellipse">
+                      </button>
 
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Circle" onclick="startDraw('circle')">
-                                                <img src="../public/img/toolboxIcon/circle.png" class="img-icon"
-                                                    alt="Circle">
-                                            </button>
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Circle"
+                        onclick="startDraw('circle')">
+                        <img src="../public/img/toolboxIcon/circle.png" class="img-icon" alt="Circle">
+                      </button>
 
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Rectangle" onclick="startDraw('rect')">
-                                                <img src="../public/img/toolboxIcon/rectangle.png" class="img-icon"
-                                                    alt="Rectangle">
-                                            </button>
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Rectangle"
+                        onclick="startDraw('rect')">
+                        <img src="../public/img/toolboxIcon/rectangle.png" class="img-icon" alt="Rectangle">
+                      </button>
 
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Round rectangle" onclick="startDraw('roundRect')">
-                                                <img src="../public/img/toolboxIcon/rounded-rectangle.png"
-                                                    class="img-icon" alt="Round rectangle">
-                                            </button>
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Round rectangle"
+                        onclick="startDraw('roundRect')">
+                        <img src="../public/img/toolboxIcon/rounded-rectangle.png" class="img-icon"
+                          alt="Round rectangle">
+                      </button>
 
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Polygon" onclick="drawPolygon()">
-                                                <img src="../public/img/toolboxIcon/polygon.png" class="img-icon"
-                                                    alt="Polygon">
-                                            </button>
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Polygon"
+                        onclick="drawPolygon()">
+                        <img src="../public/img/toolboxIcon/polygon.png" class="img-icon" alt="Polygon">
+                      </button>
 
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Textblock" onclick="addNewText()">
-                                                <img src="../public/img/toolboxIcon/textblock.png" class="img-icon"
-                                                    alt="Textblock">
-                                            </button>
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Textblock"
+                        onclick="addNewText()">
+                        <img src="../public/img/toolboxIcon/textblock.png" class="img-icon" alt="Textblock">
+                      </button>
 
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Graph view" onclick="addNewImage()">
-                                                <img src="../public/img/toolboxIcon/graph-view.png" class="img-icon"
-                                                    alt="Graph view">
-                                            </button>
-                                        </div> <!-- /Wrapper div -->
-                                    </div> <!-- /Card-body div -->
-                                </div> <!-- /collapseOne div -->
-                            </div> <!-- /Card Basic objects div -->
-                            <!-- /Basic objects -->
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Graph view"
+                        onclick="addNewImage()">
+                        <img src="../public/img/toolboxIcon/graph-view.png" class="img-icon" alt="Graph view">
+                      </button>
+                    </div> <!-- /Wrapper div -->
+                  </div> <!-- /Card-body div -->
+                </div> <!-- /collapseOne div -->
+              </div> <!-- /Card Basic objects div -->
+              <!-- /Basic objects -->
 
-                            <!-- Elements -->
-                            <div class="card">
-                                <div class="card-header">
-                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
-                                        <i class="fa" aria-hidden="true"></i>
-                                        Elements
-                                    </a>
-                                </div>
-                                <div id="collapseTwo" class="collapse">
-                                    <div class="card-body icon-gutter">
+              <!-- Elements -->
+              <div class="card">
+                <div class="card-header">
+                  <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+                    <i class="fa" aria-hidden="true"></i>
+                    Elements
+                  </a>
+                </div>
+                <div id="collapseTwo" class="collapse">
+                  <div class="card-body icon-gutter">
 
-                                        <div class="d-flex justify-content-start flex-wrap">
-                                            <!-- Display Value -->
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Display value" onclick="addNewDisplayValue()">
-                                                <img src="../public/img/toolboxIcon/display-value.png" class="img-icon"
-                                                    alt="Display value">
-                                            </button>
-                                            <!-- /Display Value -->
+                    <div class="d-flex justify-content-start flex-wrap">
+                      <!-- Display Value -->
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Display value"
+                        onclick="addNewDisplayValue()">
+                        <img src="../public/img/toolboxIcon/display-value.png" class="img-icon" alt="Display value">
+                      </button>
+                      <!-- /Display Value -->
 
-                                            <!-- Button -->
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Button" onclick="addNewButton()">
-                                                <img src="../public/img/toolboxIcon/button.png" class="img-icon"
-                                                    alt="Button">
-                                            </button>
-                                            <!-- /Button -->
+                      <!-- Button -->
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Button"
+                        onclick="addNewButton()">
+                        <img src="../public/img/toolboxIcon/button.png" class="img-icon" alt="Button">
+                      </button>
+                      <!-- /Button -->
 
-                                            <!-- Switch -->
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Switch" onclick="addNewSwitch()">
-                                                <img src="../public/img/toolboxIcon/toggle.png" class="img-icon"
-                                                    alt="Switch">
-                                            </button>
-                                            <!-- /Switch -->
+                      <!-- Switch -->
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Switch"
+                        onclick="addNewSwitch()">
+                        <img src="../public/img/toolboxIcon/toggle.png" class="img-icon" alt="Switch">
+                      </button>
+                      <!-- /Switch -->
 
-                                            <!-- Radio button -->
-                                            <!-- <button type="button" class="btn button-icon" data-toggle="tooltip"
+                      <!-- Radio button -->
+                      <!-- <button type="button" class="btn button-icon" data-toggle="tooltip"
                                                 title="Radio button" onclick="addNewRadioButton()">
                                                 <img src="../public/img/toolboxIcon/radio-button.png" class="img-icon"
                                                     alt="Radio button">
                                             </button> -->
-                                            <!-- /Radio button -->
+                      <!-- /Radio button -->
 
-                                            <!-- Input -->
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Input" onclick="addNewInput()">
-                                                <img src="../public/img/toolboxIcon/input.png" class="img-icon"
-                                                    alt="Input">
-                                            </button>
-                                            <!-- /Input -->
+                      <!-- Input -->
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Input"
+                        onclick="addNewInput()">
+                        <img src="../public/img/toolboxIcon/input.png" class="img-icon" alt="Input">
+                      </button>
+                      <!-- /Input -->
 
-                                            <!-- Dropdown -->
-                                            <!-- <button type="button" class="btn button-icon" data-toggle="tooltip"
+                      <!-- Dropdown -->
+                      <!-- <button type="button" class="btn button-icon" data-toggle="tooltip"
                                                 title="Dropdown list">
                                                 <img src="../public/img/toolboxIcon/dropdown.png" class="img-icon"
                                                     alt="Dropdown list">
                                             </button> -->
-                                            <!-- /Dropdown -->
+                      <!-- /Dropdown -->
 
-                                            <!-- Date time -->
-                                            <!-- <button type="button" class="btn button-icon" data-toggle="tooltip"
+                      <!-- Date time -->
+                      <!-- <button type="button" class="btn button-icon" data-toggle="tooltip"
                                                 title="Date Time">
                                                 <img src="../public/img/toolboxIcon/date-time.png" class="img-icon"
                                                     alt="Date Time">
                                             </button> -->
-                                            <!-- /Date time -->
+                      <!-- /Date time -->
 
-                                            <!-- Slider -->
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Slider" onclick="addNewSlider()">
-                                                <img src="../public/img/toolboxIcon/slider.png" class="img-icon"
-                                                    alt="Slider">
-                                            </button>
-                                            <!-- /Slider -->
+                      <!-- Slider -->
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Slider"
+                        onclick="addNewSlider()">
+                        <img src="../public/img/toolboxIcon/slider.png" class="img-icon" alt="Slider">
+                      </button>
+                      <!-- /Slider -->
 
-                                            <!-- Process bar -->
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Progress bar" onclick="addNewProcessbar()">
-                                                <img src="../public/img/toolboxIcon/process-bar.png" class="img-icon"
-                                                    alt="Process bar">
-                                            </button>
-                                            <!-- /Process bar -->
+                      <!-- Process bar -->
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Progress bar"
+                        onclick="addNewProcessbar()">
+                        <img src="../public/img/toolboxIcon/process-bar.png" class="img-icon" alt="Process bar">
+                      </button>
+                      <!-- /Process bar -->
 
-                                            <!-- Checkbox -->
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Checkbox" onclick="addNewCheckbox()">
-                                                <img src="../public/img/toolboxIcon/checkbox.png" class="img-icon"
-                                                    alt="Checkbox">
-                                            </button>
-                                            <!-- /Checkbox -->
+                      <!-- Checkbox -->
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Checkbox"
+                        onclick="addNewCheckbox()">
+                        <img src="../public/img/toolboxIcon/checkbox.png" class="img-icon" alt="Checkbox">
+                      </button>
+                      <!-- /Checkbox -->
 
-                                            <!-- Gauge -->
-                                            <!-- <button type="button" class="btn button-icon" data-toggle="tooltip"
+                      <!-- Gauge -->
+                      <!-- <button type="button" class="btn button-icon" data-toggle="tooltip"
                                                 title="Gauge">
                                                 <img src="../public/img/toolboxIcon/gauge.png" class="img-icon"
                                                     alt="Gauge">
                                             </button> -->
-                                            <!-- /Gauge -->
+                      <!-- /Gauge -->
 
-                                            <!-- Symbol -->
-                                            <button type="button" class="btn button-icon" data-toggle="tooltip"
-                                                title="Symbol Set" onclick="addNewSymbolSet()">
-                                                <img src="../public/img/toolboxIcon/symbol.png" class="img-icon"
-                                                    alt="Symbol">
-                                            </button>
-                                            <!-- /Symbol -->
-                                        </div> <!-- /Wrapper div -->
+                      <!-- Symbol -->
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Symbol Set"
+                        onclick="addNewSymbolSet()">
+                        <img src="../public/img/toolboxIcon/symbol.png" class="img-icon" alt="Symbol">
+                      </button>
+                      <!-- /Symbol -->
+                    </div> <!-- /Wrapper div -->
 
-                                    </div> <!-- /Card-body div -->
-                                </div> <!-- /collapseTwo div -->
-                            </div> <!-- /Card Elements div -->
-                            <!-- /Elements -->
-
+                  </div> <!-- /Card-body div -->
+                </div> <!-- /collapseTwo div -->
+              </div> <!-- /Card Elements div -->
+              <!-- /Elements -->
 
 
-                        </div> <!-- /collapseGroup -->
-                        <!-- /Collapse group -->
-                    </div>
-                </div>
-            </div>
-            <!-- /toolBoxPanel -->
 
-            <!-- mainPagePanel -->
-            <div id="mainPagePanel" class="col bg-dark my-1  no-gutter-margin">
-                <div class="container-fluid no-gutter-all">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs bg-secondary toggle-nav" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#mainPage1"><strong>Home</strong></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#menu1"><strong>Menu 1</strong></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#menu2"><strong>Menu 2</strong></a>
-                        </li>
-                    </ul>
-
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div id="mainPage1" class="container-fluid tab-pane active bg-white full-height no-gutter-all">
-                            <br>
-                        </div>
-                        <div id="menu1" class="container-fluid tab-pane fade bg-white full-height"><br>
-                            <h3>Menu 1</h3>
-                            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                                commodo consequat.</p>
-                        </div>
-                        <div id="menu2" class="container-fluid tab-pane fade bg-white full-height"><br>
-                            <h3>Menu 2</h3>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-                                laudantium, totam rem aperiam.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- /mainPagePanel -->
+            </div> <!-- /collapseGroup -->
+            <!-- /Collapse group -->
+          </div>
         </div>
-    </div>
-    <!-- /Main -->
-
-   <!-- Context menu -->
-  <div class="dropdown-menu" id="context-menu">
-        <a class="dropdown-item" onclick="removeItem()"><i class="fas fa-trash mr-4"></i>Delete</a>
       </div>
-    <!-- /Context menu -->
+      <!-- /toolBoxPanel -->
+
+      <!-- mainPagePanel -->
+      <div id="mainPagePanel" class="col bg-dark my-1  no-gutter-margin">
+        <div class="container-fluid no-gutter-all">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs bg-secondary toggle-nav" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" data-toggle="tab" href="#mainPage1"><strong>Home</strong></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#menu1"><strong>Menu 1</strong></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="tab" href="#menu2"><strong>Menu 2</strong></a>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div id="mainPage1" class="container-fluid tab-pane active bg-white full-height no-gutter-all">
+              <br>
+            </div>
+            <div id="menu1" class="container-fluid tab-pane fade bg-white full-height"><br>
+              <h3>Menu 1</h3>
+              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat.</p>
+            </div>
+            <div id="menu2" class="container-fluid tab-pane fade bg-white full-height"><br>
+              <h3>Menu 2</h3>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                laudantium, totam rem aperiam.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /mainPagePanel -->
+    </div>
+  </div>
+  <!-- /Main -->
+
+  <!-- Context menu -->
+  <div class="dropdown-menu" id="context-menu">
+    <a class="dropdown-item" onclick="removeItem()"><i class="fas fa-trash mr-4"></i>Delete</a>
+  </div>
+  <!-- /Context menu -->
+
+
+  <!--Modals-->
+
+  <!--Line modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="lineModal">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class="row ">
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputWidth" class="col-sm-5 col-form-label">Width</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputWidth" value="1" min="0">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputLinecap" class="col-sm-5 col-form-label">Linecap</label>
+                  <div class="col-sm-7">
+                    <select class="form-control ml-auto" id="inputLinecap">
+                      <option value="butt">Butt</option>
+                      <option value="round" selected>Round</option>
+                      <option value="square">Square</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputColor" class="col-sm-5 col-form-label">Color</label>
+                  <div class="col-sm-7">
+                    <input type="color" class="form-control ml-auto" id="inputColor" value="#00000">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputRotate" class="col-sm-5 col-form-label">Rotate</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputRotate" value="0" max="360" min="-360">
+                  </div>
+                </div>
+              </div>
+
+              <!--Position-->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputPositionX" class="col-sm-5 col-form-label">Position X</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputPositionX" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputPositionY" class="col-sm-5 col-form-label">Position Y</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputPositionY" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputWidth" class="col-sm-5 col-form-label">Width</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputWidth" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputHeight" class="col-sm-5 col-form-label">Height</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputHeight" value="1">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <div class="row ">
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                  </div>
+                </div>
+              </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Shape modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="shapeModal">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class="row ">
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputShapeLineWidth" class="col-sm-5 col-form-label">Line width</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputShapeLineWidth" value="1" min="0">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputShapeColor" class="col-sm-5 col-form-label">Color</label>
+                  <div class="col-sm-7">
+                    <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#00000">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="fillCheckbox" name="example1">
+                    <label class="custom-control-label ml-3" for="fillCheckbox">Fill</label>
+                  </div>
+                  <div class="col-sm-7 ml-auto">
+                    <input type="color" class="form-control " id="inputFillShapeColor" value="#0000">
+                  </div>
+                </div>
+
+              </div>
 
 
 
+              <!--Position-->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputPositionX" class="col-sm-5 col-form-label">Position X</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputPositionX" value="1">
+                  </div>
+                </div>
 
-    <!-- JQuery scripts -->
-    <script src="../public/js/jquery-3.3.1.min.js"></script>
-    <!-- /JQuery scripts -->
+                <div class="form-group row my-2">
+                  <label for="inputPositionY" class="col-sm-5 col-form-label">Position Y</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputPositionY" value="1">
+                  </div>
+                </div>
 
-    <!-- BootStrap scripts -->
-    <script src="../public/js/popper.min.js"></script>
-    <script src="../public/js/bootstrap.min.js"></script>
-    <!-- /BootStrap scripts -->
+                <div class="form-group row my-2">
+                  <label for="inputShapeWidth" class="col-sm-5 col-form-label">Width</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputShapeWidth" value="1">
+                  </div>
+                </div>
 
-    <!-- Split script -->
-    <script src="../public/js/split.min.js"></script>
-    <!-- /Split script -->
 
-    <!-- SVG script -->
-    <script src="../public/js/svg.min.js"></script>
-    <!-- /SVG script -->
+                <div class="form-group row my-2">
+                  <label for="inputShapeHeight" class="col-sm-5 col-form-label">Height</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputShapeHeight" value="1">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
 
-    <!-- SVG draw script -->
-    <script src="../public/js/svg.draw.js"></script>
-    <!-- /SVG draw script -->
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
 
-    <!-- Draggable script -->
-    <script src="../public/js/plain-draggable.min.js"></script>
-    <!-- /Draggable script -->
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Context menu script -->
-    <script src="../public/js/contextmenu.js"></script>
-    <!-- /Context menu script -->
+  <!--Text modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="textModal">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class='row'>
+              <div class="col-sm">
+                <label class="col-form-label">Font</label>
+                <form action="">
+                  <select class="form-control bfh-fonts" data-font="Arial"></select>
+                </form>
+              </div>
 
-    <!-- My script -->
-    <script src="../public/js/myScript.js"></script>
-    <!-- /My script -->
+              <div class="col-sm">
+                <label class="col-form-label">Fontsize</label>
+                <form action="">
+                  <select class="form-control bfh-fontsizes" data-fontsize="12"></select>
+                </form>
+              </div>
+
+              <div class="col-sm">
+                <label class="col-form-label">Style</label>
+                <select class="form-control" id="fontStyleForm">
+                  <option>Regular</option>
+                  <option>Italic</option>
+                  <option>Bold</option>
+                  <option>Bold Italic</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <label class="col-form-label">Color</label>
+                <form action="">
+                  <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#e66465">
+                </form>
+              </div>
+
+              <div class="form-group col-sm">
+                <label for="comment" class="col-form-label">Text</label>
+                <textarea class="form-control" rows="2" id="comment">Hello</textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Image modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="imageModal">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class="row">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Choose image file</label>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                  </div>
+                </div>
+
+
+                <div class="form-group row my-2">
+                  <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputImageHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputImageHidden" placeholder="Expression">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/Modals-->
+
+
+
+  <!-- JQuery scripts -->
+  <script src="../public/js/jquery-3.3.1.min.js"></script>
+  <!-- /JQuery scripts -->
+
+  <!-- BootStrap scripts -->
+  <script src="../public/js/popper.min.js"></script>
+  <script src="../public/js/bootstrap.min.js"></script>
+  <!-- /BootStrap scripts -->
+
+  <!-- Split script -->
+  <script src="../public/js/split.min.js"></script>
+  <!-- /Split script -->
+
+  <!-- SVG script -->
+  <script src="../public/js/svg.min.js"></script>
+  <!-- /SVG script -->
+
+  <!-- SVG draw script -->
+  <script src="../public/js/svg.draw.js"></script>
+  <!-- /SVG draw script -->
+
+  <!-- Draggable script -->
+  <script src="../public/js/plain-draggable.min.js"></script>
+  <!-- /Draggable script -->
+
+  <!-- Context menu script -->
+  <script src="../public/js/contextmenu.js"></script>
+  <!-- /Context menu script -->
+
+  <!-- Bootstrap form helper script -->
+  <script src="../public/js/bootstrap-formhelpers.min.js"></script>
+  <!-- /Bootstrap form helper script -->
+
+
+  <!-- My script -->
+  <script src="../public/js/myScript.js"></script>
+  <!-- /My script -->
 
 
 </body>

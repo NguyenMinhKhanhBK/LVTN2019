@@ -8,27 +8,106 @@
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/bootstrap-formhelpers.min.css">
   <title>Hello, world!</title>
 </head>
 
 <body>
-  <div class="container">
-    <div class="contextMenu" id="example" style="width:500px;height:500px;background:green">
-      <p>Right click</p>
+
+  <div class="container" style="height:1000px" id="drawing">
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+      Open modal
+    </button>
+    <fieldset class="border p-2">
+      <legend class="w-auto">Your Legend</legend>
+    </fieldset>
+
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Properties</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Modal body goes here-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+              <div class="row">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="customFile">
+                  <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+              </div>
+
+              <div class="row mt-2">
+                <div class="col-sm">
+                  <div class="form-group row my-2">
+                    <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row my-2">
+                    <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm">
+                  <div class="form-group row my-2">
+                    <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
+                    </div>
+                  </div>
+
+                  <div class="form-group row my-2">
+                    <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <!--Animation-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputImageHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputImageHidden" placeholder="Expression">
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+
+          </div>
+        </div>
+      </div>
     </div>
+
+
   </div>
 
 
-  <!-- Context menu -->
-  <div class="dropdown-menu" id="context-menu">
-      <h5 class="dropdown-header">Dropdown header</h5>
-      <a class="dropdown-item" href="#">Link 1</a>
-      <a class="dropdown-item" href="#">Link 2</a>
-      <a class="dropdown-item" href="#">Link 3</a>
-      <h5 class="dropdown-header">Dropdown header</h5>
-      <a class="dropdown-item" href="#">Another link</a>
-    </div>
-  <!-- /Context menu -->
+
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -38,24 +117,17 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
   <script src="../public/js/contextmenu.js"></script>
+  <!-- SVG script -->
+  <script src="../public/js/svg.min.js"></script>
+  <!-- /SVG script -->
 
+  <!-- SVG draw script -->
+  <script src="../public/js/svg.draw.js"></script>
+  <!-- /SVG draw script -->
+
+  <script src="../js/bootstrap-formhelpers.min.js"></script>
   <script>
-    $('.contextMenu').on('contextmenu', function (e) {
-      var top = e.pageY - 10;
-      var left = e.pageX - 90;
-      $("#context-menu").css({
-        display: "block",
-        top: top,
-        left: left
-      }).addClass("show");
-      return false; //blocks default Webbrowser right click menu
-    }).on("click", function () {
-      $("#context-menu").removeClass("show").hide();
-    });
 
-    $("#context-menu a").on("click", function () {
-      $(this).parent().removeClass("show").hide();
-    });
 
   </script>
 </body>

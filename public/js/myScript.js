@@ -76,11 +76,30 @@ function removeItem(){
   if (selectedItemId){
     var item = document.getElementById(selectedItemId);
     item.parentNode.removeChild(item);
+
+    for (var elem of shapes)
+      try{
+        if(elem.node.id == selectedItemId){
+          shapes.splice(shapes.indexOf(elem),1);
+          break;
+        }
+      }
+      catch{
+        if(elem.id == selectedItemId){
+          shapes.splice(shapes.indexOf(elem),1);
+          break;
+        }
+      }
+    };
+
     selectedItemId = '';
+    console.log(shapes);
+
+    
   }
   
   
-}
+
 
 /*
 ***********************************************************************************************
@@ -370,8 +389,8 @@ function imageMouseDownEventHandler(event) {
 
   //Image css style
   img.src = defaultImageSrc;
-  img.style.height = '150px';
-  img.style.width = '200px';
+  img.style.height = '100px';
+  img.style.width = '150px';
   img.style.position = 'absolute';
   img.style.top = top;
   img.style.left = left;
@@ -751,7 +770,7 @@ function sliderMouseDownEventHandler(event) {
   slider.style.position = 'absolute';
   slider.style.top = top;
   slider.style.left = left;
-  slider.style.width = '500px';
+  slider.style.width = '400px';
 
 
   //Image mouse events
@@ -802,7 +821,7 @@ function processbarMouseDownEventHandler(event) {
   progressbar.style.position = 'absolute';
   progressbar.style.top = top;
   progressbar.style.left = left;
-  progressbar.style.width = '600px';
+  progressbar.style.width = '400px';
   //progressbar.style.height = '20px';
 
 
