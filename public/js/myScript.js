@@ -8,7 +8,7 @@ $(document).ready(function () {
 
   $('body').keyup(function (e) {
     if (e.keyCode == 27) {
-      stopDraw();
+      stopDraw(true);
     }
   });
 });
@@ -23,6 +23,7 @@ const draw = SVG('mainPage1');
 const shapes = [];
 let index = 0;
 let shape;
+let selectedItemId;
 
 //Default option for basic objects except LINE
 const defaultOption = {
@@ -41,7 +42,15 @@ const defaultLineOption = {
 //Add context menu
 function addContextMenu(){
   $('.contextMenu').on('contextmenu', function (e) {
-    console.log(e);
+    
+    selectedItemId = e.target.id;
+    while(!selectedItemId){
+      selectedItemId = e.target.parentNode.id;
+    }
+    
+
+    //console.log(e.target.parentNode);
+
     var top = e.pageY + 10;
     var left = e.pageX + 10;
     $("#context-menu").css({
@@ -53,14 +62,25 @@ function addContextMenu(){
   });
   $('#mainPage1').on("click", function () {
     $("#context-menu").removeClass("show").hide();
+    selectedItemId = '';
   });
   
   $("#context-menu a").on("click", function () {
     $(this).parent().removeClass("show").hide();
   });
-  
+
 }
 
+//Delete element
+function removeItem(){
+  if (selectedItemId){
+    var item = document.getElementById(selectedItemId);
+    item.parentNode.removeChild(item);
+    selectedItemId = '';
+  }
+  
+  
+}
 
 /*
 ***********************************************************************************************
@@ -72,7 +92,7 @@ function addContextMenu(){
 //Input: shape (except POLYGON)
 var startDraw = function (shape) {
   //Stop the previous draw
-  stopDraw();
+  stopDraw(false);
 
   //Subscribe mouse down event
   draw.on('mousedown', function (event) {
@@ -125,11 +145,13 @@ var startDraw = function (shape) {
     })
 
     //Add draggable feature
-    draggable = new PlainDraggable(document.getElementById(shapes[index].node.id));
+    var element = document.getElementById(shapes[index].node.id);
+    draggable = new PlainDraggable(element);
     draggable.autoScroll = true;
     draggable.containment = document.getElementById('mainPage1');
    
-    
+    //Add contextMenu class
+    $(element).addClass('contextMenu');
 
     //Increase index to append the array
     index++;
@@ -138,7 +160,7 @@ var startDraw = function (shape) {
 
 //drawPolygon function: Draw polygon
 var drawPolygon = function () {
-  stopDraw();
+  stopDraw(false);
   shapes[index] = draw.polygon().draw();
 
   //Polygon attribute
@@ -163,10 +185,14 @@ var drawPolygon = function () {
     });
 
     //Add draggable feature
-    draggable = new PlainDraggable(document.getElementById(shapes[index].node.id));
+    var element = document.getElementById(shapes[index].node.id);
+    draggable = new PlainDraggable(element);
     draggable.autoScroll = true;
     draggable.containment = document.getElementById('mainPage1');
 
+    //Add contextMenu class
+    $(element).addClass('contextMenu');
+    
 
     //Subscribe keydown event to detect ENTER key
     document.addEventListener('keydown', keyEnterDownHandler);
@@ -182,7 +208,7 @@ var drawPolygon = function () {
 
 //drawPolyline function: Draw polyline
 var drawPolyline = function () {
-  stopDraw();
+  stopDraw(false);
   shapes[index] = draw.polyline().draw();
 
   //Polygon attribute
@@ -207,9 +233,13 @@ var drawPolyline = function () {
     });
 
     //Add draggable feature
-    draggable = new PlainDraggable(document.getElementById(shapes[index].node.id));
+    var element = document.getElementById(shapes[index].node.id);
+    draggable = new PlainDraggable(element);
     draggable.autoScroll = true;
     draggable.containment = document.getElementById('mainPage1');
+
+    //Add contextMenu class
+    $(element).addClass('contextMenu');
 
     //Subscribe keydown event to detect ENTER key
     document.addEventListener('keydown', keyEnterDownHandler);
@@ -225,61 +255,61 @@ var drawPolyline = function () {
 
 //Add new image
 function addNewImage() {
-  stopDraw();
+  stopDraw(false);
   $('#mainPage1').on('mousedown', imageMouseDownEventHandler);
 }
 
 //Add new textblock
 function addNewText() {
-  stopDraw();
+  stopDraw(false);
   $('#mainPage1').on('mousedown', textMouseDownEventHandler);
 }
 
 //Add new display value
 function addNewDisplayValue() {
-  stopDraw();
+  stopDraw(false);
   $('#mainPage1').on('mousedown', displayValueMouseDownEventHandler);
 }
 
 //Add new button
 function addNewButton() {
-  stopDraw();
+  stopDraw(false);
   $('#mainPage1').on('mousedown', buttonMouseDownEventHandler);
 }
 
 //Add new switch
 function addNewSwitch() {
-  stopDraw();
+  stopDraw(false);
   $('#mainPage1').on('mousedown', switchMouseDownEventHandler);
 }
 
 //Add new input
 function addNewInput() {
-  stopDraw();
+  stopDraw(false);
   $('#mainPage1').on('mousedown', inputMouseDownEventHandler);
 }
 
 //Add new checkbox
 function addNewCheckbox() {
-  stopDraw();
+  stopDraw(false);
   $('#mainPage1').on('mousedown', checkboxMouseDownEventHandler);
 }
 
 //Add new slider
 function addNewSlider() {
-  stopDraw();
+  stopDraw(false);
   $('#mainPage1').on('mousedown', sliderMouseDownEventHandler);
 }
 
 //Add new process bar
 function addNewProcessbar() {
-  stopDraw();
+  stopDraw(false);
   $('#mainPage1').on('mousedown', processbarMouseDownEventHandler);
 }
 
 //Add new symbol set
 function addNewSymbolSet() {
-  stopDraw();
+  stopDraw(false);
   $('#mainPage1').on('mousedown', symbolsetMouseDownEventHandler);
 }
 
@@ -290,7 +320,7 @@ function addNewSymbolSet() {
 */
 
 //stopDraw function: Stop all draw action
-var stopDraw = function () {
+var stopDraw = function (addContext) {
   draw.off();
   $('#mainPage1').off('mousedown', imageMouseDownEventHandler);
   $('#mainPage1').off('mousedown', textMouseDownEventHandler);
@@ -302,6 +332,8 @@ var stopDraw = function () {
   $('#mainPage1').off('mousedown', sliderMouseDownEventHandler);
   $('#mainPage1').off('mousedown', processbarMouseDownEventHandler);
   $('#mainPage1').off('mousedown', symbolsetMouseDownEventHandler);
+
+  if(addContext) addContextMenu();
 }
 
 /*
@@ -317,6 +349,7 @@ function keyEnterDownHandler(e) {
     shapes[index].draw('done');
     shapes[index].off('drawstart');
     index++;
+    stopDraw();
   }
 }
 
@@ -332,6 +365,7 @@ function imageMouseDownEventHandler(event) {
   var defaultImageSrc = '../public/img/png/default-image.png';
   var img = document.createElement('img');
   img.id = 'img' + index;
+  img.className += ' contextMenu '
 
 
   //Image css style
@@ -379,6 +413,7 @@ function textMouseDownEventHandler(event) {
   var text = document.createTextNode('Textblock');
   para.appendChild(text);
   para.id = 'text' + index;
+  para.className += ' contextMenu ';
 
   //Image css style
   para.style.fontSize = '30px';
@@ -422,6 +457,7 @@ function displayValueMouseDownEventHandler(event) {
   var text = document.createTextNode('##.##');
   para.appendChild(text);
   para.id = 'displayValue' + index;
+  para.className += ' contextMenu '
 
   //Image css style
   para.style.fontSize = '40px';
@@ -467,10 +503,11 @@ function buttonMouseDownEventHandler(event) {
   btn.id = 'button' + index;
 
   //Image css style
-  btn.className = 'btn btn-primary';
+  btn.className = 'btn btn-primary contextMenu ';
   btn.style.position = 'absolute';
   btn.style.top = top;
   btn.style.left = left;
+
 
 
   //Image mouse events
@@ -505,7 +542,7 @@ function switchMouseDownEventHandler(event) {
 
   //Declare new paragrap
   var sw = document.createElement('label');
-  sw.className = 'switch';
+  sw.className = 'switch contextMenu ';
 
   var inputsw = document.createElement('input');
   inputsw.setAttribute('type', 'checkbox');
@@ -612,7 +649,7 @@ function inputMouseDownEventHandler(event) {
   input.placeholder = 'Add text ...';
 
   //Image css style
-  input.className = 'form-control';
+  input.className = 'form-control contextMenu ';
   input.style.width = '200px';
   input.style.position = 'absolute';
   input.style.top = top;
@@ -651,7 +688,7 @@ function checkboxMouseDownEventHandler(event) {
 
   //Declare new paragrap
   var checkbox = document.createElement('div');
-  checkbox.className = 'custom-control custom-checkbox';
+  checkbox.className = 'custom-control custom-checkbox contextMenu ';
   checkbox.id = 'checkbox' + index;
 
   var cbInput = document.createElement('input');
@@ -707,7 +744,7 @@ function sliderMouseDownEventHandler(event) {
   //Declare new paragrap
   var slider = document.createElement('input');
   slider.type = 'range';
-  slider.className = 'custom-range';
+  slider.className = 'custom-range contextMenu ';
   slider.id = 'slider' + index;
 
   //Image css style
@@ -749,7 +786,7 @@ function processbarMouseDownEventHandler(event) {
 
   //Declare new paragrap
   var progressbar = document.createElement('div');
-  progressbar.className = 'progress';
+  progressbar.className = 'progress contextMenu';
   progressbar.id = 'progressbar' + index;
 
   var bar = document.createElement('div');
@@ -803,7 +840,7 @@ function symbolsetMouseDownEventHandler(event) {
   var defaultSymbolSet = '../public/img/symbol-set/light-off.png';
   var symbolSet = document.createElement('img');
   symbolSet.id = 'symbolSet' + index;
-  symbolSet.className += ' contextMenu';
+  symbolSet.className += ' contextMenu ';
 
 
   //Image css style
@@ -833,9 +870,6 @@ function symbolsetMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  addContextMenu();
-  
-  
   //console.log(shapes);
 }
 
