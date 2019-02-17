@@ -16,7 +16,8 @@
 
   <div class="container" style="height:1000px" id="drawing">
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
+      style="width:100px;height:100px;background:red">
       Open modal
     </button>
     <fieldset class="border p-2">
@@ -25,85 +26,124 @@
 
 
     <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Properties</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!-- Modal body goes here-->
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
-              <div class="row">
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="customFile">
-                  <label class="custom-file-label" for="customFile">Choose file</label>
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Properties</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- Modal body goes here-->
+              <fieldset class="form-group border px-4 pb-2 pt-1">
+                <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+    
+                <div class="row">
+                  <div class="col-sm">
+                    <div class="form-group row my-2">
+                      <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
+                      <div class="col-sm-7">
+                        <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                      </div>
+                    </div>
+    
+    
+                    <div class="form-group row my-2">
+                      <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
+                      <div class="col-sm-7">
+                        <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div class="col-sm">
+                    <div class="form-group row my-2">
+                      <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
+                      <div class="col-sm-7">
+                        <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
+                      </div>
+                    </div>
+    
+                    <div class="form-group row my-2">
+                      <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
+                      <div class="col-sm-7">
+                        <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </fieldset>
 
-              <div class="row mt-2">
+              <fieldset class="form-group border px-4 pb-2 pt-1">
+                  <legend class="col-form-label col-sm-2 pt-0"><strong>Symbol</strong></legend>
+      
+                  <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group row my-2">
+                            <label for="inputImageWidth" class="col-sm-3 col-form-label">ON condition</label>
+                            <div class="col-sm">
+                              <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group row my-2">
+                            <label for="inputImageWidth" class="col-sm-3 col-form-label">ON symbol</label>
+                            <div class="col-sm">
+                                <form>
+                                    <div class="custom-file">
+                                      <input type="file" class="custom-file-input" id="customFile">
+                                      <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                  </form>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                      <div class="col-sm">
+                          <div class="form-group row my-2">
+                              <label for="inputImageWidth" class="col-sm-3 col-form-label">OFF symbol</label>
+                              <div class="col-sm">
+                                  <form>
+                                      <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="customFile">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                      </div>
+                                    </form>
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+                </fieldset>
+    
+              <!--Animation-->
+              <fieldset class="form-group border px-4 pb-2 pt-1">
+                <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+                <!-- Stroke -->
                 <div class="col-sm">
                   <div class="form-group row my-2">
-                    <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
-                    </div>
-                  </div>
-
-
-                  <div class="form-group row my-2">
-                    <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                    <label for="inputImageHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                    <div class="col-sm ml-4 pl-4">
+                      <input type="text" class="form-control ml-auto" id="inputImageHidden" placeholder="Expression">
                     </div>
                   </div>
                 </div>
-
-                <div class="col-sm">
-                  <div class="form-group row my-2">
-                    <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
-                    </div>
-                  </div>
-
-                  <div class="form-group row my-2">
-                    <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-
-            <!--Animation-->
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
-              <!-- Stroke -->
-              <div class="col-sm">
-                <div class="form-group row my-2">
-                  <label for="inputImageHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                  <div class="col-sm ml-4 pl-4">
-                    <input type="text" class="form-control ml-auto" id="inputImageHidden" placeholder="Expression">
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-
+              </fieldset>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+    
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-
   </div>
 
 

@@ -110,6 +110,7 @@ function removeItem(){
 //startDraw function: Start drawing object depending on the parameter
 //Input: shape (except POLYGON)
 var startDraw = function (shape) {
+  var modalId = '';
   //Stop the previous draw
   stopDraw(false);
 
@@ -118,25 +119,28 @@ var startDraw = function (shape) {
     switch (shape) {
       case 'line': {
         shapes[index] = draw.line().attr(defaultLineOption);
+        modalId = '#lineModal';
         break;
       }
       case 'ellipse': {
         shapes[index] = draw.ellipse().attr(defaultOption);
-        console.log('ellipse');
+        modalId = '#shapeModal';
         break;
       }
       case 'circle': {
         shapes[index] = draw.circle(10).attr(defaultOption);
-        console.log('Circle');
+        modalId = '#shapeModal';
         break;
       }
       case 'rect': {
         shapes[index] = draw.rect().attr(defaultOption);
+        modalId = '#shapeModal';
         break;
       }
       case 'roundRect': {
         shapes[index] = draw.rect().attr(defaultOption);
         shapes[index].radius(10);
+        modalId = '#shapeModal';
         break;
       }
     }
@@ -149,10 +153,6 @@ var startDraw = function (shape) {
 
     console.log(shapes);
 
-    //Subscribe click event for each object
-    shapes[index].on('click', function (event) {
-      alert('Click on item ' + event.target.id);
-    });
     //Subscribe mouse over event for each object
     shapes[index].on('mouseover', function (event) {
       event.target.style.opacity = 0.4;
@@ -161,7 +161,11 @@ var startDraw = function (shape) {
     //Subscribe mouse out event for each object
     shapes[index].on('mouseout', function (event) {
       event.target.style.opacity = 1;
-    })
+    });
+    //Subscribe double click event to open modal
+    shapes[index].on('dblclick',function (event) {
+      $(modalId).modal();
+    });
 
     //Add draggable feature
     var element = document.getElementById(shapes[index].node.id);
@@ -190,9 +194,6 @@ var drawPolygon = function () {
 
   //Subscribe drawstart event 
   shapes[index].on('drawstart', function (e) {
-    shapes[index].on('click', function (event) {
-      alert('Click on item ' + event.target.id);
-    });
     //Subscribe mouseover event for each polygon
     shapes[index].on('mouseover', function (event) {
       event.target.style.opacity = 0.4;
@@ -201,6 +202,10 @@ var drawPolygon = function () {
     //Subscribe mouseout event for each polygon
     shapes[index].on('mouseout', function (event) {
       event.target.style.opacity = 1;
+    });
+
+    shapes[index].on('dblclick',function (event) {
+      $('#shapeModal').modal();
     });
 
     //Add draggable feature
@@ -238,9 +243,7 @@ var drawPolyline = function () {
 
   //Subscribe drawstart event 
   shapes[index].on('drawstart', function (e) {
-    shapes[index].on('click', function (event) {
-      alert('Click on item ' + event.target.id);
-    });
+    
     //Subscribe mouseover event for each polygon
     shapes[index].on('mouseover', function (event) {
       event.target.style.opacity = 0.4;
@@ -249,6 +252,10 @@ var drawPolyline = function () {
     //Subscribe mouseout event for each polygon
     shapes[index].on('mouseout', function (event) {
       event.target.style.opacity = 1;
+    });
+    //Subscribe double click event
+    shapes[index].on('dblclick',function (event) {
+      $('#shapeModal').modal();
     });
 
     //Add draggable feature
@@ -405,6 +412,10 @@ function imageMouseDownEventHandler(event) {
   $(img).on('mouseout', function (event) {
     event.target.style.opacity = 1;
   });
+  //Subscribe mouse double click event
+  $(img).on('dblclick',function (event) {
+    $('#imageModal').modal();
+  });
 
 
   $('#mainPage1').append(img);
@@ -450,6 +461,10 @@ function textMouseDownEventHandler(event) {
   $(para).on('mouseout', function (event) {
     event.target.style.opacity = 1;
   });
+  //Subscribe mouse double click event
+  $(para).on('dblclick',function (event) {
+    $('#textModal').modal();
+  });
 
   $('#mainPage1').append(para);
   shapes[index] = para;
@@ -493,6 +508,10 @@ function displayValueMouseDownEventHandler(event) {
   //Subscribe mouseout event for each polygon
   $(para).on('mouseout', function (event) {
     event.target.style.opacity = 1;
+  });
+  //Subscribe mouse double click event
+  $(para).on('dblclick',function (event) {
+    $('#displayValueModal').modal();
   });
 
   $('#mainPage1').append(para);
@@ -538,7 +557,10 @@ function buttonMouseDownEventHandler(event) {
   $(btn).on('mouseout', function (event) {
     event.target.style.opacity = 1;
   });
-
+//Subscribe mouse double click event
+$(btn).on('dblclick',function (event) {
+  $('#buttonModal').modal();
+});
   $('#mainPage1').append(btn);
   shapes[index] = btn;
   index++;
@@ -590,6 +612,10 @@ function switchMouseDownEventHandler(event) {
   $(sw).on('mouseout', function (event) {
     event.target.style.opacity = 1;
   });
+  //Subscribe mouse double click event
+  $(sw).on('dblclick',function (event) {
+    $('#switchModal').modal();
+  });
 
   $('#mainPage1').append(sw);
   shapes[index] = sw;
@@ -603,57 +629,7 @@ draggable.containment = document.getElementById('mainPage1');
   //console.log(shapes);
 }
 
-// function switchMouseDownEventHandler(event) {
-//   var leftOffset = document.getElementById('mainPage1').getBoundingClientRect().left;
-//   var topOffset = document.getElementById('mainPage1').getBoundingClientRect().top;
-
-//   var left = event.pageX - leftOffset + 'px';
-//   var top = event.pageY - topOffset + 'px';
-
-//   //Declare new paragrap
-//   var sw = document.createElement('div');
-//   sw.className = 'custom-control custom-switch';
-
-//   var input = document.createElement('input');
-//   input.setAttribute('type', 'checkbox');
-//   input.className = 'custom-control-input';
-//   input.id = 'input' + index;
-
-//   var label = document.createElement('label');
-//   label.className = 'custom-control-label';
-//   label.htmlFor = 'input'+index;
-//   label.innerText = 'Switch';
-
-//   sw.appendChild(input);
-//   sw.appendChild(label);
-
-//   sw.id = 'switch' + index;
-
-//   //Image css style
-//   sw.style.position = 'absolute';
-//   sw.style.top = top;
-//   sw.style.left = left;
-
-
-//   //Image mouse events
-//   $(sw).on('mouseover', function (event) {
-//     event.target.style.opacity = 0.65;
-//     event.target.style.cursor = 'move';
-//   });
-//   //Subscribe mouseout event for each polygon
-//   $(sw).on('mouseout', function (event) {
-//     event.target.style.opacity = 1;
-//   });
-
-//   $('#mainPage1').append(sw);
-//   shapes[index] = sw;
-//   index++;
-
-//   console.log(shapes);
-// }
-
 //Input mouse down event handler: To create new input
-
 function inputMouseDownEventHandler(event) {
   var leftOffset = document.getElementById('mainPage1').getBoundingClientRect().left;
   var topOffset = document.getElementById('mainPage1').getBoundingClientRect().top;
@@ -683,6 +659,10 @@ function inputMouseDownEventHandler(event) {
   //Subscribe mouseout event for each polygon
   $(input).on('mouseout', function (event) {
     event.target.style.opacity = 1;
+  });
+  //Subscribe mouse double click event
+  $(input).on('dblclick',function (event) {
+    $('#inputModal').modal();
   });
 
   $('#mainPage1').append(input);
@@ -739,6 +719,10 @@ function checkboxMouseDownEventHandler(event) {
   $(checkbox).on('mouseout', function (event) {
     event.target.style.opacity = 1;
   });
+  //Subscribe double click event
+  $(checkbox).on('dblclick',function (event) {
+    $('#checkboxModal').modal();
+  });
 
   $('#mainPage1').append(checkbox);
   shapes[index] = checkbox;
@@ -781,6 +765,10 @@ function sliderMouseDownEventHandler(event) {
   //Subscribe mouseout event for each polygon
   $(slider).on('mouseout', function (event) {
     event.target.style.opacity = 1;
+  });
+  //Subscribe mouse double click event
+  $(slider).on('dblclick',function (event) {
+    $('#sliderModal').modal();
   });
 
   $('#mainPage1').append(slider);
@@ -834,6 +822,10 @@ function processbarMouseDownEventHandler(event) {
   $(progressbar).on('mouseout', function (event) {
     event.target.style.opacity = 1;
   });
+  //Subscribe mouse double click event
+  $(progressbar).on('dblclick',function (event) {
+    $('#progressBarModal').modal();
+  });
 
   $('#mainPage1').append(progressbar);
   shapes[index] = progressbar;
@@ -878,6 +870,10 @@ function symbolsetMouseDownEventHandler(event) {
   //Subscribe mouseout event for each polygon
   $(symbolSet).on('mouseout', function (event) {
     event.target.style.opacity = 1;
+  });
+  //Subscribe double click event
+  $(symbolSet).on('dblclick',function (event) {
+    $('#symbolSetModal').modal();
   });
 
   $('#mainPage1').append(symbolSet);

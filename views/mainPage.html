@@ -35,7 +35,7 @@
 
     <div class="btn-toolbar mr-auto" role="toolbar" aria-label="Toolbar with button groups">
       <div class="btn-group" role="group" aria-label="Clipboard group">
-        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#lineModal"><i
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#symbolSetModal"><i
             class="far fa-file mr-2"></i>New</button>
       </div>
       <div class="btn-group" role="group" aria-label="Clipboard group">
@@ -679,6 +679,873 @@
       </div>
     </div>
   </div>
+
+  <!--Display value modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="displayValueModal">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class='row'>
+              <div class="col-sm">
+                <label class="col-form-label">Font</label>
+                <form action="">
+                  <select class="form-control bfh-fonts" data-font="Arial"></select>
+                </form>
+              </div>
+
+              <div class="col-sm">
+                <label class="col-form-label">Fontsize</label>
+                <form action="">
+                  <select class="form-control bfh-fontsizes" data-fontsize="12"></select>
+                </form>
+              </div>
+
+              <div class="col-sm">
+                <label class="col-form-label">Style</label>
+                <select class="form-control" id="fontStyleForm">
+                  <option>Regular</option>
+                  <option>Italic</option>
+                  <option>Bold</option>
+                  <option>Bold Italic</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <label class="col-form-label">Color</label>
+                <form action="">
+                  <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#e66465">
+                </form>
+              </div>
+
+              <div class="form-group col-sm">
+                <label for="comment" class="col-form-label">Text</label>
+                <textarea class="form-control" rows="2" id="comment">##.##</textarea>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pr-1"><strong>Display value</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Tag</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Format</label>
+                <div class="col-sm ml-4 pl-4">
+                  <select class="custom-select" id="fontStyleForm">
+                    <option>####</option>
+                    <option>####.#</option>
+                    <option>####.##</option>
+                    <option>####.###</option>
+
+                  </select>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Button modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="buttonModal">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class='row'>
+              <div class="col-sm">
+                <label class="col-form-label">Font</label>
+                <form action="">
+                  <select class="form-control bfh-fonts" data-font="Arial"></select>
+                </form>
+              </div>
+
+              <div class="col-sm">
+                <label class="col-form-label">Fontsize</label>
+                <form action="">
+                  <select class="form-control bfh-fontsizes" data-fontsize="12"></select>
+                </form>
+              </div>
+
+              <div class="col-sm">
+                <label class="col-form-label">Style</label>
+                <select class="form-control" id="fontStyleForm">
+                  <option>Regular</option>
+                  <option>Italic</option>
+                  <option>Bold</option>
+                  <option>Bold Italic</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <label class="col-form-label">Foreground</label>
+                <form action="">
+                  <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#e66465">
+                </form>
+              </div>
+
+              <div class="col-sm-4">
+                <label class="col-form-label">Background</label>
+                <form action="">
+                  <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#e66465">
+                </form>
+              </div>
+
+              <div class="form-group col-sm">
+                <label for="comment" class="col-form-label">Text</label>
+                <textarea class="form-control" rows="2" id="comment">##.##</textarea>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                  </div>
+                </div>
+
+
+                <div class="form-group row my-2">
+                  <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pr-1"><strong>Command</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Expression</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Switch modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="switchModal">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+
+
+
+
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Position X</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                </div>
+              </div>
+
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Position X</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                </div>
+              </div>
+            </div>
+
+
+          </fieldset>
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pr-1"><strong>Command</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">ON command</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">OFF command</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Input modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="inputModal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Properties</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Modal body goes here-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+              <div class='row'>
+                <div class="col-sm">
+                  <div class="form-group row my-2">
+                    <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                    </div>
+                  </div>
+  
+  
+                  <div class="form-group row my-2">
+                    <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="col-sm">
+                  <div class="form-group row my-2">
+                    <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
+                    </div>
+                  </div>
+  
+                  <div class="form-group row my-2">
+                    <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </fieldset>
+  
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pr-1"><strong>Input</strong></legend>
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Tag</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+  
+            <!--Animation-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!--Slider modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="sliderModal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Properties</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Modal body goes here-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+              <div class='row'>
+                <div class="col-sm">
+                  <div class="form-group row my-2">
+                    <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                    </div>
+                  </div>
+  
+  
+                  <div class="form-group row my-2">
+                    <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="col-sm">
+                  <div class="form-group row my-2">
+                    <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
+                    </div>
+                  </div>
+  
+                  <div class="form-group row my-2">
+                    <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </fieldset>
+  
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pr-1"><strong>Input</strong></legend>
+              <!-- Stroke -->
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="form-group row my-2">
+                          <label for="inputHidden" class="col-sm-3 col-form-label">Value</label>
+                          <div class="col-sm ml-4 pl-4">
+                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                          </div>
+                        </div>
+                  </div>
+
+                  
+                    
+                  </div>
+
+
+              
+
+              <div class="row">
+                <div class="col-sm">
+                    <div class="form-group row my-2">
+                        <label for="inputHidden" class="col-sm-3 col-form-label">Min tag</label>
+                        <div class="col-sm ml-4 pl-4">
+                          <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                        </div>
+                      </div>
+
+                      <div class="form-group row my-2">
+                          <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Min value</label>
+                          <div class="col-sm ml-4 pl-4">
+                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                          </div>
+                        </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group row my-2">
+                        <label for="inputHidden" class="col-sm-3 col-form-label">Max tag</label>
+                        <div class="col-sm ml-4 pl-4">
+                          <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                        </div>
+                      </div>
+
+                      <div class="form-group row my-2">
+                          <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Max value</label>
+                          <div class="col-sm ml-4 pl-4">
+                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                          </div>
+                        </div>
+                </div>
+
+                  
+                </div>
+            </fieldset>
+  
+            <!--Animation-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!--Progress bar modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="progressBarModal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Properties</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Modal body goes here-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+              <div class='row'>
+                <div class="col-sm">
+                  <div class="form-group row my-2">
+                    <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                    </div>
+                  </div>
+  
+  
+                  <div class="form-group row my-2">
+                    <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="col-sm">
+                  <div class="form-group row my-2">
+                    <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
+                    </div>
+                  </div>
+  
+                  <div class="form-group row my-2">
+                    <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </fieldset>
+  
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pr-1"><strong>Input</strong></legend>
+              <!-- Stroke -->
+              <div class="row">
+                  <div class="col-sm-6">
+                      <div class="form-group row my-2">
+                          <label for="inputHidden" class="col-sm-3 col-form-label">Value</label>
+                          <div class="col-sm ml-4 pl-4">
+                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                          </div>
+                        </div>
+                  </div>
+
+                  
+                    
+                  </div>
+
+
+              
+
+              <div class="row">
+                <div class="col-sm">
+                    <div class="form-group row my-2">
+                        <label for="inputHidden" class="col-sm-3 col-form-label">Min tag</label>
+                        <div class="col-sm ml-4 pl-4">
+                          <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                        </div>
+                      </div>
+
+                      <div class="form-group row my-2">
+                          <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Min value</label>
+                          <div class="col-sm ml-4 pl-4">
+                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                          </div>
+                        </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group row my-2">
+                        <label for="inputHidden" class="col-sm-3 col-form-label">Max tag</label>
+                        <div class="col-sm ml-4 pl-4">
+                          <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                        </div>
+                      </div>
+
+                      <div class="form-group row my-2">
+                          <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Max value</label>
+                          <div class="col-sm ml-4 pl-4">
+                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                          </div>
+                        </div>
+                </div>
+
+                  
+                </div>
+            </fieldset>
+  
+            <!--Animation-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!--Switch modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="checkboxModal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Properties</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Modal body goes here-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+  
+  
+  
+  
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Position X</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                  </div>
+                </div>
+  
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Position X</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                  </div>
+                </div>
+              </div>
+  
+  
+            </fieldset>
+  
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pr-1"><strong>Command</strong></legend>
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Checked</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Unchecked</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+  
+            <!--Animation-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!--Symbol Set modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="symbolSetModal">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Properties</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Modal body goes here-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+  
+              <div class="row">
+                <div class="col-sm">
+                  <div class="form-group row my-2">
+                    <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                    </div>
+                  </div>
+  
+  
+                  <div class="form-group row my-2">
+                    <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="col-sm">
+                  <div class="form-group row my-2">
+                    <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
+                    </div>
+                  </div>
+  
+                  <div class="form-group row my-2">
+                    <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
+                    <div class="col-sm-7">
+                      <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+                <legend class="col-form-label col-sm-2 pt-0"><strong>Symbol</strong></legend>
+    
+                <div class="row">
+                  <div class="col-sm">
+                      <div class="form-group row my-2">
+                          <label for="inputImageWidth" class="col-sm-3 col-form-label">ON condition</label>
+                          <div class="col-sm">
+                            <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                          </div>
+                        </div>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-sm">
+                      <div class="form-group row my-2">
+                          <label for="inputImageWidth" class="col-sm-3 col-form-label">ON symbol</label>
+                          <div class="col-sm">
+                              <form>
+                                  <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Choose file</label>
+                                  </div>
+                                </form>
+                          </div>
+                        </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group row my-2">
+                            <label for="inputImageWidth" class="col-sm-3 col-form-label">OFF symbol</label>
+                            <div class="col-sm">
+                                <form>
+                                    <div class="custom-file">
+                                      <input type="file" class="custom-file-input" id="customFile">
+                                      <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                  </form>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+              </fieldset>
+  
+            <!--Animation-->
+            <fieldset class="form-group border px-4 pb-2 pt-1">
+              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputImageHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputImageHidden" placeholder="Expression">
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+
   <!--/Modals-->
 
 
