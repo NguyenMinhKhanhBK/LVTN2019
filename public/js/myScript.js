@@ -27,9 +27,10 @@ let selectedItemId;
 
 //Default option for basic objects except LINE
 const defaultOption = {
+  fill: '#00ff00',
   stroke: 'black',
   'stroke-width': 3,
-  'fill-opacity': 0,
+  'fill-opacity': 1,
 };
 
 //Line default option
@@ -40,14 +41,14 @@ const defaultLineOption = {
 };
 
 //Add context menu
-function addContextMenu(){
+function addContextMenu() {
   $('.contextMenu').on('contextmenu', function (e) {
-    
+
     selectedItemId = e.target.id;
-    while(!selectedItemId){
+    while (!selectedItemId) {
       selectedItemId = e.target.parentNode.id;
     }
-    
+
 
     //console.log(e.target.parentNode);
 
@@ -64,7 +65,7 @@ function addContextMenu(){
     $("#context-menu").removeClass("show").hide();
     selectedItemId = '';
   });
-  
+
   $("#context-menu a").on("click", function () {
     $(this).parent().removeClass("show").hide();
   });
@@ -72,33 +73,34 @@ function addContextMenu(){
 }
 
 //Delete element
-function removeItem(){
-  if (selectedItemId){
+function removeItem() {
+  if (selectedItemId) {
     var item = document.getElementById(selectedItemId);
     item.parentNode.removeChild(item);
 
     for (var elem of shapes)
-      try{
-        if(elem.node.id == selectedItemId){
-          shapes.splice(shapes.indexOf(elem),1);
+      try {
+        if (elem.node.id == selectedItemId) {
+          shapes.splice(shapes.indexOf(elem), 1);
           break;
         }
       }
       catch{
-        if(elem.id == selectedItemId){
-          shapes.splice(shapes.indexOf(elem),1);
+        if (elem.id == selectedItemId) {
+          shapes.splice(shapes.indexOf(elem), 1);
           break;
         }
       }
-    };
+  };
 
-    selectedItemId = '';
-    console.log(shapes);
+  selectedItemId = '';
+  console.log(shapes);
 
-    
-  }
-  
-  
+
+}
+
+
+
 
 
 /*
@@ -124,23 +126,23 @@ var startDraw = function (shape) {
       }
       case 'ellipse': {
         shapes[index] = draw.ellipse().attr(defaultOption);
-        modalId = '#shapeModal';
+        modalId = '#ellipseModal';
         break;
       }
       case 'circle': {
         shapes[index] = draw.circle(10).attr(defaultOption);
-        modalId = '#shapeModal';
+        modalId = '#circleModal';
         break;
       }
       case 'rect': {
         shapes[index] = draw.rect().attr(defaultOption);
-        modalId = '#shapeModal';
+        modalId = '#rectModal';
         break;
       }
       case 'roundRect': {
         shapes[index] = draw.rect().attr(defaultOption);
         shapes[index].radius(10);
-        modalId = '#shapeModal';
+        modalId = '#roundRectModal';
         break;
       }
     }
@@ -162,17 +164,194 @@ var startDraw = function (shape) {
     shapes[index].on('mouseout', function (event) {
       event.target.style.opacity = 1;
     });
+
     //Subscribe double click event to open modal
-    shapes[index].on('dblclick',function (event) {
+    shapes[index].on('dblclick', function (mouseEvent) {
+      $(modalId).on('show.bs.modal', function (showEvent) {
+        
+        var element;
+        for (var item of shapes) {
+          if (item.node.id == mouseEvent.target.id) {
+            element = item;
+            break;
+          }
+        }
+
+        switch (modalId) {
+          case '#lineModal': {
+            if (element) {
+              var elemX1 = parseInt(element.attr('x1'), 10),
+                elemY1 = parseInt(element.attr('y1'), 10),
+                elemX2 = parseInt(element.attr('x2'), 10),
+                elemY2 = parseInt(element.attr('y2'), 10),
+                elemWidth = element.attr('stroke-width'),
+                elemLinecap = element.attr('stroke-linecap'),
+                elemColor = element.attr('stroke');
+
+              var itemModal = $(modalId)[0];
+
+              itemModal.querySelector('#inputX1').value = elemX1;
+              itemModal.querySelector('#inputY1').value = elemY1;
+              itemModal.querySelector('#inputX2').value = elemX2;
+              itemModal.querySelector('#inputY2').value = elemY2;
+              itemModal.querySelector('#inputStrokeWidth').value = elemWidth;
+              itemModal.querySelector('#inputColor').value = elemColor;
+              itemModal.querySelector('#inputLinecap').value = elemLinecap;
+            }
+            break;
+          }
+
+          case '#rectModal': {
+            if (element) {
+              var elemWidth = parseInt(element.attr('width'), 10),
+                elemHeight = parseInt(element.attr('height'), 10),
+                elemPositionX = parseInt(element.attr('x'), 10),
+                elemPositionY = parseInt(element.attr('y'), 10),
+                elemLineWidth = element.attr('stroke-width'),
+                elemColor = element.attr('stroke');
+
+              var elemIsFilled = false;
+              if (element.attr('fill-opacity') != 0) elemIsFilled = true;
+
+              console.log(element.attr());
+
+              var itemModal = $(modalId)[0];
+
+              itemModal.querySelector('#inputWidth').value = elemWidth;
+              itemModal.querySelector('#inputHeight').value = elemHeight;
+              itemModal.querySelector('#inputPositionX').value = elemPositionX;
+              itemModal.querySelector('#inputPositionY').value = elemPositionY;
+              itemModal.querySelector('#inputShapeLineWidth').value = elemLineWidth;
+              itemModal.querySelector('#inputLineColor').value = elemColor;
+
+              if (elemIsFilled) {
+                itemModal.querySelector('#fillRectCheckbox').checked = true;
+                itemModal.querySelector('#inputFillRectColor').value = element.attr('fill');
+              }
+            }
+            break;
+          }
+
+          case '#roundRectModal': {
+            if (element) {
+              var elemWidth = parseInt(element.attr('width'), 10),
+                elemHeight = parseInt(element.attr('height'), 10),
+                elemPositionX = parseInt(element.attr('x'), 10),
+                elemPositionY = parseInt(element.attr('y'), 10),
+                elemRadiusX = parseInt(element.attr('rx'), 10),
+                elemRadiusY = parseInt(element.attr('ry'), 10),
+                elemLineWidth = element.attr('stroke-width'),
+                elemColor = element.attr('stroke');
+
+              var elemIsFilled = false;
+              if (element.attr('fill-opacity') != 0) elemIsFilled = true;
+
+
+              var itemModal = $(modalId)[0];
+
+              itemModal.querySelector('#inputWidth').value = elemWidth;
+              itemModal.querySelector('#inputHeight').value = elemHeight;
+              itemModal.querySelector('#inputPositionX').value = elemPositionX;
+              itemModal.querySelector('#inputPositionY').value = elemPositionY;
+              itemModal.querySelector('#inputRadiusX').value = elemRadiusX;
+              itemModal.querySelector('#inputRadiusY').value = elemRadiusY;
+              itemModal.querySelector('#inputShapeLineWidth').value = elemLineWidth;
+              itemModal.querySelector('#inputShapeColor').value = elemColor;
+
+              if (elemIsFilled) {
+                itemModal.querySelector('#fillRoundRectCheckbox').checked = true;
+                itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
+              }
+
+            }
+            break;
+          }
+
+          case '#circleModal': {
+            if (element) {
+              var elemCx = parseInt(element.attr('cx'), 10),
+                elemCy = parseInt(element.attr('cy'), 10),
+                elemRadius = parseInt(element.attr('r'), 10),
+                elemLineWidth = parseInt(element.attr('stroke-width'), 10),
+                elemColor = element.attr('stroke');
+
+              var elemIsFilled = false;
+              if (element.attr('fill-opacity') != 0) elemIsFilled = true;
+
+              var itemModal = $(modalId)[0];
+
+              itemModal.querySelector('#inputRadius').value = elemRadius;
+              itemModal.querySelector('#inputPositionX').value = elemCx;
+              itemModal.querySelector('#inputPositionY').value = elemCy;
+              itemModal.querySelector('#inputShapeLineWidth').value = elemLineWidth;
+              itemModal.querySelector('#inputShapeColor').value = elemColor;
+
+              if (elemIsFilled) {
+                itemModal.querySelector('#fillCircleCheckbox').checked = true;
+                itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
+              }
+
+            }
+            break;
+          }
+
+          case '#ellipseModal': {
+            if (element) {
+              var elemCx = parseInt(element.attr('cx'), 10),
+                elemCy = parseInt(element.attr('cy'), 10),
+                elemRadiusX = parseInt(element.attr('rx'), 10),
+                elemRadiusY = parseInt(element.attr('ry'), 10),
+                elemLineWidth = parseInt(element.attr('stroke-width'), 10),
+                elemColor = element.attr('stroke');
+
+              var elemIsFilled = false;
+              if (element.attr('fill-opacity') != 0) elemIsFilled = true;
+
+              var itemModal = $(modalId)[0];
+
+              itemModal.querySelector('#inputRadiusX').value = elemRadiusX;
+              itemModal.querySelector('#inputRadiusY').value = elemRadiusY;
+              itemModal.querySelector('#inputPositionX').value = elemCx;
+              itemModal.querySelector('#inputPositionY').value = elemCy;
+              itemModal.querySelector('#inputShapeLineWidth').value = elemLineWidth;
+              itemModal.querySelector('#inputShapeColor').value = elemColor;
+
+              if (elemIsFilled) {
+                itemModal.querySelector('#fillEllipseCheckbox').checked = true;
+                itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
+              }
+
+            }
+            break;
+          }
+        }
+
+
+      });
       $(modalId).modal();
     });
 
     //Add draggable feature
     var element = document.getElementById(shapes[index].node.id);
-    draggable = new PlainDraggable(element);
+    
+    draggable = new PlainDraggable(element, { leftTop: true });
     draggable.autoScroll = true;
     draggable.containment = document.getElementById('mainPage1');
-   
+
+    draggable.onMove = function (newPosition) {
+      // console.log('left: %d top: %d width: %d height: %d it is scrolling: %s',
+      //   // determined position that was changed by snap and onDrag
+      //   newPosition.left, newPosition.top,
+      //   this.rect.width, this.rect.height,
+      //   newPosition.autoScroll);
+      //   console.log(element.style);
+      this.element.style.top = newPosition.top;
+      this.element.style.left = newPosition.left;
+      console.log(this.element.parentNode.style.left);
+      
+    };
+
+
     //Add contextMenu class
     $(element).addClass('contextMenu');
 
@@ -204,19 +383,50 @@ var drawPolygon = function () {
       event.target.style.opacity = 1;
     });
 
-    shapes[index].on('dblclick',function (event) {
-      $('#shapeModal').modal();
+    shapes[index].on('dblclick', function (mouseEvent) {
+      $('#polygonModal').on('show.bs.modal', function (showEvent) {
+        var element;
+        for (var item of shapes) {
+          if (item.node.id == mouseEvent.target.id) {
+            element = item;
+            console.log(element.attr());
+            break;
+          }
+        }
+
+        if (element) {
+          var elemWidth = element.attr('stroke-width'),
+            elemColor = element.attr('stroke');
+
+          var elemIsFilled = false;
+          if (element.attr('fill-opacity') != 0) elemIsFilled = true;
+
+          var itemModal = $('#polygonModal')[0];
+
+          itemModal.querySelector('#inputShapeLineWidth').value = elemWidth;
+          itemModal.querySelector('#inputShapeColor').value = elemColor;
+
+          if (elemIsFilled) {
+            itemModal.querySelector('#fillPolygonCheckbox').checked = true;
+            itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
+          }
+
+        }
+
+      });
+
+      $('#polygonModal').modal();
     });
 
     //Add draggable feature
     var element = document.getElementById(shapes[index].node.id);
-    draggable = new PlainDraggable(element);
+    draggable = new PlainDraggable(element, { leftTop: true });
     draggable.autoScroll = true;
     draggable.containment = document.getElementById('mainPage1');
 
     //Add contextMenu class
     $(element).addClass('contextMenu');
-    
+
 
     //Subscribe keydown event to detect ENTER key
     document.addEventListener('keydown', keyEnterDownHandler);
@@ -237,13 +447,13 @@ var drawPolyline = function () {
 
   //Polygon attribute
   shapes[index].attr({
-    'fill-opacity':0,
+    'fill-opacity': 0,
     'stroke-width': 3,
   })
 
   //Subscribe drawstart event 
   shapes[index].on('drawstart', function (e) {
-    
+
     //Subscribe mouseover event for each polygon
     shapes[index].on('mouseover', function (event) {
       event.target.style.opacity = 0.4;
@@ -254,13 +464,39 @@ var drawPolyline = function () {
       event.target.style.opacity = 1;
     });
     //Subscribe double click event
-    shapes[index].on('dblclick',function (event) {
-      $('#shapeModal').modal();
+    shapes[index].on('dblclick', function (mouseEvent) {
+      $('#polylineModal').on('show.bs.modal', function (showEvent) {
+        var element;
+        for (var item of shapes) {
+          if (item.node.id == mouseEvent.target.id) {
+            element = item;
+            console.log(element.attr());
+            break;
+          }
+        }
+
+        if (element) {
+          var elemWidth = element.attr('stroke-width'),
+            elemColor = element.attr('stroke');
+
+          var itemModal = $('#polylineModal')[0];
+
+          itemModal.querySelector('#inputWidth').value = elemWidth;
+          itemModal.querySelector('#inputColor').value = elemColor;
+
+        }
+
+      });
+
+
+
+
+      $('#polylineModal').modal();
     });
 
     //Add draggable feature
     var element = document.getElementById(shapes[index].node.id);
-    draggable = new PlainDraggable(element);
+    draggable = new PlainDraggable(element, { leftTop: true });
     draggable.autoScroll = true;
     draggable.containment = document.getElementById('mainPage1');
 
@@ -359,7 +595,7 @@ var stopDraw = function (addContext) {
   $('#mainPage1').off('mousedown', processbarMouseDownEventHandler);
   $('#mainPage1').off('mousedown', symbolsetMouseDownEventHandler);
 
-  if(addContext) addContextMenu();
+  if (addContext) addContextMenu();
 }
 
 /*
@@ -413,7 +649,20 @@ function imageMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(img).on('dblclick',function (event) {
+  $(img).on('dblclick', function (mouseEvent) {
+    $('#imageModal').on('show.bs.modal', function (showEvent) {
+      var elemStyle = mouseEvent.target.style;
+      var elemWidth = parseInt(elemStyle.width, 10),
+        elemHeight = parseInt(elemStyle.height, 10),
+        elemPositionX = parseInt(elemStyle.left, 10),
+        elemPositionY = parseInt(elemStyle.top, 10);
+
+      var imageModal = document.getElementById('imageModal');
+      imageModal.querySelector('#inputWidth').value = elemWidth;
+      imageModal.querySelector('#inputHeight').value = elemHeight;
+      imageModal.querySelector('#inputPositionX').value = elemPositionX;
+      imageModal.querySelector('#inputPositionY').value = elemPositionY;
+    });
     $('#imageModal').modal();
   });
 
@@ -423,9 +672,11 @@ function imageMouseDownEventHandler(event) {
   index++;
 
   //Add draggable feature
-  draggable = new PlainDraggable(img);
+  draggable = new PlainDraggable(img, { leftTop: true });
+  draggable.position();
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
+
 
 
 }
@@ -447,6 +698,9 @@ function textMouseDownEventHandler(event) {
 
   //Image css style
   para.style.fontSize = '30px';
+  para.style.fontFamily = 'Arial';
+  para.style.fontStyle = 'normal';
+  para.style.color = '#000000';
   para.style.position = 'absolute';
   para.style.top = top;
   para.style.left = left;
@@ -462,7 +716,28 @@ function textMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(para).on('dblclick',function (event) {
+  $(para).on('dblclick', function (mouseEvent) {
+    $('#textModal').on('show.bs.modal', function (showEvent) {
+      var elemStyle = mouseEvent.target.style;
+      var elemFontsize = parseInt(elemStyle.fontSize, 10).toString(),
+        elemFontstyle = elemStyle.fontStyle,
+        elemFontFamily = elemStyle.fontFamily,
+        elemColor = elemStyle.color,
+        elemText = mouseEvent.target.innerText;
+
+      var itemModal = $('#textModal')[0];
+
+      itemModal.querySelector('#inputFontSize').value = '30';
+      itemModal.querySelector('#fontPicker').value = elemFontFamily;
+      itemModal.querySelector('#fontStyleForm').value = elemFontstyle;
+      itemModal.querySelector('#inputTextColor').value = elemColor;
+      itemModal.querySelector('#textContent').innerText = elemText;
+
+
+
+
+
+    });
     $('#textModal').modal();
   });
 
@@ -471,7 +746,7 @@ function textMouseDownEventHandler(event) {
   index++;
 
   //Add draggable feature
-  draggable = new PlainDraggable(para);
+  draggable = new PlainDraggable(para, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
@@ -510,7 +785,7 @@ function displayValueMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(para).on('dblclick',function (event) {
+  $(para).on('dblclick', function (event) {
     $('#displayValueModal').modal();
   });
 
@@ -519,7 +794,7 @@ function displayValueMouseDownEventHandler(event) {
   index++;
 
   //Add draggable feature
-  draggable = new PlainDraggable(para);
+  draggable = new PlainDraggable(para, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
@@ -557,20 +832,20 @@ function buttonMouseDownEventHandler(event) {
   $(btn).on('mouseout', function (event) {
     event.target.style.opacity = 1;
   });
-//Subscribe mouse double click event
-$(btn).on('dblclick',function (event) {
-  $('#buttonModal').modal();
-});
+  //Subscribe mouse double click event
+  $(btn).on('dblclick', function (event) {
+    $('#buttonModal').modal();
+  });
   $('#mainPage1').append(btn);
   shapes[index] = btn;
   index++;
 
   //Add draggable feature
-  draggable = new PlainDraggable(btn);
+  draggable = new PlainDraggable(btn, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
- // console.log(shapes);
+  // console.log(shapes);
 }
 
 //Switch mouse down event handler: To create new switch
@@ -613,7 +888,7 @@ function switchMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(sw).on('dblclick',function (event) {
+  $(sw).on('dblclick', function (event) {
     $('#switchModal').modal();
   });
 
@@ -621,10 +896,10 @@ function switchMouseDownEventHandler(event) {
   shapes[index] = sw;
   index++;
 
-//Add draggable feature
-draggable = new PlainDraggable(sw);
-draggable.autoScroll = true;
-draggable.containment = document.getElementById('mainPage1');
+  //Add draggable feature
+  draggable = new PlainDraggable(sw, { leftTop: true });
+  draggable.autoScroll = true;
+  draggable.containment = document.getElementById('mainPage1');
 
   //console.log(shapes);
 }
@@ -661,7 +936,7 @@ function inputMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(input).on('dblclick',function (event) {
+  $(input).on('dblclick', function (event) {
     $('#inputModal').modal();
   });
 
@@ -670,10 +945,10 @@ function inputMouseDownEventHandler(event) {
   index++;
 
   //Add draggable feature
-  draggable = new PlainDraggable(input);
+  draggable = new PlainDraggable(input, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
-  
+
   //console.log(shapes);
 }
 
@@ -693,11 +968,11 @@ function checkboxMouseDownEventHandler(event) {
   var cbInput = document.createElement('input');
   cbInput.type = 'checkbox';
   cbInput.className = 'custom-control-input';
-  cbInput.id = 'cbInput'+index;
+  cbInput.id = 'cbInput' + index;
 
   var cbLabel = document.createElement('label');
   cbLabel.className = 'custom-control-label';
-  cbLabel.htmlFor = 'cbInput'+index;
+  cbLabel.htmlFor = 'cbInput' + index;
   cbLabel.innerText = 'Checkbox';
 
   checkbox.appendChild(cbInput);
@@ -720,7 +995,7 @@ function checkboxMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe double click event
-  $(checkbox).on('dblclick',function (event) {
+  $(checkbox).on('dblclick', function (event) {
     $('#checkboxModal').modal();
   });
 
@@ -729,7 +1004,7 @@ function checkboxMouseDownEventHandler(event) {
   index++;
 
   //Add draggable feature
-  draggable = new PlainDraggable(checkbox);
+  draggable = new PlainDraggable(checkbox, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
@@ -767,7 +1042,7 @@ function sliderMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(slider).on('dblclick',function (event) {
+  $(slider).on('dblclick', function (event) {
     $('#sliderModal').modal();
   });
 
@@ -776,7 +1051,7 @@ function sliderMouseDownEventHandler(event) {
   index++;
 
   //Add draggable feature
-  draggable = new PlainDraggable(slider);
+  draggable = new PlainDraggable(slider, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
@@ -823,7 +1098,7 @@ function processbarMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(progressbar).on('dblclick',function (event) {
+  $(progressbar).on('dblclick', function (event) {
     $('#progressBarModal').modal();
   });
 
@@ -832,7 +1107,7 @@ function processbarMouseDownEventHandler(event) {
   index++;
 
   //Add draggable feature
-  draggable = new PlainDraggable(progressbar);
+  draggable = new PlainDraggable(progressbar, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
@@ -872,16 +1147,16 @@ function symbolsetMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe double click event
-  $(symbolSet).on('dblclick',function (event) {
+  $(symbolSet).on('dblclick', function (event) {
     $('#symbolSetModal').modal();
   });
 
   $('#mainPage1').append(symbolSet);
   shapes[index] = symbolSet;
   index++;
-  
+
   //Add draggable feature
-  draggable = new PlainDraggable(symbolSet);
+  draggable = new PlainDraggable(symbolSet, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 

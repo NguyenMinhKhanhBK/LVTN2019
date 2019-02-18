@@ -35,7 +35,7 @@
 
     <div class="btn-toolbar mr-auto" role="toolbar" aria-label="Toolbar with button groups">
       <div class="btn-group" role="group" aria-label="Clipboard group">
-        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#symbolSetModal"><i
+        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#roundRectModal"><i
             class="far fa-file mr-2"></i>New</button>
       </div>
       <div class="btn-group" role="group" aria-label="Clipboard group">
@@ -281,7 +281,7 @@
           <!-- Tab panes -->
           <div class="tab-content">
             <div id="mainPage1" class="container-fluid tab-pane active bg-white full-height no-gutter-all">
-              <br>
+              <!-- <br> -->
             </div>
             <div id="menu1" class="container-fluid tab-pane fade bg-white full-height"><br>
               <h3>Menu 1</h3>
@@ -312,7 +312,7 @@
   <!--Modals-->
 
   <!--Line modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="lineModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="lineModal" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -330,9 +330,9 @@
               <!-- Stroke -->
               <div class="col-sm">
                 <div class="form-group row my-2">
-                  <label for="inputWidth" class="col-sm-5 col-form-label">Width</label>
+                  <label for="inputStrokeWidth" class="col-sm-5 col-form-label">Width</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputWidth" value="1" min="0">
+                    <input type="number" class="form-control ml-auto" id="inputStrokeWidth" value="1" min="0">
                   </div>
                 </div>
 
@@ -340,8 +340,8 @@
                   <label for="inputLinecap" class="col-sm-5 col-form-label">Linecap</label>
                   <div class="col-sm-7">
                     <select class="form-control ml-auto" id="inputLinecap">
-                      <option value="butt">Butt</option>
-                      <option value="round" selected>Round</option>
+                      <option value="butt" selected>Butt</option>
+                      <option value="round" >Round</option>
                       <option value="square">Square</option>
                     </select>
                   </div>
@@ -350,45 +350,39 @@
                 <div class="form-group row my-2">
                   <label for="inputColor" class="col-sm-5 col-form-label">Color</label>
                   <div class="col-sm-7">
-                    <input type="color" class="form-control ml-auto" id="inputColor" value="#00000">
+                    <input type="color" class="form-control ml-auto" id="inputColor" value="#fe0101">
                   </div>
                 </div>
 
-                <div class="form-group row my-2">
-                  <label for="inputRotate" class="col-sm-5 col-form-label">Rotate</label>
-                  <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputRotate" value="0" max="360" min="-360">
-                  </div>
-                </div>
               </div>
 
               <!--Position-->
               <div class="col-sm">
                 <div class="form-group row my-2">
-                  <label for="inputPositionX" class="col-sm-5 col-form-label">Position X</label>
+                  <label for="inputStartX" class="col-sm-5 col-form-label">X1</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputPositionX" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputX1" value="1">
                   </div>
                 </div>
 
                 <div class="form-group row my-2">
-                  <label for="inputPositionY" class="col-sm-5 col-form-label">Position Y</label>
+                  <label for="inputStartY" class="col-sm-5 col-form-label">Y1</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputPositionY" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputY1" value="1">
                   </div>
                 </div>
 
                 <div class="form-group row my-2">
-                  <label for="inputWidth" class="col-sm-5 col-form-label">Width</label>
+                  <label for="inputEndX" class="col-sm-5 col-form-label">X2</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputWidth" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputX2" value="1">
                   </div>
                 </div>
 
                 <div class="form-group row my-2">
-                  <label for="inputHeight" class="col-sm-5 col-form-label">Height</label>
+                  <label for="inputEndY" class="col-sm-5 col-form-label">Y2</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputHeight" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputY2" value="1">
                   </div>
                 </div>
               </div>
@@ -419,8 +413,111 @@
     </div>
   </div>
 
-  <!--Shape modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="shapeModal">
+  <!--Rect modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="rectModal" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class="row ">
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputShapeLineWidth" class="col-sm-5 col-form-label">Line width</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputShapeLineWidth" value="1" min="0">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputLineColor" class="col-sm-5 col-form-label">Color</label>
+                  <div class="col-sm-7">
+                    <input type="color" class="form-control ml-auto" id="inputLineColor" value="#ff0000">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="fillRectCheckbox" name="example1">
+                    <label class="custom-control-label ml-3" for="fillRectCheckbox">Fill</label>
+                  </div>
+                  <div class="col-sm-7 ml-auto">
+                    <input type="color" class="form-control " id="inputFillRectColor"> 
+                  </div>
+                </div>
+
+              </div>
+
+
+
+              <!--Position-->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputPositionX" class="col-sm-5 col-form-label">Position X</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputPositionX" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputPositionY" class="col-sm-5 col-form-label">Position Y</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputPositionY" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputWidth" class="col-sm-5 col-form-label">Width</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputWidth" value="1">
+                  </div>
+                </div>
+
+
+                <div class="form-group row my-2">
+                  <label for="inputHeight" class="col-sm-5 col-form-label">Height</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputHeight" value="1">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Round rect modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="roundRectModal" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -447,17 +544,32 @@
                 <div class="form-group row my-2">
                   <label for="inputShapeColor" class="col-sm-5 col-form-label">Color</label>
                   <div class="col-sm-7">
-                    <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#00000">
+                    <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#ff0000">
                   </div>
                 </div>
 
                 <div class="form-group row my-2">
                   <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="fillCheckbox" name="example1">
-                    <label class="custom-control-label ml-3" for="fillCheckbox">Fill</label>
+                    <input type="checkbox" class="custom-control-input" id="fillRoundRectCheckbox" name="example1">
+                    <label class="custom-control-label ml-3" for="fillRoundRectCheckbox">Fill</label>
                   </div>
                   <div class="col-sm-7 ml-auto">
-                    <input type="color" class="form-control " id="inputFillShapeColor" value="#0000">
+                    <input type="color" class="form-control " id="inputFillShapeColor" value="#000000">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputWidth" class="col-sm-5 col-form-label">Width</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputWidth" value="1">
+                  </div>
+                </div>
+
+
+                <div class="form-group row my-2">
+                  <label for="inputHeight" class="col-sm-5 col-form-label">Height</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputHeight" value="1">
                   </div>
                 </div>
 
@@ -481,20 +593,354 @@
                   </div>
                 </div>
 
+                
+
                 <div class="form-group row my-2">
-                  <label for="inputShapeWidth" class="col-sm-5 col-form-label">Width</label>
+                  <label for="inputRadiusX" class="col-sm-5 col-form-label">Radius X</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputShapeWidth" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputRadiusX" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputRadiusY" class="col-sm-5 col-form-label">Radius Y</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputRadiusY" value="1">
                   </div>
                 </div>
 
 
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Circle modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="circleModal" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class="row ">
+              <!-- Stroke -->
+              <div class="col-sm">
                 <div class="form-group row my-2">
-                  <label for="inputShapeHeight" class="col-sm-5 col-form-label">Height</label>
+                  <label for="inputShapeLineWidth" class="col-sm-5 col-form-label">Line width</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputShapeHeight" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputShapeLineWidth" value="1" min="0">
                   </div>
                 </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputShapeColor" class="col-sm-5 col-form-label">Color</label>
+                  <div class="col-sm-7">
+                    <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#00ff00">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="fillCircleCheckbox" name="example1">
+                    <label class="custom-control-label ml-3" for="fillCircleCheckbox">Fill</label>
+                  </div>
+                  <div class="col-sm-7 ml-auto">
+                    <input type="color" class="form-control " id="inputFillShapeColor" value="#000000">
+                  </div>
+                </div>
+
+              </div>
+
+
+
+              <!--Position-->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputPositionX" class="col-sm-5 col-form-label">Central X</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputPositionX" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputPositionY" class="col-sm-5 col-form-label">Central Y</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputPositionY" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputRadius" class="col-sm-5 col-form-label">Radius</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputRadius" value="1">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Ellipse modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="ellipseModal" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class="row ">
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputShapeLineWidth" class="col-sm-5 col-form-label">Line width</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputShapeLineWidth" value="1" min="0">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputShapeColor" class="col-sm-5 col-form-label">Color</label>
+                  <div class="col-sm-7">
+                    <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#00ff00">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="fillEllipseCheckbox" name="example1">
+                    <label class="custom-control-label ml-3" for="fillEllipseCheckbox">Fill</label>
+                  </div>
+                  <div class="col-sm-7 ml-auto">
+                    <input type="color" class="form-control " id="inputFillShapeColor" value="#000000">
+                  </div>
+                </div>
+
+              </div>
+
+
+
+              <!--Position-->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputPositionX" class="col-sm-5 col-form-label">Central X</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputPositionX" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputPositionY" class="col-sm-5 col-form-label">Central Y</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputPositionY" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputRadiusX" class="col-sm-5 col-form-label">Radius X</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputRadiusX" value="1">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputRadiusY" class="col-sm-5 col-form-label">Radius Y</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto" id="inputRadiusY" value="1">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                <div class="col-sm ml-4 pl-4">
+                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Polyline modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="polylineModal" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class="row ">
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputWidth" class="col-sm-3 col-form-label">Width</label>
+                  <div class="col-sm">
+                    <input type="number" class="form-control ml-auto" id="inputWidth" value="1" min="0">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputColor" class="col-sm-3 col-form-label">Color</label>
+                  <div class="col-sm">
+                    <input type="color" class="form-control ml-auto" id="inputColor" value="#00ff00">
+                  </div>
+                </div>
+
+              </div>
+
+              
+              
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <div class="row ">
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
+                  <div class="col-sm">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                  </div>
+                </div>
+              </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Polygon modal-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="polygonModal" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class="row ">
+              <!-- Stroke -->
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputShapeLineWidth" class="col-sm-3 col-form-label">Line width</label>
+                  <div class="col-sm">
+                    <input type="number" class="form-control ml-auto" id="inputShapeLineWidth" value="1" min="0">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputShapeColor" class="col-sm-3 col-form-label">Color</label>
+                  <div class="col-sm">
+                    <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#00ff00">
+                  </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <div class="custom-control custom-checkbox col-sm-3">
+                    <input type="checkbox" class="custom-control-input" id="fillPolygonCheckbox" name="example1">
+                    <label class="custom-control-label ml-3" for="fillPolygonCheckbox">Fill</label>
+                  </div>
+                  <div class="col-sm ml-auto">
+                    <input type="color" class="form-control " id="inputFillShapeColor" value="#000000">
+                  </div>
+                </div>
+
               </div>
             </div>
           </fieldset>
@@ -523,7 +969,7 @@
   </div>
 
   <!--Text modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="textModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="textModal" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -540,24 +986,22 @@
               <div class="col-sm">
                 <label class="col-form-label">Font</label>
                 <form action="">
-                  <select class="form-control bfh-fonts" data-font="Arial"></select>
+                  <select class="form-control bfh-fonts" id="fontPicker" data-font="Calibri"></select>
                 </form>
               </div>
 
               <div class="col-sm">
                 <label class="col-form-label">Fontsize</label>
                 <form action="">
-                  <select class="form-control bfh-fontsizes" data-fontsize="12"></select>
+                    <input type="number" class="form-control ml-auto" id="inputFontSize" value="12">
                 </form>
               </div>
 
               <div class="col-sm">
                 <label class="col-form-label">Style</label>
                 <select class="form-control" id="fontStyleForm">
-                  <option>Regular</option>
-                  <option>Italic</option>
-                  <option>Bold</option>
-                  <option>Bold Italic</option>
+                  <option value="normal">Normal</option>
+                  <option value="italic" selected>Italic</option>
                 </select>
               </div>
             </div>
@@ -566,13 +1010,13 @@
               <div class="col-sm-4">
                 <label class="col-form-label">Color</label>
                 <form action="">
-                  <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#e66465">
+                  <input type="color" class="form-control ml-auto" id="inputTextColor" value="#00ff00">
                 </form>
               </div>
 
               <div class="form-group col-sm">
-                <label for="comment" class="col-form-label">Text</label>
-                <textarea class="form-control" rows="2" id="comment">Hello</textarea>
+                <label for="textContent" class="col-form-label">Text</label>
+                <textarea class="form-control" rows="2" id="textContent">Hello</textarea>
               </div>
             </div>
           </fieldset>
@@ -601,7 +1045,7 @@
   </div>
 
   <!--Image modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="imageModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="imageModal" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -624,33 +1068,33 @@
             <div class="row mt-2">
               <div class="col-sm">
                 <div class="form-group row my-2">
-                  <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
+                  <label for="inputWidth" class="col-sm-5 col-form-label">Width</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputWidth">
                   </div>
                 </div>
 
 
                 <div class="form-group row my-2">
-                  <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
+                  <label for="inputHeight" class="col-sm-5 col-form-label">Height</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputHeight">
                   </div>
                 </div>
               </div>
 
               <div class="col-sm">
                 <div class="form-group row my-2">
-                  <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
+                  <label for="inputPositionX" class="col-sm-5 col-form-label">Position X</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputPositionX">
                   </div>
                 </div>
 
                 <div class="form-group row my-2">
-                  <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
+                  <label for="inputPositionY" class="col-sm-5 col-form-label">Position Y</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputPositionY">
                   </div>
                 </div>
               </div>
@@ -681,7 +1125,7 @@
   </div>
 
   <!--Display value modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="displayValueModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="displayValueModal" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -787,7 +1231,7 @@
   </div>
 
   <!--Button modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="buttonModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="buttonModal" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -920,7 +1364,7 @@
   </div>
 
   <!--Switch modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="switchModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="switchModal" data-backdrop="static">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -1001,7 +1445,7 @@
   </div>
 
   <!--Input modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="inputModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="inputModal" data-backdrop="static">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -1087,7 +1531,7 @@
     </div>
 
   <!--Slider modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="sliderModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="sliderModal" data-backdrop="static">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -1216,7 +1660,7 @@
     </div>
 
   <!--Progress bar modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="progressBarModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="progressBarModal" data-backdrop="static">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -1345,7 +1789,7 @@
     </div>
 
      <!--Switch modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="checkboxModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="checkboxModal" data-backdrop="static">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -1426,7 +1870,7 @@
     </div>
 
   <!--Symbol Set modal-->
-  <div class="modal fade" tabindex="-1" role="dialog" id="symbolSetModal">
+  <div class="modal fade" tabindex="-1" role="dialog" id="symbolSetModal" data-backdrop="static">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
