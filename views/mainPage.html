@@ -132,7 +132,7 @@
                         <img src="../public/img/toolboxIcon/polygon.png" class="img-icon" alt="Polygon">
                       </button>
 
-                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Textblock">
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Textblock" onclick="addNewText()">
                         <img src="../public/img/toolboxIcon/textblock.png" class="img-icon" alt="Textblock">
                       </button>
 
@@ -985,7 +985,7 @@
               <div class="col-sm">
                 <label class="col-form-label">Font</label>
                 <form action="">
-                  <select class="form-control bfh-fonts" id="fontPicker" data-font="Calibri"></select>
+                  <select class="form-control bfh-fonts" id="fontPicker"></select>
                 </form>
               </div>
 
@@ -1141,24 +1141,22 @@
               <div class="col-sm">
                 <label class="col-form-label">Font</label>
                 <form action="">
-                  <select class="form-control bfh-fonts" data-font="Arial"></select>
+                  <select class="form-control bfh-fonts" data-font="Arial" id="fontPicker"></select>
                 </form>
               </div>
 
               <div class="col-sm">
                 <label class="col-form-label">Fontsize</label>
                 <form action="">
-                  <select class="form-control bfh-fontsizes" data-fontsize="12"></select>
+                    <input type="number" class="form-control ml-auto" id="inputFontSize" value="12">
                 </form>
               </div>
 
               <div class="col-sm">
                 <label class="col-form-label">Style</label>
                 <select class="form-control" id="fontStyleForm">
-                  <option>Regular</option>
-                  <option>Italic</option>
-                  <option>Bold</option>
-                  <option>Bold Italic</option>
+                  <option value="normal">Normal</option>
+                  <option value="italic" selected>Italic</option>
                 </select>
               </div>
             </div>
@@ -1167,13 +1165,13 @@
               <div class="col-sm-4">
                 <label class="col-form-label">Color</label>
                 <form action="">
-                  <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#e66465">
+                  <input type="color" class="form-control ml-auto" id="inputTextColor" value="#e66465">
                 </form>
               </div>
 
               <div class="form-group col-sm">
                 <label for="comment" class="col-form-label">Text</label>
-                <textarea class="form-control" rows="2" id="comment">##.##</textarea>
+                <textarea class="form-control" rows="2" id="textContent">##.##</textarea>
               </div>
             </div>
           </fieldset>
@@ -1247,24 +1245,22 @@
               <div class="col-sm">
                 <label class="col-form-label">Font</label>
                 <form action="">
-                  <select class="form-control bfh-fonts" data-font="Arial"></select>
+                  <select class="form-control bfh-fonts"  id="fontPicker"></select>
                 </form>
               </div>
 
               <div class="col-sm">
                 <label class="col-form-label">Fontsize</label>
                 <form action="">
-                  <select class="form-control bfh-fontsizes" data-fontsize="12"></select>
+                    <input type="number" class="form-control ml-auto" id="inputFontSize" value="16">
                 </form>
               </div>
 
               <div class="col-sm">
                 <label class="col-form-label">Style</label>
                 <select class="form-control" id="fontStyleForm">
-                  <option>Regular</option>
-                  <option>Italic</option>
-                  <option>Bold</option>
-                  <option>Bold Italic</option>
+                  <option value="normal">Normal</option>
+                  <option value="italic">Italic</option>
                 </select>
               </div>
             </div>
@@ -1273,29 +1269,30 @@
               <div class="col-sm-4">
                 <label class="col-form-label">Foreground</label>
                 <form action="">
-                  <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#e66465">
+                  <input type="color" class="form-control ml-auto" id="inputTextColor" value="#000000">
                 </form>
               </div>
 
               <div class="col-sm-4">
                 <label class="col-form-label">Background</label>
                 <form action="">
-                  <input type="color" class="form-control ml-auto" id="inputShapeColor" value="#e66465">
+                  <input type="color" class="form-control ml-auto" id="inputBackgroundColor" value="#000000">
                 </form>
               </div>
 
               <div class="form-group col-sm">
                 <label for="comment" class="col-form-label">Text</label>
-                <textarea class="form-control" rows="2" id="comment">##.##</textarea>
+                <textarea class="form-control" rows="2" id="textContent">##.##</textarea>
               </div>
             </div>
 
+           
             <div class="row">
               <div class="col-sm">
                 <div class="form-group row my-2">
                   <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputWidth" value="1">
                   </div>
                 </div>
 
@@ -1303,7 +1300,7 @@
                 <div class="form-group row my-2">
                   <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputHeight" value="1">
                   </div>
                 </div>
               </div>
@@ -1312,16 +1309,18 @@
                 <div class="form-group row my-2">
                   <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputPositionX" value="1">
                   </div>
                 </div>
 
                 <div class="form-group row my-2">
                   <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
                   <div class="col-sm-7">
-                    <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                    <input type="number" class="form-control ml-auto" id="inputPositionY" value="1">
                   </div>
                 </div>
+
+                
               </div>
 
             </div>

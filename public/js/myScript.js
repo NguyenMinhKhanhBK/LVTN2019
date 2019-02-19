@@ -496,7 +496,7 @@ var drawPolygon = function () {
     });
 
     shapes[index].on('dblclick', function (mouseEvent) {
-      $('#polygonModal').on('show.bs.modal', function (showEvent) {
+      $('#polygonModal').one('show.bs.modal', function (showEvent) {
         var element;
         for (var item of shapes) {
           if (item.node.id == mouseEvent.target.id) {
@@ -509,21 +509,30 @@ var drawPolygon = function () {
           var elemWidth = element.attr('stroke-width'),
             elemColor = element.attr('stroke');
 
-          var elemIsFilled = false;
-          if (element.attr('fill-opacity') != 0) elemIsFilled = true;
 
           var itemModal = $('#polygonModal')[0];
 
           itemModal.querySelector('#inputShapeLineWidth').value = elemWidth;
           itemModal.querySelector('#inputShapeColor').value = elemColor;
 
-          if (elemIsFilled) {
-            itemModal.querySelector('#fillPolygonCheckbox').checked = true;
+            itemModal.querySelector('#fillPolygonCheckbox').checked = element.attr('fill-opacity');
             itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
-          }
 
+          $('.saveChangeButton').on('click',function (event) {
+                
+            element.attr({
+              'stroke-width':itemModal.querySelector('#inputShapeLineWidth').value,
+              'stroke':itemModal.querySelector('#inputShapeColor').value,
+              'fill-opacity':Number(itemModal.querySelector('#fillPolygonCheckbox').checked),
+              'fill':itemModal.querySelector('#inputFillShapeColor').value,
+            });
+          });
         }
 
+      });
+
+      $('#polygonModal').one('hide.bs.modal',function(hideEvent){
+        $('.saveChangeButton').off('click');
       });
 
       $('#polygonModal').modal();
@@ -575,7 +584,7 @@ var drawPolyline = function () {
     });
     //Subscribe double click event
     shapes[index].on('dblclick', function (mouseEvent) {
-      $('#polylineModal').on('show.bs.modal', function (showEvent) {
+      $('#polylineModal').one('show.bs.modal', function (showEvent) {
         var element;
         for (var item of shapes) {
           if (item.node.id == mouseEvent.target.id) {
@@ -593,12 +602,19 @@ var drawPolyline = function () {
           itemModal.querySelector('#inputWidth').value = elemWidth;
           itemModal.querySelector('#inputColor').value = elemColor;
 
+          $('.saveChangeButton').on('click',function (event) {
+            element.attr({
+              'stroke-width':itemModal.querySelector('#inputWidth').value,
+              'stroke':itemModal.querySelector('#inputColor').value,
+            });
+          });
         }
-
       });
 
 
-
+      $('#polylineModal').one('hide.bs.modal',function(hideEvent){
+        $('.saveChangeButton').off('click');
+      });
 
       $('#polylineModal').modal();
     });
@@ -732,21 +748,20 @@ function imageMouseDownEventHandler(event) {
 
   //Declare new image
   var defaultImageSrc = '../public/img/png/default-image.png';
-  var img = document.createElement('img');
-  img.id = 'img' + index;
-  img.className += ' contextMenu '
+  shapes[index] = document.createElement('img');
+  shapes[index].id = 'img' + index;
+  shapes[index].className += ' contextMenu '
 
 
   //Image css style
-  img.src = defaultImageSrc;
-  img.style.height = '100px';
-  img.style.width = '150px';
-  img.style.position = 'absolute';
-  img.style.top = top;
-  img.style.left = left;
-  img.style.border = '2px solid black';
+  shapes[index].src = defaultImageSrc;
+  shapes[index].style.height = '100px';
+  shapes[index].style.width = '150px';
+  shapes[index].style.position = 'absolute';
+  shapes[index].style.top = top;
+  shapes[index].style.left = left;
+  shapes[index].style.border = '2px solid black';
 
-  shapes[index] = img;
   //Image mouse events
   $(shapes[index]).on('mouseover', function (event) {
     event.target.style.opacity = 0.4;
@@ -778,8 +793,8 @@ function imageMouseDownEventHandler(event) {
       imageModal.querySelector('#inputPositionY').value = elemPositionY;
 
       //Button save 
-      $('#imageSaveButton').on('click',function (event) {
-        console.log(event);
+      $('.saveChangeButton').on('click',function (event) {
+        console.log(document.getElementById(mouseEvent.target.id));
         elemStyle.width = imageModal.querySelector('#inputWidth').value + 'px';
         elemStyle.height = imageModal.querySelector('#inputHeight').value + 'px';
         elemStyle.left =  imageModal.querySelector('#inputPositionX').value + 'px';
@@ -789,7 +804,7 @@ function imageMouseDownEventHandler(event) {
     });
 
     $('#imageModal').one('hide.bs.modal',function(hideEvent){
-      $('#imageSaveButton').off('click');
+      $('.saveChangeButton').off('click');
     });
 
     $('#imageModal').modal();
@@ -797,14 +812,16 @@ function imageMouseDownEventHandler(event) {
 
 
   $('#mainPage1').append(shapes[index]);
-  //shapes[index] = img;
-  index++;
+
+ 
 
   //Add draggable feature
-  draggable = new PlainDraggable(img, { leftTop: true });
+  draggable = new PlainDraggable(shapes[index], { leftTop: true });
   draggable.position();
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
+
+  index++;
 
 
 
@@ -824,6 +841,7 @@ function textMouseDownEventHandler(event) {
   para.appendChild(text);
   para.id = 'text' + index;
   para.className += ' contextMenu ';
+  
 
   //Image css style
   para.style.fontSize = '30px';
@@ -846,24 +864,25 @@ function textMouseDownEventHandler(event) {
   });
   //Subscribe mouse double click event
   $(para).on('dblclick', function (mouseEvent) {
-    $('#textModal').on('show.bs.modal', function (showEvent) {
+    $('#textModal').one('show.bs.modal', function (showEvent) {
       var elemStyle = mouseEvent.target.style;
       var elemId = mouseEvent.target.id;
       var elemFontsize = parseInt(elemStyle.fontSize, 10).toString(),
         elemFontstyle = elemStyle.fontStyle,
-        elemFontFamily = elemStyle.fontFamily,
+        elemFontFamily = elemStyle.fontFamily.replace(/["']/g, ""), //Replace double quote from font with WHITESPACE
         elemColor = rgb2hex(elemStyle.color),
         elemText = mouseEvent.target.innerText;
 
       var itemModal = $('#textModal')[0];
-
+      
       itemModal.querySelector('#inputFontSize').value = elemFontsize;
       itemModal.querySelector('#fontPicker').value = elemFontFamily;
       itemModal.querySelector('#fontStyleForm').value = elemFontstyle;
       itemModal.querySelector('#inputTextColor').value = elemColor;
-      itemModal.querySelector('#textContent').innerText = elemText;
+      itemModal.querySelector('#textContent').value = elemText;
+      
 
-      $('#textSaveButton').on('click',function (event) {
+      $('.saveChangeButton').on('click',function (event) {
         
         document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
         document.getElementById(elemId).style.fontFamily = itemModal.querySelector('#fontPicker').value;
@@ -871,17 +890,13 @@ function textMouseDownEventHandler(event) {
         document.getElementById(elemId).style.fontStyle = itemModal.querySelector('#fontStyleForm').value;
         
         document.getElementById(elemId).innerHTML = itemModal.querySelector('#textContent').value;
-
-        // elemStyle.fontFamily = itemModal.querySelector('#fontPicker').value;
-        // elemStyle.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
-        // elemStyle.color = itemModal.querySelector('#inputTextColor').value;
-        // mouseEvent.target.innerText = itemModal.querySelector('#textContent').innerText;
       });
-
-
-
-
     });
+
+    $('#textModal').one('hide.bs.modal',function(hideEvent){
+      $('.saveChangeButton').off('click');
+    });
+
     $('#textModal').modal();
   });
 
@@ -893,8 +908,6 @@ function textMouseDownEventHandler(event) {
   draggable = new PlainDraggable(para, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
-
- 
 }
 
 //Display Value mouse down event handler: To create new DisplayValue
@@ -914,6 +927,9 @@ function displayValueMouseDownEventHandler(event) {
 
   //Image css style
   para.style.fontSize = '40px';
+  para.style.fontFamily = 'Arial';
+  para.style.fontStyle = 'normal';
+  para.style.color = '#000000';
   para.style.position = 'absolute';
   para.style.top = top;
   para.style.left = left;
@@ -929,7 +945,40 @@ function displayValueMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(para).on('dblclick', function (event) {
+  $(para).on('dblclick', function (mouseEvent) {
+    $('#displayValueModal').one('show.bs.modal', function (showEvent) {
+      var elemStyle = mouseEvent.target.style;
+      var elemId = mouseEvent.target.id;
+      var elemFontsize = parseInt(elemStyle.fontSize, 10).toString(),
+        elemFontstyle = elemStyle.fontStyle,
+        elemFontFamily = elemStyle.fontFamily.replace(/["']/g, ""), //Replace double quote from font with WHITESPACE
+        elemColor = rgb2hex(elemStyle.color),
+        elemText = mouseEvent.target.innerText;
+
+      var itemModal = $('#displayValueModal')[0];
+      
+      itemModal.querySelector('#inputFontSize').value = elemFontsize;
+      itemModal.querySelector('#fontPicker').value = elemFontFamily;
+      itemModal.querySelector('#fontStyleForm').value = elemFontstyle;
+      itemModal.querySelector('#inputTextColor').value = elemColor;
+      itemModal.querySelector('#textContent').value = elemText;
+  
+
+      $('.saveChangeButton').on('click',function (event) {
+        
+        document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
+        document.getElementById(elemId).style.fontFamily = itemModal.querySelector('#fontPicker').value;
+        document.getElementById(elemId).style.color = itemModal.querySelector('#inputTextColor').value;
+        document.getElementById(elemId).style.fontStyle = itemModal.querySelector('#fontStyleForm').value;
+        
+        document.getElementById(elemId).innerHTML = itemModal.querySelector('#textContent').value;
+      });
+    });
+
+    $('#displayValueModal').one('hide.bs.modal',function(hideEvent){
+      $('.saveChangeButton').off('click');
+    });
+
     $('#displayValueModal').modal();
   });
 
@@ -964,6 +1013,11 @@ function buttonMouseDownEventHandler(event) {
   btn.style.position = 'absolute';
   btn.style.top = top;
   btn.style.left = left;
+  btn.style.color = '#ffffff';
+  btn.style.background = '#4285F4';
+  btn.style.fontFamily = 'Helvetica Neue';
+  btn.style.fontSize = '16px';
+  btn.style.fontStyle = 'normal';
 
 
 
@@ -977,7 +1031,71 @@ function buttonMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(btn).on('dblclick', function (event) {
+  $(btn).on('dblclick', function (mouseEvent) {
+    $('#buttonModal').one('show.bs.modal', function (showEvent) {
+      var elemStyle = mouseEvent.target.style;
+      var elemId = mouseEvent.target.id;
+
+      var htmlElement = mouseEvent.target.getBoundingClientRect();
+      var svgOffset = mouseEvent.target.parentNode.getBoundingClientRect();
+
+      var elemFontsize = parseInt(elemStyle.fontSize, 10).toString(),
+        elemFontstyle = elemStyle.fontStyle,
+        elemFontFamily = elemStyle.fontFamily.replace(/["']/g, ""), //Replace double quote from font with WHITESPACE
+        elemColor = rgb2hex(elemStyle.color),
+        elemBackground = rgb2hex(elemStyle.background),
+        elemWidth = parseInt(elemStyle.width,10),
+        elemHeight = parseInt(elemStyle.height,10),
+        elemPositionX = Math.round(htmlElement.left - svgOffset.left),
+        elemPositionY = Math.round(htmlElement.top - svgOffset.top),
+        elemText = mouseEvent.target.innerText;
+
+        
+      var itemModal = $('#buttonModal')[0];
+      
+      itemModal.querySelector('#inputFontSize').value = elemFontsize;
+      itemModal.querySelector('#fontPicker').value = elemFontFamily;
+      itemModal.querySelector('#fontStyleForm').value = elemFontstyle;
+      itemModal.querySelector('#inputTextColor').value = elemColor;
+      itemModal.querySelector('#inputBackgroundColor').value = elemBackground;
+      itemModal.querySelector('#textContent').value = elemText;
+      itemModal.querySelector('#inputWidth').value = elemWidth;
+      itemModal.querySelector('#inputHeight').value = elemHeight;
+      itemModal.querySelector('#inputPositionX').value = elemPositionX;
+      itemModal.querySelector('#inputPositionY').value = elemPositionY;
+
+      
+      
+
+
+      $('.saveChangeButton').on('click',function (event) {
+        
+        document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
+        document.getElementById(elemId).style.fontFamily = itemModal.querySelector('#fontPicker').value;
+        document.getElementById(elemId).style.color = itemModal.querySelector('#inputTextColor').value;
+        document.getElementById(elemId).style.background = itemModal.querySelector('#inputBackgroundColor').value;
+        document.getElementById(elemId).style.fontStyle = itemModal.querySelector('#fontStyleForm').value;
+        document.getElementById(elemId).innerHTML = itemModal.querySelector('#textContent').value;
+        document.getElementById(elemId).style.left = itemModal.querySelector('#inputPositionX').value + 'px';
+        document.getElementById(elemId).style.top = Number(itemModal.querySelector('#inputPositionY').value) + 43 + 'px';
+        document.getElementById(elemId).style.width = itemModal.querySelector('#inputWidth').value + 'px';
+        document.getElementById(elemId).style.height = itemModal.querySelector('#inputHeight').value + 'px';
+
+        if (itemModal.querySelector('#outlineButton').checked){
+          if(itemModal.querySelector('#outlineSelect').value != classOutline)
+            document.getElementById(elemId).classList.add(itemModal.querySelector('#outlineSelect').value);
+        }
+        else{
+          if (classOutline)
+            document.getElementById(elemId).classList.remove(classOutline);
+        }
+      });
+    });
+
+    $('#buttonModal').one('hide.bs.modal',function(hideEvent){
+      $('.saveChangeButton').off('click');
+    });
+
     $('#buttonModal').modal();
   });
   $('#mainPage1').append(btn);
