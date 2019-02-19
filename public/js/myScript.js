@@ -5,7 +5,7 @@
 */
 $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
-
+  
   $('body').keyup(function (e) {
     if (e.keyCode == 27) {
       stopDraw(true);
@@ -49,9 +49,6 @@ function addContextMenu() {
       selectedItemId = e.target.parentNode.id;
     }
 
-
-    //console.log(e.target.parentNode);
-
     var top = e.pageY + 10;
     var left = e.pageX + 10;
     $("#context-menu").css({
@@ -78,28 +75,42 @@ function removeItem() {
     var item = document.getElementById(selectedItemId);
     item.parentNode.removeChild(item);
 
-    for (var elem of shapes)
+    for (var elem of shapes){
       try {
         if (elem.node.id == selectedItemId) {
           shapes.splice(shapes.indexOf(elem), 1);
+          index--;
           break;
         }
       }
       catch{
         if (elem.id == selectedItemId) {
           shapes.splice(shapes.indexOf(elem), 1);
+          index--;
           break;
         }
       }
+    }
+    //console.log(shapes);
+     
   };
 
   selectedItemId = '';
-  console.log(shapes);
-
 
 }
 
+var hexDigits = new Array
+        ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"); 
 
+//Function to convert rgb color to hex format
+function rgb2hex(rgb) {
+ rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+ return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+function hex(x) {
+  return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+ }
 
 
 
@@ -153,8 +164,6 @@ var startDraw = function (shape) {
   draw.on('mouseup', function (event) {
     shapes[index].draw(event);
 
-    console.log(shapes);
-
     //Subscribe mouse over event for each object
     shapes[index].on('mouseover', function (event) {
       event.target.style.opacity = 0.4;
@@ -167,23 +176,35 @@ var startDraw = function (shape) {
 
     //Subscribe double click event to open modal
     shapes[index].on('dblclick', function (mouseEvent) {
-      $(modalId).on('show.bs.modal', function (showEvent) {
-        
+      $(modalId).one('show.bs.modal', function (showEvent) {
+
+        var htmlElement = mouseEvent.target.getBoundingClientRect();
+        var svgOffset = mouseEvent.target.parentNode.getBoundingClientRect();
         var element;
         for (var item of shapes) {
-          if (item.node.id == mouseEvent.target.id) {
-            element = item;
-            break;
+          
+          try{
+            if (item.node.id == mouseEvent.target.id) {
+              element = item;
+              break;
+            }
           }
+          catch{
+            if (item.id == mouseEvent.target.id) {
+              element = item;
+              break;
+            }
+          }
+          
         }
 
         switch (modalId) {
           case '#lineModal': {
             if (element) {
-              var elemX1 = parseInt(element.attr('x1'), 10),
-                elemY1 = parseInt(element.attr('y1'), 10),
-                elemX2 = parseInt(element.attr('x2'), 10),
-                elemY2 = parseInt(element.attr('y2'), 10),
+              var elemX1 = Math.round(htmlElement.left - svgOffset.left),
+                elemY1 = Math.round(htmlElement.top - svgOffset.top),
+                elemX2 = Math.round(htmlElement.right - svgOffset.left),
+                elemY2 = Math.round(htmlElement.bottom - svgOffset.top),
                 elemWidth = element.attr('stroke-width'),
                 elemLinecap = element.attr('stroke-linecap'),
                 elemColor = element.attr('stroke');
@@ -197,23 +218,45 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputStrokeWidth').value = elemWidth;
               itemModal.querySelector('#inputColor').value = elemColor;
               itemModal.querySelector('#inputLinecap').value = elemLinecap;
+
+              $('.saveChangeButton').on('click',function (event) {
+                
+                element.attr({
+                  'stroke-width':itemModal.querySelector('#inputStrokeWidth').value,
+                  'stroke-linecap':itemModal.querySelector('#inputLinecap').value,
+                  'stroke':itemModal.querySelector('#inputColor').value,
+                  'x1':itemModal.querySelector('#inputX1').value,
+                  'y1':itemModal.querySelector('#inputY1').value,
+                  'x2': itemModal.querySelector('#inputX2').value,
+                  'y2':itemModal.querySelector('#inputY2').value,
+                  'transform':'translate(0,0)',
+                });
+
+                //DEBUG code
+
+                 var html = document.getElementById(mouseEvent.target.id);
+
+                draggable = new PlainDraggable(html, { leftTop: true });
+                draggable.autoScroll = true;
+                draggable.containment = document.getElementById('mainPage1');
+                //DEBUG code
+              });
             }
             break;
           }
 
           case '#rectModal': {
             if (element) {
+
               var elemWidth = parseInt(element.attr('width'), 10),
                 elemHeight = parseInt(element.attr('height'), 10),
-                elemPositionX = parseInt(element.attr('x'), 10),
-                elemPositionY = parseInt(element.attr('y'), 10),
+                elemPositionX = Math.round(htmlElement.left - svgOffset.left),
+                elemPositionY = Math.round(htmlElement.top - svgOffset.top),
                 elemLineWidth = element.attr('stroke-width'),
                 elemColor = element.attr('stroke');
 
               var elemIsFilled = false;
               if (element.attr('fill-opacity') != 0) elemIsFilled = true;
-
-              console.log(element.attr());
 
               var itemModal = $(modalId)[0];
 
@@ -228,6 +271,26 @@ var startDraw = function (shape) {
                 itemModal.querySelector('#fillRectCheckbox').checked = true;
                 itemModal.querySelector('#inputFillRectColor').value = element.attr('fill');
               }
+
+             $('.saveChangeButton').on('click',function (event) {
+                
+                element.attr({
+                  'stroke-width':itemModal.querySelector('#inputShapeLineWidth').value,
+                  'stroke':itemModal.querySelector('#inputLineColor').value,
+                  'width':itemModal.querySelector('#inputWidth').value,
+                  'height':itemModal.querySelector('#inputHeight').value,
+                  'x':itemModal.querySelector('#inputPositionX').value,
+                  'y':itemModal.querySelector('#inputPositionY').value,
+                  'transform':'translate(0 0)',
+                  'fill-opacity':Number(itemModal.querySelector('#fillRectCheckbox').checked),
+                  'fill':itemModal.querySelector('#inputFillRectColor').value,
+                });
+
+                var rect = document.getElementById(mouseEvent.target.id);
+                draggable = new PlainDraggable(rect, { leftTop: true });
+                draggable.autoScroll = true;
+                draggable.containment = document.getElementById('mainPage1');
+              });
             }
             break;
           }
@@ -236,8 +299,8 @@ var startDraw = function (shape) {
             if (element) {
               var elemWidth = parseInt(element.attr('width'), 10),
                 elemHeight = parseInt(element.attr('height'), 10),
-                elemPositionX = parseInt(element.attr('x'), 10),
-                elemPositionY = parseInt(element.attr('y'), 10),
+                elemPositionX = Math.round(htmlElement.left - svgOffset.left),
+                elemPositionY = Math.round(htmlElement.top - svgOffset.top),
                 elemRadiusX = parseInt(element.attr('rx'), 10),
                 elemRadiusY = parseInt(element.attr('ry'), 10),
                 elemLineWidth = element.attr('stroke-width'),
@@ -262,15 +325,35 @@ var startDraw = function (shape) {
                 itemModal.querySelector('#fillRoundRectCheckbox').checked = true;
                 itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
               }
+              $('.saveChangeButton').on('click',function (event) {
+                
+                element.attr({
+                  'stroke-width':itemModal.querySelector('#inputShapeLineWidth').value,
+                  'stroke':itemModal.querySelector('#inputShapeColor').value,
+                  'width':itemModal.querySelector('#inputWidth').value,
+                  'height':itemModal.querySelector('#inputHeight').value,
+                  'x':itemModal.querySelector('#inputPositionX').value,
+                  'y':itemModal.querySelector('#inputPositionY').value,
+                  'rx': itemModal.querySelector('#inputRadiusX').value,
+                  'ry': itemModal.querySelector('#inputRadiusY').value,
+                  'transform':'translate(0 0)',
+                  'fill-opacity':Number(itemModal.querySelector('#fillRoundRectCheckbox').checked),
+                  'fill':itemModal.querySelector('#inputFillShapeColor').value,
+                });
 
+                var rect = document.getElementById(mouseEvent.target.id);
+                draggable = new PlainDraggable(rect, { leftTop: true });
+                draggable.autoScroll = true;
+                draggable.containment = document.getElementById('mainPage1');
+              });
             }
             break;
           }
 
           case '#circleModal': {
             if (element) {
-              var elemCx = parseInt(element.attr('cx'), 10),
-                elemCy = parseInt(element.attr('cy'), 10),
+              var elemCx = Math.round(htmlElement.left - svgOffset.left + (htmlElement.right - htmlElement.left) / 2),
+                elemCy = Math.round(htmlElement.top - svgOffset.top + (htmlElement.bottom - htmlElement.top) / 2),
                 elemRadius = parseInt(element.attr('r'), 10),
                 elemLineWidth = parseInt(element.attr('stroke-width'), 10),
                 elemColor = element.attr('stroke');
@@ -291,14 +374,33 @@ var startDraw = function (shape) {
                 itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
               }
 
+
+              $('.saveChangeButton').on('click',function (event) {
+                
+                element.attr({
+                  'r':itemModal.querySelector('#inputRadius').value,
+                  'stroke-width':itemModal.querySelector('#inputShapeLineWidth').value,
+                  'stroke':itemModal.querySelector('#inputShapeColor').value,
+                  'cx':itemModal.querySelector('#inputPositionX').value,
+                  'cy':itemModal.querySelector('#inputPositionY').value,
+                  'transform':'translate(0 0)',
+                  'fill-opacity':Number(itemModal.querySelector('#fillCircleCheckbox').checked),
+                  'fill':itemModal.querySelector('#inputFillShapeColor').value,
+                });
+
+                var rect = document.getElementById(mouseEvent.target.id);
+                draggable = new PlainDraggable(rect, { leftTop: true });
+                draggable.autoScroll = true;
+                draggable.containment = document.getElementById('mainPage1');
+              });
             }
             break;
           }
 
           case '#ellipseModal': {
             if (element) {
-              var elemCx = parseInt(element.attr('cx'), 10),
-                elemCy = parseInt(element.attr('cy'), 10),
+              var elemCx = Math.round(htmlElement.left - svgOffset.left + (htmlElement.right - htmlElement.left) / 2),
+                elemCy = Math.round(htmlElement.top - svgOffset.top + (htmlElement.bottom - htmlElement.top) / 2),
                 elemRadiusX = parseInt(element.attr('rx'), 10),
                 elemRadiusY = parseInt(element.attr('ry'), 10),
                 elemLineWidth = parseInt(element.attr('stroke-width'), 10),
@@ -321,41 +423,51 @@ var startDraw = function (shape) {
                 itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
               }
 
+              $('.saveChangeButton').on('click',function (event) {
+                
+                element.attr({
+                  'stroke-width':itemModal.querySelector('#inputShapeLineWidth').value,
+                  'stroke':itemModal.querySelector('#inputShapeColor').value,
+                  'cx':itemModal.querySelector('#inputPositionX').value,
+                  'cy':itemModal.querySelector('#inputPositionY').value,
+                  'transform':'translate(0 0)',
+                  'rx':itemModal.querySelector('#inputRadiusX').value,
+                  'ry': itemModal.querySelector('#inputRadiusY').value,
+                  'fill-opacity':Number(itemModal.querySelector('#fillEllipseCheckbox').checked),
+                  'fill':itemModal.querySelector('#inputFillShapeColor').value,
+                });
+
+                var rect = document.getElementById(mouseEvent.target.id);
+                draggable = new PlainDraggable(rect, { leftTop: true });
+                draggable.autoScroll = true;
+                draggable.containment = document.getElementById('mainPage1');
+              });
             }
             break;
           }
         }
-
-
       });
+
+      $(modalId).one('hide.bs.modal',function(hideEvent){
+        $('.saveChangeButton').off('click');
+      });
+
       $(modalId).modal();
     });
 
     //Add draggable feature
     var element = document.getElementById(shapes[index].node.id);
-    
+
     draggable = new PlainDraggable(element, { leftTop: true });
     draggable.autoScroll = true;
     draggable.containment = document.getElementById('mainPage1');
-
-    draggable.onMove = function (newPosition) {
-      // console.log('left: %d top: %d width: %d height: %d it is scrolling: %s',
-      //   // determined position that was changed by snap and onDrag
-      //   newPosition.left, newPosition.top,
-      //   this.rect.width, this.rect.height,
-      //   newPosition.autoScroll);
-      //   console.log(element.style);
-      this.element.style.top = newPosition.top;
-      this.element.style.left = newPosition.left;
-      console.log(this.element.parentNode.style.left);
-      
-    };
 
 
     //Add contextMenu class
     $(element).addClass('contextMenu');
 
     //Increase index to append the array
+    //console.log(shapes);
     index++;
   }, false);
 }
@@ -389,7 +501,6 @@ var drawPolygon = function () {
         for (var item of shapes) {
           if (item.node.id == mouseEvent.target.id) {
             element = item;
-            console.log(element.attr());
             break;
           }
         }
@@ -434,7 +545,6 @@ var drawPolygon = function () {
 
   //Subscribe drawstop event: This event fires when <object>.draw('done') executes 
   shapes[index].on('drawstop', function () {
-    console.log(shapes);
     //Remove enter key event
     document.removeEventListener('keydown', keyEnterDownHandler);
   });
@@ -470,7 +580,6 @@ var drawPolyline = function () {
         for (var item of shapes) {
           if (item.node.id == mouseEvent.target.id) {
             element = item;
-            console.log(element.attr());
             break;
           }
         }
@@ -509,7 +618,6 @@ var drawPolyline = function () {
 
   //Subscribe drawstop event: This event fires when <object>.draw('done') executes 
   shapes[index].on('drawstop', function () {
-    console.log(shapes);
     //Remove enter key event
     document.removeEventListener('keydown', keyEnterDownHandler);
   });
@@ -606,7 +714,6 @@ var stopDraw = function (addContext) {
 
 //Keydown ENTER event handler: To stop drawing polygon
 function keyEnterDownHandler(e) {
-  console.log('Enter');
   if (e.keyCode == 13) {
     shapes[index].draw('done');
     shapes[index].off('drawstart');
@@ -639,36 +746,58 @@ function imageMouseDownEventHandler(event) {
   img.style.left = left;
   img.style.border = '2px solid black';
 
+  shapes[index] = img;
   //Image mouse events
-  $(img).on('mouseover', function (event) {
+  $(shapes[index]).on('mouseover', function (event) {
     event.target.style.opacity = 0.4;
     //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
-  $(img).on('mouseout', function (event) {
+  $(shapes[index]).on('mouseout', function (event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(img).on('dblclick', function (mouseEvent) {
-    $('#imageModal').on('show.bs.modal', function (showEvent) {
-      var elemStyle = mouseEvent.target.style;
+  $(shapes[index]).on('dblclick', function (mouseEvent) {
+    $('#imageModal').one('show.bs.modal', function (showEvent) {
+
+      var elem = document.getElementById(mouseEvent.target.id);
+      
+      var elemStyle = elem.style;
+
       var elemWidth = parseInt(elemStyle.width, 10),
         elemHeight = parseInt(elemStyle.height, 10),
         elemPositionX = parseInt(elemStyle.left, 10),
         elemPositionY = parseInt(elemStyle.top, 10);
 
+      //console.log('Target ' + mouseEvent.target.id);
+      
       var imageModal = document.getElementById('imageModal');
       imageModal.querySelector('#inputWidth').value = elemWidth;
       imageModal.querySelector('#inputHeight').value = elemHeight;
       imageModal.querySelector('#inputPositionX').value = elemPositionX;
       imageModal.querySelector('#inputPositionY').value = elemPositionY;
+
+      //Button save 
+      $('#imageSaveButton').on('click',function (event) {
+        console.log(event);
+        elemStyle.width = imageModal.querySelector('#inputWidth').value + 'px';
+        elemStyle.height = imageModal.querySelector('#inputHeight').value + 'px';
+        elemStyle.left =  imageModal.querySelector('#inputPositionX').value + 'px';
+        elemStyle.top = imageModal.querySelector('#inputPositionY').value + 'px';
+        
+      });
     });
+
+    $('#imageModal').one('hide.bs.modal',function(hideEvent){
+      $('#imageSaveButton').off('click');
+    });
+
     $('#imageModal').modal();
   });
 
 
-  $('#mainPage1').append(img);
-  shapes[index] = img;
+  $('#mainPage1').append(shapes[index]);
+  //shapes[index] = img;
   index++;
 
   //Add draggable feature
@@ -719,20 +848,35 @@ function textMouseDownEventHandler(event) {
   $(para).on('dblclick', function (mouseEvent) {
     $('#textModal').on('show.bs.modal', function (showEvent) {
       var elemStyle = mouseEvent.target.style;
+      var elemId = mouseEvent.target.id;
       var elemFontsize = parseInt(elemStyle.fontSize, 10).toString(),
         elemFontstyle = elemStyle.fontStyle,
         elemFontFamily = elemStyle.fontFamily,
-        elemColor = elemStyle.color,
+        elemColor = rgb2hex(elemStyle.color),
         elemText = mouseEvent.target.innerText;
 
       var itemModal = $('#textModal')[0];
 
-      itemModal.querySelector('#inputFontSize').value = '30';
+      itemModal.querySelector('#inputFontSize').value = elemFontsize;
       itemModal.querySelector('#fontPicker').value = elemFontFamily;
       itemModal.querySelector('#fontStyleForm').value = elemFontstyle;
       itemModal.querySelector('#inputTextColor').value = elemColor;
       itemModal.querySelector('#textContent').innerText = elemText;
 
+      $('#textSaveButton').on('click',function (event) {
+        
+        document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
+        document.getElementById(elemId).style.fontFamily = itemModal.querySelector('#fontPicker').value;
+        document.getElementById(elemId).style.color = itemModal.querySelector('#inputTextColor').value;
+        document.getElementById(elemId).style.fontStyle = itemModal.querySelector('#fontStyleForm').value;
+        
+        document.getElementById(elemId).innerHTML = itemModal.querySelector('#textContent').value;
+
+        // elemStyle.fontFamily = itemModal.querySelector('#fontPicker').value;
+        // elemStyle.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
+        // elemStyle.color = itemModal.querySelector('#inputTextColor').value;
+        // mouseEvent.target.innerText = itemModal.querySelector('#textContent').innerText;
+      });
 
 
 
@@ -750,7 +894,7 @@ function textMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  //console.log(shapes);
+ 
 }
 
 //Display Value mouse down event handler: To create new DisplayValue
@@ -798,7 +942,7 @@ function displayValueMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  //console.log(shapes);
+  
 }
 
 //Button mouse down event handler: To create new button
@@ -845,7 +989,7 @@ function buttonMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  // console.log(shapes);
+ 
 }
 
 //Switch mouse down event handler: To create new switch
@@ -901,7 +1045,7 @@ function switchMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  //console.log(shapes);
+ 
 }
 
 //Input mouse down event handler: To create new input
@@ -949,7 +1093,7 @@ function inputMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  //console.log(shapes);
+ 
 }
 
 //Checkbox mouse down event handler: To create new Checkbox
@@ -1008,7 +1152,7 @@ function checkboxMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  //console.log(shapes);
+  
 }
 
 //Slider mouse down event handler: To create new Checkbox
@@ -1055,7 +1199,6 @@ function sliderMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  //console.log(shapes);
 }
 
 //Process bar mouse down event handler: To create new Checkbox
@@ -1111,7 +1254,7 @@ function processbarMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  //console.log(shapes);
+ 
 }
 
 //Symbol Set mouse down event handler: To create new image
@@ -1160,7 +1303,7 @@ function symbolsetMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  //console.log(shapes);
+
 }
 
 
