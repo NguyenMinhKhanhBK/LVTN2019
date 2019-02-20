@@ -11,6 +11,13 @@ $(document).ready(function () {
       stopDraw(true);
     }
   });
+
+  $('.table-body tr').click(function () {
+    $(this).children('td').children('div').children('input').prop('checked',true);
+     $('.table-body tr').removeClass('row-selected');
+     $(this).toggleClass('row-selected');
+  });
+
 });
 
 /*
@@ -219,7 +226,6 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputLinecap').value = elemLinecap;
 
               $('.saveChangeButton').on('click', function (event) {
-
                 element.attr({
                   'stroke-width': itemModal.querySelector('#inputStrokeWidth').value,
                   'stroke-linecap': itemModal.querySelector('#inputLinecap').value,
@@ -236,6 +242,15 @@ var startDraw = function (shape) {
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
               });
+
+              $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
+                $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+                  if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+                    itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+                   }
+                });
+              });
+
             }
             break;
           }
@@ -263,7 +278,6 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputFillRectColor').value = element.attr('fill');
 
               $('.saveChangeButton').on('click', function (event) {
-
                 element.attr({
                   'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
                   'stroke': itemModal.querySelector('#inputLineColor').value,
@@ -281,6 +295,15 @@ var startDraw = function (shape) {
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
               });
+
+              $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
+                $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+                  if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+                    itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+                   }
+                });
+              });
+
             }
             break;
           }
@@ -310,7 +333,6 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
               
               $('.saveChangeButton').on('click', function (event) {
-
                 element.attr({
                   'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
                   'stroke': itemModal.querySelector('#inputShapeColor').value,
@@ -329,6 +351,14 @@ var startDraw = function (shape) {
                 draggable = new PlainDraggable(rect, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
+              });
+
+              $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
+                $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+                  if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+                    itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+                   }
+                });
               });
             }
             break;
@@ -356,7 +386,6 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
 
               $('.saveChangeButton').on('click', function (event) {
-
                 element.attr({
                   'r': itemModal.querySelector('#inputRadius').value,
                   'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
@@ -372,6 +401,14 @@ var startDraw = function (shape) {
                 draggable = new PlainDraggable(rect, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
+              });
+
+              $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
+                $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+                  if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+                    itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+                   }
+                });
               });
             }
             break;
@@ -402,7 +439,6 @@ var startDraw = function (shape) {
               
 
               $('.saveChangeButton').on('click', function (event) {
-
                 element.attr({
                   'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
                   'stroke': itemModal.querySelector('#inputShapeColor').value,
@@ -420,6 +456,14 @@ var startDraw = function (shape) {
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
               });
+
+              $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
+                $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+                  if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+                    itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+                   }
+                });
+              });
             }
             break;
           }
@@ -428,6 +472,7 @@ var startDraw = function (shape) {
 
       $(modalId).one('hide.bs.modal', function (hideEvent) {
         $('.saveChangeButton').off('click');
+        $('.btnHiddenWhen').off('click');
       });
 
       $(modalId).modal();
@@ -497,12 +542,19 @@ var drawPolygon = function () {
           itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
 
           $('.saveChangeButton').on('click', function (event) {
-
             element.attr({
               'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
               'stroke': itemModal.querySelector('#inputShapeColor').value,
               'fill-opacity': Number(itemModal.querySelector('#fillPolygonCheckbox').checked),
               'fill': itemModal.querySelector('#inputFillShapeColor').value,
+            });
+          });
+
+          $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
+            $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+              if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+                itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+               }
             });
           });
         }
@@ -511,6 +563,7 @@ var drawPolygon = function () {
 
       $('#polygonModal').one('hide.bs.modal', function (hideEvent) {
         $('.saveChangeButton').off('click');
+        $('.btnHiddenWhen').off('click');
       });
 
       $('#polygonModal').modal();
@@ -586,12 +639,21 @@ var drawPolyline = function () {
               'stroke': itemModal.querySelector('#inputColor').value,
             });
           });
+
+          $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
+            $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+              if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+                itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+               }
+            });
+          });
         }
       });
 
 
       $('#polylineModal').one('hide.bs.modal', function (hideEvent) {
         $('.saveChangeButton').off('click');
+        $('.btnHiddenWhen').off('click');
       });
 
       $('#polylineModal').modal();
@@ -783,10 +845,20 @@ function imageMouseDownEventHandler(event) {
         draggable.containment = document.getElementById('mainPage1');
 
       });
+
+      $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            imageModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
     });
 
     $('#imageModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
+      $('.btnHiddenWhen').off('click');
     });
 
     $('#imageModal').modal();
@@ -865,18 +937,26 @@ function textMouseDownEventHandler(event) {
 
 
       $('.saveChangeButton').on('click', function (event) {
-
         document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
         document.getElementById(elemId).style.fontFamily = itemModal.querySelector('#fontPicker').value;
         document.getElementById(elemId).style.color = itemModal.querySelector('#inputTextColor').value;
         document.getElementById(elemId).style.fontStyle = itemModal.querySelector('#fontStyleForm').value;
-
         document.getElementById(elemId).innerHTML = itemModal.querySelector('#textContent').value;
       });
+
+      $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
     });
 
     $('#textModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
+      $('.btnHiddenWhen').off('click');
     });
 
     $('#textModal').modal();
@@ -947,7 +1027,6 @@ function displayValueMouseDownEventHandler(event) {
 
 
       $('.saveChangeButton').on('click', function (event) {
-
         document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
         document.getElementById(elemId).style.fontFamily = itemModal.querySelector('#fontPicker').value;
         document.getElementById(elemId).style.color = itemModal.querySelector('#inputTextColor').value;
@@ -955,10 +1034,29 @@ function displayValueMouseDownEventHandler(event) {
 
         document.getElementById(elemId).innerHTML = itemModal.querySelector('#textContent').value;
       });
+
+      $('.btnTag').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
     });
 
     $('#displayValueModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
+      $('.btnTag').off('click');
+      $('.btnHiddenWhen').off('click');
     });
 
     $('#displayValueModal').modal();
@@ -1051,7 +1149,6 @@ function buttonMouseDownEventHandler(event) {
 
 
       $('.saveChangeButton').on('click', function (event) {
-
         document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
         document.getElementById(elemId).style.fontFamily = itemModal.querySelector('#fontPicker').value;
         document.getElementById(elemId).style.color = itemModal.querySelector('#inputTextColor').value;
@@ -1067,10 +1164,29 @@ function buttonMouseDownEventHandler(event) {
         draggable.autoScroll = true;
         draggable.containment = document.getElementById('mainPage1');
       });
+
+      $('.btnCommand').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputCommand').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnDisableWhen').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputDisableWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
     });
 
     $('#buttonModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
+      $('.btnCommand').off('click');
+      $('.btnDisableWhen').off('click');
     });
 
     $('#buttonModal').modal();
@@ -1129,25 +1245,42 @@ function switchMouseDownEventHandler(event) {
   //Subscribe mouse double click event
   $(sw).on('dblclick', function (mouseEvent) {
     $('#switchModal').one('show.bs.modal', function (showEvent) {
-
-
       var itemModal = $('#switchModal')[0];
 
-      //itemModal.querySelector('#inputFontSize').value = elemFontsize;
-
-
-
-
-
-
       $('.saveChangeButton').on('click', function (event) {
-
-
       });
+
+      $('.btnOnCommand').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputOnCammand').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnOffCommand').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputOffCammand').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnDisableWhen').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputDisableWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
     });
 
     $('#switchModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
+      $('.btnOnCommand').off('click');
+      $('.btnOffCommand').off('click');
+      $('.btnDisableWhen').off('click');
     });
 
     $('#switchModal').modal();
@@ -1215,10 +1348,29 @@ function inputMouseDownEventHandler(event) {
         document.getElementById(elemId).style.width = itemModal.querySelector('.inputWidth').value + 'px';
         document.getElementById(elemId).style.height = itemModal.querySelector('.inputHeight').value + 'px';
       });
+
+      $('.btnTag').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnDisableWhen').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputDisableWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
     });
 
     $('#inputModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
+      $('.btnTag').off('click');
+      $('.btnDisableWhen').off('click');
     });
 
     $('#inputModal').modal();
@@ -1288,10 +1440,38 @@ function checkboxMouseDownEventHandler(event) {
       $('.saveChangeButton').on('click', function (event) {
         mouseEvent.target.innerHTML = itemModal.querySelector('.textContent').value;
       });
+
+      $('.btnChecked').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputChecked').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnUnchecked').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputUnchecked').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnDisableWhen').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputDisableWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
     });
 
     $('#checkboxModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
+      $('.btnChecked').off('click');
+      $('.btnUnchecked').off('click');
+      $('.btnDisableWhen').off('click');
     });
 
     $('#checkboxModal').modal();
@@ -1355,10 +1535,48 @@ function sliderMouseDownEventHandler(event) {
       $('.saveChangeButton').on('click', function (event) {
         elemStyle.width = itemModal.querySelector('.inputWidth').value + 'px';
       });
+
+      //Browse button
+      $('.btnValue').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputValue').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnMinTag').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputMinTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnMaxTag').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputMaxTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnDisableWhen').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputDisableWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
     });
 
     $('#sliderModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
+      $('.btnValue').off('click');
+      $('.btnMinTag').off('click');
+      $('.btnMaxTag').off('click');
+      $('.btnDisableWhen').off('click');
     });
 
     $('#sliderModal').modal();
@@ -1444,12 +1662,49 @@ function processbarMouseDownEventHandler(event) {
           selectedItem.parentNode.style.width = itemModal.querySelector('.inputWidth').value + 'px';
           selectedItem.parentNode.style.height = itemModal.querySelector('.inputHeight').value + 'px';
         }
-
       });
+
+      //Button Value browse tag
+      $('.btnValueTag').on('click',function (valueEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputValueTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnMinTag').on('click',function (valueEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputMinTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+      
+      $('.btnMaxTag').on('click',function (valueEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputMaxTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      $('.btnHiddenWhen').on('click',function (valueEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+      
     });
 
     $('#progressBarModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
+      $('.btnValueTag').off('click');
+      $('.btnMinTag').off('click');
+      $('.btnMaxTag').off('click');
+      $('.btnHiddenWhen').off('click');
     });
 
     $('#progressBarModal').modal();
@@ -1527,12 +1782,32 @@ function symbolsetMouseDownEventHandler(event) {
         draggable = new PlainDraggable(mouseEvent.target, { leftTop: true });
         draggable.autoScroll = true;
         draggable.containment = document.getElementById('mainPage1');
-
       });
+
+      //Browse Tag button
+      $('#btnOnCondition').on('click',function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputOnCondition').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
+      //Browse Tag button
+      $('.btnHiddenWhen').on('click',function (onHiddenWhenClickEvent) {
+        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
+          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
+            itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+           }
+        });
+      });
+
     });
 
     $('#symbolSetModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
+      $('#btnOnCondition').off('click');
+      $('.btnHiddenWhen').off('click');
     });
 
     $('#symbolSetModal').modal();

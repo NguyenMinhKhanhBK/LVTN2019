@@ -132,7 +132,8 @@
                         <img src="../public/img/toolboxIcon/polygon.png" class="img-icon" alt="Polygon">
                       </button>
 
-                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Textblock" onclick="addNewText()">
+                      <button type="button" class="btn button-icon" data-toggle="tooltip" title="Textblock"
+                        onclick="addNewText()">
                         <img src="../public/img/toolboxIcon/textblock.png" class="img-icon" alt="Textblock">
                       </button>
 
@@ -340,7 +341,7 @@
                   <div class="col-sm-7">
                     <select class="form-control ml-auto" id="inputLinecap">
                       <option value="butt" selected>Butt</option>
-                      <option value="round" >Round</option>
+                      <option value="round">Round</option>
                       <option value="square">Square</option>
                     </select>
                   </div>
@@ -395,17 +396,21 @@
               <!-- Stroke -->
               <div class="col-sm">
                 <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                  <div class="col-sm ml-4 pl-4">
-                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
-                  </div>
+                  <label for="inputHidden" class="col-sm-2 mr-4 col-form-label">Hidden when</label>
+                  <div class="input-group  col-sm">
+                      <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                      <div class="input-group-append">
+                        <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                          data-backdrop="static">Browse tag</button>
+                      </div>
+                    </div>
                 </div>
               </div>
           </fieldset>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary saveChangeButton" >Save changes</button>
+          <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
 
         </div>
       </div>
@@ -450,7 +455,7 @@
                     <label class="custom-control-label ml-3" for="fillRectCheckbox">Fill</label>
                   </div>
                   <div class="col-sm-7 ml-auto">
-                    <input type="color" class="form-control " id="inputFillRectColor"> 
+                    <input type="color" class="form-control " id="inputFillRectColor">
                   </div>
                 </div>
 
@@ -493,22 +498,26 @@
           </fieldset>
 
           <!--Animation-->
-          <fieldset class="form-group border px-4 pb-2 pt-1">
-            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+          <fieldset class="form-group border px-2 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0 px-4"><strong>Animation</strong></legend>
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
-                </div>
+                <label for="inputHidden" class="col-sm-2 mr-4 col-form-label">Hidden when</label>
+                <div class="input-group  col-sm">
+                    <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
           </fieldset>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary saveChangeButton" >Save changes</button>
+          <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
 
         </div>
       </div>
@@ -592,7 +601,7 @@
                   </div>
                 </div>
 
-                
+
 
                 <div class="form-group row my-2">
                   <label for="inputRadiusX" class="col-sm-5 col-form-label">Radius X</label>
@@ -614,15 +623,19 @@
           </fieldset>
 
           <!--Animation-->
-          <fieldset class="form-group border px-4 pb-2 pt-1">
-            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+          <fieldset class="form-group border px-2 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0 px-4"><strong>Animation</strong></legend>
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
-                </div>
+                <label for="inputHidden" class="col-sm-2 mr-4 col-form-label">Hidden when</label>
+                <div class="input-group  col-sm">
+                    <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
           </fieldset>
@@ -715,10 +728,14 @@
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
-                </div>
+                <label for="inputHidden" class="col-sm-2 mr-4 col-form-label">Hidden when</label>
+                <div class="input-group  col-sm">
+                    <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
           </fieldset>
@@ -818,10 +835,14 @@
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
-                </div>
+                <label for="inputHidden" class="col-sm-3  col-form-label">Hidden when</label>
+                <div class="input-group  col-sm">
+                    <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
           </fieldset>
@@ -869,8 +890,8 @@
 
               </div>
 
-              
-              
+
+
             </div>
           </fieldset>
 
@@ -882,17 +903,21 @@
               <div class="col-sm">
                 <div class="form-group row my-2">
                   <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                  <div class="col-sm">
-                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
-                  </div>
+                  <div class="input-group  col-sm">
+                      <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                      <div class="input-group-append">
+                        <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                          data-backdrop="static">Browse tag</button>
+                      </div>
+                    </div>
                 </div>
               </div>
           </fieldset>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary saveChangeButton" >Save changes</button>
- 
+          <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
+
         </div>
       </div>
     </div>
@@ -945,22 +970,26 @@
           </fieldset>
 
           <!--Animation-->
-          <fieldset class="form-group border px-4 pb-2 pt-1">
-            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+          <fieldset class="form-group border px-2 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0 mx-2 px-3"><strong>Animation</strong></legend>
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
                 <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
-                </div>
+                <div class="input-group  col-sm">
+                    <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
           </fieldset>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary saveChangeButton" >Save changes</button>
+          <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
 
         </div>
       </div>
@@ -992,7 +1021,7 @@
               <div class="col-sm">
                 <label class="col-form-label">Fontsize</label>
                 <form action="">
-                    <input type="number" class="form-control ml-auto" id="inputFontSize" value="12">
+                  <input type="number" class="form-control ml-auto" id="inputFontSize" value="12">
                 </form>
               </div>
 
@@ -1026,17 +1055,21 @@
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
-                </div>
+                <label for="inputHidden" class="col-sm-3  col-form-label">Hidden when</label>
+                <div class="input-group  col-sm">
+                    <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
           </fieldset>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary saveChangeButton" >Save changes</button>
+          <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
 
         </div>
       </div>
@@ -1055,7 +1088,7 @@
         </div>
         <div class="modal-body">
           <!-- Modal body goes here-->
-          <fieldset class="form-group border px-4 pb-2 pt-1">
+          <fieldset class="form-group border px-2 pb-2 pt-1">
             <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
             <div class="row">
               <div class="custom-file">
@@ -1101,15 +1134,19 @@
           </fieldset>
 
           <!--Animation-->
-          <fieldset class="form-group border px-4 pb-2 pt-1">
+          <fieldset class="form-group border px-2 pb-2 pt-1">
             <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputImageHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputImageHidden" placeholder="Expression">
-                </div>
+                <label for="inputImageHidden" class="col-sm-2 col-form-label">Hidden when</label>
+                <div class="input-group ml-4 pl-4 col-sm">
+                    <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
           </fieldset>
@@ -1135,9 +1172,9 @@
         </div>
         <div class="modal-body">
           <!-- Modal body goes here-->
-          <fieldset class="form-group border px-4 pb-2 pt-1">
+          <fieldset class="form-group border px-2 pb-2 pt-1">
             <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
-            <div class='row'>
+            <div class='row px-3'>
               <div class="col-sm">
                 <label class="col-form-label">Font</label>
                 <form action="">
@@ -1148,7 +1185,7 @@
               <div class="col-sm">
                 <label class="col-form-label">Fontsize</label>
                 <form action="">
-                    <input type="number" class="form-control ml-auto" id="inputFontSize" value="12">
+                  <input type="number" class="form-control ml-auto" id="inputFontSize" value="12">
                 </form>
               </div>
 
@@ -1161,7 +1198,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row px-3">
               <div class="col-sm-4">
                 <label class="col-form-label">Color</label>
                 <form action="">
@@ -1176,21 +1213,25 @@
             </div>
           </fieldset>
 
-          <fieldset class="form-group border px-4 pb-2 pt-1">
+          <fieldset class="form-group border px-2 pb-2 pt-1">
             <legend class="col-form-label col-sm-2 pr-1"><strong>Display value</strong></legend>
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Tag</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                <label for="inputInsertTag" class="col-sm-2 col-form-label">Tag</label>
+                <div class="input-group ml-4 pl-4 col-sm">
+                  <input type="text" class="form-control inputTag"  placeholder="Insert tag">
+                  <div class="input-group-append">
+                    <button class="btn btn-success btnTag" data-toggle="modal" data-target="#tagModal"
+                      data-backdrop="static">Browse tag</button>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Format</label>
+                <label for="inputHidden" class="col-sm-2 col-form-label">Format</label>
                 <div class="col-sm ml-4 pl-4">
                   <select class="custom-select" id="fontStyleForm">
                     <option>####</option>
@@ -1205,14 +1246,18 @@
           </fieldset>
 
           <!--Animation-->
-          <fieldset class="form-group border px-4 pb-2 pt-1">
+          <fieldset class="form-group border px-2 pb-2 pt-1">
             <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                <label for="inputHidden" class="col-sm-2 col-form-label">Hidden when</label>
+                <div class="input-group ml-4 pl-4 col-sm">
+                  <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                  <div class="input-group-append">
+                    <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                      data-backdrop="static">Browse tag</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1220,7 +1265,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary saveChangeButton" >Save changes</button>
+          <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
 
         </div>
       </div>
@@ -1239,20 +1284,20 @@
         </div>
         <div class="modal-body">
           <!-- Modal body goes here-->
-          <fieldset class="form-group border px-4 pb-2 pt-1">
+          <fieldset class="form-group border px-2 pb-2 pt-1">
             <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
-            <div class='row'>
+            <div class='row px-3'>
               <div class="col-sm">
                 <label class="col-form-label">Font</label>
                 <form action="">
-                  <select class="form-control bfh-fonts"  id="fontPicker"></select>
+                  <select class="form-control bfh-fonts" id="fontPicker"></select>
                 </form>
               </div>
 
               <div class="col-sm">
                 <label class="col-form-label">Fontsize</label>
                 <form action="">
-                    <input type="number" class="form-control ml-auto" id="inputFontSize" value="16">
+                  <input type="number" class="form-control ml-auto" id="inputFontSize" value="16">
                 </form>
               </div>
 
@@ -1265,7 +1310,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row px-3">
               <div class="col-sm-4">
                 <label class="col-form-label">Foreground</label>
                 <form action="">
@@ -1286,8 +1331,8 @@
               </div>
             </div>
 
-           
-            <div class="row">
+
+            <div class="row px-3">
               <div class="col-sm">
                 <div class="form-group row my-2">
                   <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
@@ -1320,35 +1365,43 @@
                   </div>
                 </div>
 
-                
+
               </div>
 
             </div>
           </fieldset>
 
-          <fieldset class="form-group border px-4 pb-2 pt-1">
+          <fieldset class="form-group border px-2 pb-2 pt-1">
             <legend class="col-form-label col-sm-2 pr-1"><strong>Command</strong></legend>
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Expression</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                </div>
+                <label for="inputHidden" class="col-sm-2 col-form-label">Expression</label>
+                <div class="input-group ml-4 pl-4 col-sm">
+                    <input type="text" class="form-control inputCommand"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnCommand" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
           </fieldset>
 
           <!--Animation-->
-          <fieldset class="form-group border px-4 pb-2 pt-1">
+          <fieldset class="form-group border px-2 pb-2 pt-1">
             <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
-                </div>
+                <label for="inputHidden" class="col-sm-2 col-form-label">Disable when</label>
+                <div class="input-group ml-4 pl-4 col-sm">
+                    <input type="text" class="form-control inputDisableWhen" placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnDisableWhen" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
           </fieldset>
@@ -1374,38 +1427,50 @@
         <div class="modal-body">
           <!-- Modal body goes here-->
 
-          <fieldset class="form-group border px-4 pb-2 pt-1">
+          <fieldset class="form-group border px-3 pb-2 pt-1">
             <legend class="col-form-label col-sm-2 pr-1"><strong>Command</strong></legend>
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
                 <label for="switchOnCommand" class="col-sm-3 col-form-label">ON command</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="switchOnCommand" placeholder="Insert tag">
-                </div>
+                <div class="input-group ml-4 pl-4 col-sm">
+                    <input type="text" class="form-control inputOnCammand"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnOnCommand" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
 
             <div class="col-sm">
               <div class="form-group row my-2">
                 <label for="switchOffCommand" class="col-sm-3 col-form-label">OFF command</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="switchOffCommand" placeholder="Insert tag">
-                </div>
+                <div class="input-group ml-4 pl-4 col-sm">
+                    <input type="text" class="form-control inputOffCammand"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnOffCommand" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
           </fieldset>
 
           <!--Animation-->
-          <fieldset class="form-group border px-4 pb-2 pt-1">
+          <fieldset class="form-group border px-3 pb-2 pt-1">
             <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label  class="col-sm-3 col-form-label">Disable when</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto disableWhen"  placeholder="Expression">
-                </div>
+                <label class="col-sm-3 col-form-label">Disable when</label>
+                <div class="input-group ml-4 pl-4 col-sm">
+                    <input type="text" class="form-control inputDisableWhen"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnDisableWhen" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
               </div>
             </div>
           </fieldset>
@@ -1420,483 +1485,595 @@
 
   <!--Input modal-->
   <div class="modal fade" tabindex="-1" role="dialog" id="inputModal" data-backdrop="static">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Properties</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!-- Modal body goes here-->
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
-              <div class='row'>
-                <div class="col-sm">
-                  <div class="form-group row my-2">
-                    <label for="inputImageWidth" class="col-sm-3 col-form-label">Width</label>
-                    <div class="col-sm">
-                      <input type="number" class="form-control ml-auto inputWidth" value="1">
-                    </div>
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class='row'>
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputImageWidth" class="col-sm-2 mr-4  col-form-label">Width</label>
+                  <div class="col-sm">
+                    <input type="number" class="form-control ml-auto inputWidth" value="1">
                   </div>
-  
-  
-                  <div class="form-group row my-2">
-                    <label for="inputImageHeight" class="col-sm-3 col-form-label">Height</label>
-                    <div class="col-sm">
-                      <input type="number" class="form-control ml-auto inputHeight" value="1">
-                    </div>
-                  </div>
+                </div>
 
+
+                <div class="form-group row my-2">
+                  <label for="inputImageHeight" class="col-sm-2 mr-4 col-form-label">Height</label>
+                  <div class="col-sm">
+                    <input type="number" class="form-control ml-auto inputHeight" value="1">
+                  </div>
                 </div>
-  
+
               </div>
-            </fieldset>
-  
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pr-1"><strong>Input</strong></legend>
-              <!-- Stroke -->
-              
-                <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-3 col-form-label">Tag</label>
-                  <div class="col-sm">
-                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pr-1"><strong>Input</strong></legend>
+            <!-- Stroke -->
+
+            <div class="form-group row my-2">
+              <label for="inputHidden" class="col-sm-2 col-form-label">Tag</label>
+              <div class="input-group ml-4 pl-4 col-sm">
+                  <input type="text" class="form-control inputTag"  placeholder="Expression">
+                  <div class="input-group-append">
+                    <button class="btn btn-success btnTag" data-toggle="modal" data-target="#tagModal"
+                      data-backdrop="static">Browse tag</button>
                   </div>
                 </div>
-             
-            </fieldset>
-  
-            <!--Animation-->
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
-              <!-- Stroke -->
-            
-                <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
-                  <div class="col-sm">
-                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+            </div>
+
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+
+            <div class="form-group row my-2">
+              <label for="inputHidden" class="col-sm-2 col-form-label">Disable when</label>
+              <div class="input-group ml-4 pl-4 col-sm">
+                  <input type="text" class="form-control inputDisableWhen"  placeholder="Expression">
+                  <div class="input-group-append">
+                    <button class="btn btn-success btnDisableWhen" data-toggle="modal" data-target="#tagModal"
+                      data-backdrop="static">Browse tag</button>
                   </div>
                 </div>
-            
-            </fieldset>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary saveChangeButton" >Save changes</button>
-          </div>
+            </div>
+
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
         </div>
       </div>
     </div>
+  </div>
 
   <!--Slider modal-->
   <div class="modal fade" tabindex="-1" role="dialog" id="sliderModal" data-backdrop="static">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Properties</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!-- Modal body goes here-->
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
-              <div class='row'>
-                <div class="col-sm">
-                  <div class="form-group row my-2">
-                    <label for="inputImageWidth" class="col-sm-2 col-form-label">Width</label>
-                    <div class="col-sm">
-                      <input type="number" class="form-control ml-auto inputWidth"  value="1">
-                    </div>
-                  </div>
-
-                </div>
-  
-                </div>
-            </fieldset>
-  
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pr-1"><strong>Input</strong></legend>
-              <!-- Stroke -->
-              <div class="row">
-                  <div class="col-sm-6">
-                      <div class="form-group row my-2">
-                          <label for="inputHidden" class="col-sm-3 col-form-label">Value</label>
-                          <div class="col-sm ml-4 pl-4">
-                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                          </div>
-                        </div>
-                  </div>
-                  </div>
-
-
-              
-
-              <div class="row">
-                <div class="col-sm">
-                    <div class="form-group row my-2">
-                        <label for="inputHidden" class="col-sm-3 col-form-label">Min tag</label>
-                        <div class="col-sm ml-4 pl-4">
-                          <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                        </div>
-                      </div>
-
-                      <div class="form-group row my-2">
-                          <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Min value</label>
-                          <div class="col-sm ml-4 pl-4">
-                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                          </div>
-                        </div>
-                </div>
-                <div class="col-sm">
-                    <div class="form-group row my-2">
-                        <label for="inputHidden" class="col-sm-3 col-form-label">Max tag</label>
-                        <div class="col-sm ml-4 pl-4">
-                          <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                        </div>
-                      </div>
-
-                      <div class="form-group row my-2">
-                          <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Max value</label>
-                          <div class="col-sm ml-4 pl-4">
-                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                          </div>
-                        </div>
-                </div>
-
-                  
-                </div>
-            </fieldset>
-  
-            <!--Animation-->
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
-              <!-- Stroke -->
-              
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class='row'>
+              <div class="col-sm">
                 <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-2 col-form-label">Disable when</label>
+                  <label for="inputImageWidth" class="col-sm-2 col-form-label">Width</label>
                   <div class="col-sm">
-                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                    <input type="number" class="form-control ml-auto inputWidth" value="1">
                   </div>
                 </div>
-         
-            </fieldset>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
-          </div>
+
+              </div>
+
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pr-1"><strong>Input</strong></legend>
+            <!-- Stroke -->
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Value</label>
+                  <div class="input-group ml-4 pl-4 col-sm">
+                      <input type="text" class="form-control inputValue"  placeholder="Expression">
+                      <div class="input-group-append">
+                        <button class="btn btn-success btnValue" data-toggle="modal" data-target="#tagModal"
+                          data-backdrop="static">Browse</button>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="row">
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Min tag</label>
+                  <div class="input-group ml-4 pl-4 col-sm">
+                      <input type="text" class="form-control inputMinTag"  placeholder="Expression">
+                      <div class="input-group-append">
+                        <button class="btn btn-success btnMinTag" data-toggle="modal" data-target="#tagModal"
+                          data-backdrop="static">Browse</button>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Min value</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Max tag</label>
+                  <div class="input-group ml-4 pl-4 col-sm">
+                      <input type="text" class="form-control inputMaxTag"  placeholder="Expression">
+                      <div class="input-group-append">
+                        <button class="btn btn-success btnMaxTag" data-toggle="modal" data-target="#tagModal"
+                          data-backdrop="static">Browse</button>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Max value</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+
+            <div class="form-group row my-2">
+              <label for="inputHidden" class="col-sm-2 col-form-label">Disable when</label>
+              <div class="input-group col-sm">
+                  <input type="text" class="form-control inputDisableWhen"  placeholder="Expression">
+                  <div class="input-group-append">
+                    <button class="btn btn-success btnDisableWhen" data-toggle="modal" data-target="#tagModal"
+                      data-backdrop="static">Browse tag</button>
+                  </div>
+                </div>
+            </div>
+
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
         </div>
       </div>
     </div>
+  </div>
 
   <!--Progress bar modal-->
   <div class="modal fade" tabindex="-1" role="dialog" id="progressBarModal" data-backdrop="static">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Properties</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!-- Modal body goes here-->
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
-              <div class='row'>
-                <div class="col-sm">
-                  <div class="form-group row my-2">
-                    <label for="inputImageWidth" class="col-sm-2 col-form-label">Width</label>
-                    <div class="col-sm">
-                      <input type="number" class="form-control ml-auto inputWidth"  value="1">
-                    </div>
-                  </div>
-  
-  
-                  <div class="form-group row my-2">
-                    <label for="inputImageHeight" class="col-sm-2 col-form-label">Height</label>
-                    <div class="col-sm">
-                      <input type="number" class="form-control ml-auto inputHeight" value="1">
-                    </div>
-                  </div>
-                </div>
-  
-  
-              </div>
-            </fieldset>
-  
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pr-1"><strong>Input</strong></legend>
-              <!-- Stroke -->
-              <div class="row">
-                  <div class="col-sm-6">
-                      <div class="form-group row my-2">
-                          <label for="inputHidden" class="col-sm-3 col-form-label">Value</label>
-                          <div class="col-sm ml-4 pl-4">
-                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                          </div>
-                        </div>
-                  </div>
-
-                  
-                    
-                  </div>
-
-
-              
-
-              <div class="row">
-                <div class="col-sm">
-                    <div class="form-group row my-2">
-                        <label for="inputHidden" class="col-sm-3 col-form-label">Min tag</label>
-                        <div class="col-sm ml-4 pl-4">
-                          <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                        </div>
-                      </div>
-
-                      <div class="form-group row my-2">
-                          <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Min value</label>
-                          <div class="col-sm ml-4 pl-4">
-                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                          </div>
-                        </div>
-                </div>
-                <div class="col-sm">
-                    <div class="form-group row my-2">
-                        <label for="inputHidden" class="col-sm-3 col-form-label">Max tag</label>
-                        <div class="col-sm ml-4 pl-4">
-                          <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                        </div>
-                      </div>
-
-                      <div class="form-group row my-2">
-                          <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Max value</label>
-                          <div class="col-sm ml-4 pl-4">
-                            <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                          </div>
-                        </div>
-                </div>
-
-                  
-                </div>
-            </fieldset>
-  
-            <!--Animation-->
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
-              <!-- Stroke -->
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+            <div class='row'>
               <div class="col-sm">
                 <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                  <div class="col-sm ml-4 pl-4">
-                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                  <label for="inputImageWidth" class="col-sm-2 col-form-label">Width</label>
+                  <div class="col-sm">
+                    <input type="number" class="form-control ml-auto inputWidth" value="1">
+                  </div>
+                </div>
+
+
+                <div class="form-group row my-2">
+                  <label for="inputImageHeight" class="col-sm-2 col-form-label">Height</label>
+                  <div class="col-sm">
+                    <input type="number" class="form-control ml-auto inputHeight" value="1">
                   </div>
                 </div>
               </div>
-            </fieldset>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary saveChangeButton" >Save changes</button>
-          </div>
+
+
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pr-1"><strong>Input</strong></legend>
+            <!-- Stroke -->
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Value</label>
+                  <div class="input-group ml-4 pl-4 col-sm">
+                      <input type="text" class="form-control inputValueTag"  placeholder="Expression">
+                      <div class="input-group-append">
+                        <button class="btn btn-success btnValueTag" data-toggle="modal" data-target="#tagModal"
+                          data-backdrop="static">Browse</button>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Min tag</label>
+                  <div class="input-group ml-4 pl-4 col-sm">
+                      <input type="text" class="form-control inputMinTag"  placeholder="Expression">
+                      <div class="input-group-append">
+                        <button class="btn btn-success btnMinTag" data-toggle="modal" data-target="#tagModal"
+                          data-backdrop="static">Browse</button>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Min value</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Max tag</label>
+                  <div class="input-group ml-4 pl-4 col-sm">
+                      <input type="text" class="form-control inputMaxTag"  placeholder="Expression">
+                      <div class="input-group-append">
+                        <button class="btn btn-success btnMaxTag" data-toggle="modal" data-target="#tagModal"
+                          data-backdrop="static">Browse</button>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputHidden" class="col-sm-3 col-form-label pr-0">Max value</label>
+                  <div class="col-sm ml-4 pl-4">
+                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-2 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0 ml-2 px-3"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-2 col-form-label">Hidden when</label>
+                <div class="input-group col-sm">
+                    <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
         </div>
       </div>
     </div>
+  </div>
 
-     <!--Checkbox modal-->
+  <!--Checkbox modal-->
   <div class="modal fade" tabindex="-1" role="dialog" id="checkboxModal" data-backdrop="static">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Properties</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!-- Modal body goes here-->
-            
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pr-1"><strong>Appearance</strong></legend>
-              
-  
-              <div class="col-sm">
-                <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-3 col-form-label">Text</label>
-                  <div class="col-sm ml-4 pl-4">
-                    <textarea class="form-control textContent" rows="2">Hello</textarea>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
 
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pr-1"><strong>Command</strong></legend>
-              <!-- Stroke -->
-              <div class="col-sm">
-                <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-3 col-form-label">Checked</label>
-                  <div class="col-sm ml-4 pl-4">
-                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
-                  </div>
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pr-1"><strong>Appearance</strong></legend>
+
+
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Text</label>
+                <div class="col-sm ml-4 pl-4">
+                  <textarea class="form-control textContent" rows="2">Hello</textarea>
                 </div>
               </div>
-  
-              <div class="col-sm">
-                <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-3 col-form-label">Unchecked</label>
-                  <div class="col-sm ml-4 pl-4">
-                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pr-1"><strong>Command</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Checked</label>
+                <div class="input-group ml-4 pl-4 col-sm">
+                    <input type="text" class="form-control inputChecked"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnChecked" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
                   </div>
-                </div>
               </div>
-            </fieldset>
-  
-            <!--Animation-->
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
-              <!-- Stroke -->
-              <div class="col-sm">
-                <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
-                  <div class="col-sm ml-4 pl-4">
-                    <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+            </div>
+
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Unchecked</label>
+                <div class="input-group ml-4 pl-4 col-sm">
+                    <input type="text" class="form-control inputUnchecked"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnUnchecked" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
                   </div>
-                </div>
               </div>
-            </fieldset>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
-          </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+            <div class="col-sm">
+              <div class="form-group row my-2">
+                <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
+                <div class="input-group ml-4 pl-4 col-sm">
+                    <input type="text" class="form-control inputDisableWhen"  placeholder="Expression">
+                    <div class="input-group-append">
+                      <button class="btn btn-success btnDisableWhen" data-toggle="modal" data-target="#tagModal"
+                        data-backdrop="static">Browse tag</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
         </div>
       </div>
     </div>
+  </div>
 
   <!--Symbol Set modal-->
   <div class="modal fade" tabindex="-1" role="dialog" id="symbolSetModal" data-backdrop="static">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Properties</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!-- Modal body goes here-->
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
-  
-              <div class="row">
-                <div class="col-sm">
-                  <div class="form-group row my-2">
-                    <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto inputWidth" value="1">
-                    </div>
-                  </div>
-  
-  
-                  <div class="form-group row my-2">
-                    <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto inputHeight" value="1">
-                    </div>
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Properties</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal body goes here-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
+
+            <div class="row">
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto inputWidth" value="1">
                   </div>
                 </div>
-  
-                <div class="col-sm">
-                  <div class="form-group row my-2">
-                    <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto inputPositionX"  value="1">
-                    </div>
-                  </div>
-  
-                  <div class="form-group row my-2">
-                    <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto inputPositionY"  value="1">
-                    </div>
+
+
+                <div class="form-group row my-2">
+                  <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto inputHeight" value="1">
                   </div>
                 </div>
               </div>
-            </fieldset>
 
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-                <legend class="col-form-label col-sm-2 pt-0"><strong>Symbol</strong></legend>
-    
-                <div class="row">
-                  <div class="col-sm">
-                      <div class="form-group row my-2">
-                          <label for="inputImageWidth" class="col-sm-3 col-form-label">ON condition</label>
-                          <div class="col-sm">
-                            <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
-                          </div>
-                        </div>
-                  </div>
-                </div>
-                
-                <div class="row">
-                  <div class="col-sm">
-                      <div class="form-group row my-2">
-                          <label for="inputImageWidth" class="col-sm-3 col-form-label">ON symbol</label>
-                          <div class="col-sm">
-                              <form>
-                                  <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                  </div>
-                                </form>
-                          </div>
-                        </div>
-                  </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm">
-                        <div class="form-group row my-2">
-                            <label for="inputImageWidth" class="col-sm-3 col-form-label">OFF symbol</label>
-                            <div class="col-sm">
-                                <form>
-                                    <div class="custom-file">
-                                      <input type="file" class="custom-file-input" id="customFile">
-                                      <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
-                                  </form>
-                            </div>
-                          </div>
-                    </div>
-                  </div>
-              </fieldset>
-  
-            <!--Animation-->
-            <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
-              <!-- Stroke -->
-             
+              <div class="col-sm">
                 <div class="form-group row my-2">
-                  <label for="inputImageHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                  <div class="col-sm">
-                    <input type="text" class="form-control ml-auto" id="inputImageHidden" placeholder="Expression">
+                  <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto inputPositionX" value="1">
                   </div>
                 </div>
-             
-            </fieldset>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary saveChangeButton" >Save changes</button>
-  
-          </div>
+
+                <div class="form-group row my-2">
+                  <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
+                  <div class="col-sm-7">
+                    <input type="number" class="form-control ml-auto inputPositionY" value="1">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Symbol</strong></legend>
+
+            <div class="row">
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputImageWidth" class="col-sm-3 col-form-label">ON condition</label>
+                  <div class="input-group  col-sm">
+                      <input type="text" class="form-control inputOnCondition"   placeholder="Expression">
+                      <div class="input-group-append">
+                        <button class="btn btn-success" id="btnOnCondition" data-toggle="modal" data-target="#tagModal"
+                          data-backdrop="static">Browse tag</button>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputImageWidth" class="col-sm-3 col-form-label">ON symbol</label>
+                  <div class="col-sm">
+                    <form>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm">
+                <div class="form-group row my-2">
+                  <label for="inputImageWidth" class="col-sm-3 col-form-label">OFF symbol</label>
+                  <div class="col-sm">
+                    <form>
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <!--Animation-->
+          <fieldset class="form-group border px-4 pb-2 pt-1">
+            <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
+            <!-- Stroke -->
+
+            <div class="form-group row my-2">
+              <label for="inputImageHidden" class="col-sm-3 col-form-label">Hidden when</label>
+              <div class="input-group  col-sm">
+                  <input type="text" class="form-control inputHiddenWhen"  placeholder="Expression">
+                  <div class="input-group-append">
+                    <button class="btn btn-success btnHiddenWhen" data-toggle="modal" data-target="#tagModal"
+                      data-backdrop="static">Browse tag</button>
+                  </div>
+                </div>
+            </div>
+
+          </fieldset>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary saveChangeButton">Save changes</button>
+
         </div>
       </div>
     </div>
+  </div>
+
+  <!--Browse tag modal-->
+  <div class="modal fade"  tabindex="-1" role="dialog" id="tagModal">
+    <div class="modal-dialog modal-lg" style="max-width:700px" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Tags</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body scrollable ">
+          <p>Choose tag name</p>
+          <table class="table table-hover ">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Type</th>
+                <th scope="col">Device</th>
+                <th scope="col">Address</th>
+              </tr>
+            </thead>
+            <tbody class="table-body">
+              <tr class="row-pointer">
+                <td>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input"  name="rdoChoseTag" value="Val-1">
+                    <label class="custom-control-label" ></label>
+                  </div>
+                </td>
+                <td>Val-1</td>
+                <td>Int</td>
+                <td>PLC-1</td>
+                <td>MW100</td>
+              </tr>
+              <tr class="row-pointer">
+                <td>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input"  name="rdoChoseTag" value="Val-2">
+                    <label class="custom-control-label" ></label>
+                  </div>
+                </td>
+                <td>Val-2</td>
+                <td>Float</td>
+                <td>PLC-1</td>
+                <td>MW102</td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" style="min-width:100px" data-dismiss="modal">OK</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!--/Modals-->
 

@@ -60,6 +60,31 @@
     height: 800px;
 }
 
+.scrollable{
+    max-height: 700px;
+    overflow-y:scroll;
+}
+
+.row-pointer{
+    cursor:pointer;
+}
+.row-selected{
+    background: #292b2c;
+    color:#f7f7f7;
+}
+
+.row-selected:hover{
+    
+    color:#292b2c;
+}
+
+#tagModal {
+    background: rgba(0, 0, 0, 0.4);
+    }
+
+
+    
+
 /*
 ***********************************************************************************************
                                 Toggle button (Switch) style 
