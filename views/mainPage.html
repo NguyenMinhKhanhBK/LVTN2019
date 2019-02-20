@@ -1373,48 +1373,24 @@
         </div>
         <div class="modal-body">
           <!-- Modal body goes here-->
-          <fieldset class="form-group border px-4 pb-2 pt-1">
-            <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
-
-
-
-
-            <div class="col-sm">
-              <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Position X</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
-                </div>
-              </div>
-
-              <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Position X</label>
-                <div class="col-sm ml-4 pl-4">
-                  <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
-                </div>
-              </div>
-            </div>
-
-
-          </fieldset>
 
           <fieldset class="form-group border px-4 pb-2 pt-1">
             <legend class="col-form-label col-sm-2 pr-1"><strong>Command</strong></legend>
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">ON command</label>
+                <label for="switchOnCommand" class="col-sm-3 col-form-label">ON command</label>
                 <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                  <input type="text" class="form-control ml-auto" id="switchOnCommand" placeholder="Insert tag">
                 </div>
               </div>
             </div>
 
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">OFF command</label>
+                <label for="switchOffCommand" class="col-sm-3 col-form-label">OFF command</label>
                 <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
+                  <input type="text" class="form-control ml-auto" id="switchOffCommand" placeholder="Insert tag">
                 </div>
               </div>
             </div>
@@ -1426,9 +1402,9 @@
             <!-- Stroke -->
             <div class="col-sm">
               <div class="form-group row my-2">
-                <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
+                <label  class="col-sm-3 col-form-label">Disable when</label>
                 <div class="col-sm ml-4 pl-4">
-                  <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
+                  <input type="text" class="form-control ml-auto disableWhen"  placeholder="Expression">
                 </div>
               </div>
             </div>
@@ -1459,35 +1435,20 @@
               <div class='row'>
                 <div class="col-sm">
                   <div class="form-group row my-2">
-                    <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                    <label for="inputImageWidth" class="col-sm-3 col-form-label">Width</label>
+                    <div class="col-sm">
+                      <input type="number" class="form-control ml-auto inputWidth" value="1">
                     </div>
                   </div>
   
   
                   <div class="form-group row my-2">
-                    <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                    <label for="inputImageHeight" class="col-sm-3 col-form-label">Height</label>
+                    <div class="col-sm">
+                      <input type="number" class="form-control ml-auto inputHeight" value="1">
                     </div>
                   </div>
-                </div>
-  
-                <div class="col-sm">
-                  <div class="form-group row my-2">
-                    <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
-                    </div>
-                  </div>
-  
-                  <div class="form-group row my-2">
-                    <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
-                    </div>
-                  </div>
+
                 </div>
   
               </div>
@@ -1496,28 +1457,28 @@
             <fieldset class="form-group border px-4 pb-2 pt-1">
               <legend class="col-form-label col-sm-2 pr-1"><strong>Input</strong></legend>
               <!-- Stroke -->
-              <div class="col-sm">
+              
                 <div class="form-group row my-2">
                   <label for="inputHidden" class="col-sm-3 col-form-label">Tag</label>
-                  <div class="col-sm ml-4 pl-4">
+                  <div class="col-sm">
                     <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Insert tag">
                   </div>
                 </div>
-              </div>
+             
             </fieldset>
   
             <!--Animation-->
             <fieldset class="form-group border px-4 pb-2 pt-1">
               <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
               <!-- Stroke -->
-              <div class="col-sm">
+            
                 <div class="form-group row my-2">
                   <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
-                  <div class="col-sm ml-4 pl-4">
+                  <div class="col-sm">
                     <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
                   </div>
                 </div>
-              </div>
+            
             </fieldset>
           </div>
           <div class="modal-footer">
@@ -1545,38 +1506,15 @@
               <div class='row'>
                 <div class="col-sm">
                   <div class="form-group row my-2">
-                    <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                    <label for="inputImageWidth" class="col-sm-2 col-form-label">Width</label>
+                    <div class="col-sm">
+                      <input type="number" class="form-control ml-auto inputWidth"  value="1">
                     </div>
                   </div>
-  
-  
-                  <div class="form-group row my-2">
-                    <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
-                    </div>
-                  </div>
+
                 </div>
   
-                <div class="col-sm">
-                  <div class="form-group row my-2">
-                    <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
-                    </div>
-                  </div>
-  
-                  <div class="form-group row my-2">
-                    <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
-                    </div>
-                  </div>
                 </div>
-  
-              </div>
             </fieldset>
   
             <fieldset class="form-group border px-4 pb-2 pt-1">
@@ -1591,9 +1529,6 @@
                           </div>
                         </div>
                   </div>
-
-                  
-                    
                   </div>
 
 
@@ -1639,14 +1574,14 @@
             <fieldset class="form-group border px-4 pb-2 pt-1">
               <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
               <!-- Stroke -->
-              <div class="col-sm">
+              
                 <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-3 col-form-label">Disable when</label>
-                  <div class="col-sm ml-4 pl-4">
+                  <label for="inputHidden" class="col-sm-2 col-form-label">Disable when</label>
+                  <div class="col-sm">
                     <input type="text" class="form-control ml-auto" id="inputHidden" placeholder="Expression">
                   </div>
                 </div>
-              </div>
+         
             </fieldset>
           </div>
           <div class="modal-footer">
@@ -1674,36 +1609,21 @@
               <div class='row'>
                 <div class="col-sm">
                   <div class="form-group row my-2">
-                    <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                    <label for="inputImageWidth" class="col-sm-2 col-form-label">Width</label>
+                    <div class="col-sm">
+                      <input type="number" class="form-control ml-auto inputWidth"  value="1">
                     </div>
                   </div>
   
   
                   <div class="form-group row my-2">
-                    <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                    <label for="inputImageHeight" class="col-sm-2 col-form-label">Height</label>
+                    <div class="col-sm">
+                      <input type="number" class="form-control ml-auto inputHeight" value="1">
                     </div>
                   </div>
                 </div>
   
-                <div class="col-sm">
-                  <div class="form-group row my-2">
-                    <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
-                    </div>
-                  </div>
-  
-                  <div class="form-group row my-2">
-                    <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
-                    <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
-                    </div>
-                  </div>
-                </div>
   
               </div>
             </fieldset>
@@ -1786,7 +1706,7 @@
       </div>
     </div>
 
-     <!--Switch modal-->
+     <!--Checkbox modal-->
   <div class="modal fade" tabindex="-1" role="dialog" id="checkboxModal" data-backdrop="static">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -1798,31 +1718,21 @@
           </div>
           <div class="modal-body">
             <!-- Modal body goes here-->
+            
             <fieldset class="form-group border px-4 pb-2 pt-1">
-              <legend class="col-form-label col-sm-2 pt-0"><strong>Appearance</strong></legend>
-  
-  
-  
+              <legend class="col-form-label col-sm-2 pr-1"><strong>Appearance</strong></legend>
+              
   
               <div class="col-sm">
                 <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-3 col-form-label">Position X</label>
+                  <label for="inputHidden" class="col-sm-3 col-form-label">Text</label>
                   <div class="col-sm ml-4 pl-4">
-                    <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
-                  </div>
-                </div>
-  
-                <div class="form-group row my-2">
-                  <label for="inputHidden" class="col-sm-3 col-form-label">Position X</label>
-                  <div class="col-sm ml-4 pl-4">
-                    <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                    <textarea class="form-control textContent" rows="2">Hello</textarea>
                   </div>
                 </div>
               </div>
-  
-  
             </fieldset>
-  
+
             <fieldset class="form-group border px-4 pb-2 pt-1">
               <legend class="col-form-label col-sm-2 pr-1"><strong>Command</strong></legend>
               <!-- Stroke -->
@@ -1887,7 +1797,7 @@
                   <div class="form-group row my-2">
                     <label for="inputImageWidth" class="col-sm-5 col-form-label">Width</label>
                     <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImageWidth" value="1">
+                      <input type="number" class="form-control ml-auto inputWidth" value="1">
                     </div>
                   </div>
   
@@ -1895,7 +1805,7 @@
                   <div class="form-group row my-2">
                     <label for="inputImageHeight" class="col-sm-5 col-form-label">Height</label>
                     <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImageHeight" value="1">
+                      <input type="number" class="form-control ml-auto inputHeight" value="1">
                     </div>
                   </div>
                 </div>
@@ -1904,14 +1814,14 @@
                   <div class="form-group row my-2">
                     <label for="inputImagePositionX" class="col-sm-5 col-form-label">Position X</label>
                     <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImagePositionX" value="1">
+                      <input type="number" class="form-control ml-auto inputPositionX"  value="1">
                     </div>
                   </div>
   
                   <div class="form-group row my-2">
                     <label for="inputImagePositionY" class="col-sm-5 col-form-label">Position Y</label>
                     <div class="col-sm-7">
-                      <input type="number" class="form-control ml-auto" id="inputImagePositionY" value="1">
+                      <input type="number" class="form-control ml-auto inputPositionY"  value="1">
                     </div>
                   </div>
                 </div>
@@ -1969,14 +1879,14 @@
             <fieldset class="form-group border px-4 pb-2 pt-1">
               <legend class="col-form-label col-sm-2 pt-0"><strong>Animation</strong></legend>
               <!-- Stroke -->
-              <div class="col-sm">
+             
                 <div class="form-group row my-2">
                   <label for="inputImageHidden" class="col-sm-3 col-form-label">Hidden when</label>
-                  <div class="col-sm ml-4 pl-4">
+                  <div class="col-sm">
                     <input type="text" class="form-control ml-auto" id="inputImageHidden" placeholder="Expression">
                   </div>
                 </div>
-              </div>
+             
             </fieldset>
           </div>
           <div class="modal-footer">

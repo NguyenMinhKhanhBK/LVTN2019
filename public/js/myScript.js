@@ -5,7 +5,7 @@
 */
 $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
-  
+
   $('body').keyup(function (e) {
     if (e.keyCode == 27) {
       stopDraw(true);
@@ -27,10 +27,9 @@ let selectedItemId;
 
 //Default option for basic objects except LINE
 const defaultOption = {
-  fill: '#00ff00',
   stroke: 'black',
   'stroke-width': 3,
-  'fill-opacity': 1,
+  'fill-opacity': 0,
 };
 
 //Line default option
@@ -75,7 +74,7 @@ function removeItem() {
     var item = document.getElementById(selectedItemId);
     item.parentNode.removeChild(item);
 
-    for (var elem of shapes){
+    for (var elem of shapes) {
       try {
         if (elem.node.id == selectedItemId) {
           shapes.splice(shapes.indexOf(elem), 1);
@@ -92,7 +91,7 @@ function removeItem() {
       }
     }
     //console.log(shapes);
-     
+
   };
 
   selectedItemId = '';
@@ -100,17 +99,17 @@ function removeItem() {
 }
 
 var hexDigits = new Array
-        ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"); 
+  ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
 
 //Function to convert rgb color to hex format
 function rgb2hex(rgb) {
- rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
- return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
 
 function hex(x) {
   return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
- }
+}
 
 
 
@@ -182,8 +181,8 @@ var startDraw = function (shape) {
         var svgOffset = mouseEvent.target.parentNode.getBoundingClientRect();
         var element;
         for (var item of shapes) {
-          
-          try{
+
+          try {
             if (item.node.id == mouseEvent.target.id) {
               element = item;
               break;
@@ -195,7 +194,7 @@ var startDraw = function (shape) {
               break;
             }
           }
-          
+
         }
 
         switch (modalId) {
@@ -219,27 +218,23 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputColor').value = elemColor;
               itemModal.querySelector('#inputLinecap').value = elemLinecap;
 
-              $('.saveChangeButton').on('click',function (event) {
-                
+              $('.saveChangeButton').on('click', function (event) {
+
                 element.attr({
-                  'stroke-width':itemModal.querySelector('#inputStrokeWidth').value,
-                  'stroke-linecap':itemModal.querySelector('#inputLinecap').value,
-                  'stroke':itemModal.querySelector('#inputColor').value,
-                  'x1':itemModal.querySelector('#inputX1').value,
-                  'y1':itemModal.querySelector('#inputY1').value,
+                  'stroke-width': itemModal.querySelector('#inputStrokeWidth').value,
+                  'stroke-linecap': itemModal.querySelector('#inputLinecap').value,
+                  'stroke': itemModal.querySelector('#inputColor').value,
+                  'x1': itemModal.querySelector('#inputX1').value,
+                  'y1': itemModal.querySelector('#inputY1').value,
                   'x2': itemModal.querySelector('#inputX2').value,
-                  'y2':itemModal.querySelector('#inputY2').value,
-                  'transform':'translate(0,0)',
+                  'y2': itemModal.querySelector('#inputY2').value,
+                  'transform': 'translate(0,0)',
                 });
 
-                //DEBUG code
-
-                 var html = document.getElementById(mouseEvent.target.id);
-
+                var html = document.getElementById(mouseEvent.target.id);
                 draggable = new PlainDraggable(html, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
-                //DEBUG code
               });
             }
             break;
@@ -255,9 +250,7 @@ var startDraw = function (shape) {
                 elemLineWidth = element.attr('stroke-width'),
                 elemColor = element.attr('stroke');
 
-              var elemIsFilled = false;
-              if (element.attr('fill-opacity') != 0) elemIsFilled = true;
-
+              
               var itemModal = $(modalId)[0];
 
               itemModal.querySelector('#inputWidth').value = elemWidth;
@@ -266,24 +259,21 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputPositionY').value = elemPositionY;
               itemModal.querySelector('#inputShapeLineWidth').value = elemLineWidth;
               itemModal.querySelector('#inputLineColor').value = elemColor;
+              itemModal.querySelector('#fillRectCheckbox').checked = element.attr('fill-opacity');
+              itemModal.querySelector('#inputFillRectColor').value = element.attr('fill');
 
-              if (elemIsFilled) {
-                itemModal.querySelector('#fillRectCheckbox').checked = true;
-                itemModal.querySelector('#inputFillRectColor').value = element.attr('fill');
-              }
+              $('.saveChangeButton').on('click', function (event) {
 
-             $('.saveChangeButton').on('click',function (event) {
-                
                 element.attr({
-                  'stroke-width':itemModal.querySelector('#inputShapeLineWidth').value,
-                  'stroke':itemModal.querySelector('#inputLineColor').value,
-                  'width':itemModal.querySelector('#inputWidth').value,
-                  'height':itemModal.querySelector('#inputHeight').value,
-                  'x':itemModal.querySelector('#inputPositionX').value,
-                  'y':itemModal.querySelector('#inputPositionY').value,
-                  'transform':'translate(0 0)',
-                  'fill-opacity':Number(itemModal.querySelector('#fillRectCheckbox').checked),
-                  'fill':itemModal.querySelector('#inputFillRectColor').value,
+                  'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
+                  'stroke': itemModal.querySelector('#inputLineColor').value,
+                  'width': itemModal.querySelector('#inputWidth').value,
+                  'height': itemModal.querySelector('#inputHeight').value,
+                  'x': itemModal.querySelector('#inputPositionX').value,
+                  'y': itemModal.querySelector('#inputPositionY').value,
+                  'transform': 'translate(0 0)',
+                  'fill-opacity': Number(itemModal.querySelector('#fillRectCheckbox').checked),
+                  'fill': itemModal.querySelector('#inputFillRectColor').value,
                 });
 
                 var rect = document.getElementById(mouseEvent.target.id);
@@ -306,10 +296,6 @@ var startDraw = function (shape) {
                 elemLineWidth = element.attr('stroke-width'),
                 elemColor = element.attr('stroke');
 
-              var elemIsFilled = false;
-              if (element.attr('fill-opacity') != 0) elemIsFilled = true;
-
-
               var itemModal = $(modalId)[0];
 
               itemModal.querySelector('#inputWidth').value = elemWidth;
@@ -320,25 +306,23 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputRadiusY').value = elemRadiusY;
               itemModal.querySelector('#inputShapeLineWidth').value = elemLineWidth;
               itemModal.querySelector('#inputShapeColor').value = elemColor;
+              itemModal.querySelector('#fillRoundRectCheckbox').checked = element.attr('fill-opacity');
+              itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
+              
+              $('.saveChangeButton').on('click', function (event) {
 
-              if (elemIsFilled) {
-                itemModal.querySelector('#fillRoundRectCheckbox').checked = true;
-                itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
-              }
-              $('.saveChangeButton').on('click',function (event) {
-                
                 element.attr({
-                  'stroke-width':itemModal.querySelector('#inputShapeLineWidth').value,
-                  'stroke':itemModal.querySelector('#inputShapeColor').value,
-                  'width':itemModal.querySelector('#inputWidth').value,
-                  'height':itemModal.querySelector('#inputHeight').value,
-                  'x':itemModal.querySelector('#inputPositionX').value,
-                  'y':itemModal.querySelector('#inputPositionY').value,
+                  'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
+                  'stroke': itemModal.querySelector('#inputShapeColor').value,
+                  'width': itemModal.querySelector('#inputWidth').value,
+                  'height': itemModal.querySelector('#inputHeight').value,
+                  'x': itemModal.querySelector('#inputPositionX').value,
+                  'y': itemModal.querySelector('#inputPositionY').value,
                   'rx': itemModal.querySelector('#inputRadiusX').value,
                   'ry': itemModal.querySelector('#inputRadiusY').value,
-                  'transform':'translate(0 0)',
-                  'fill-opacity':Number(itemModal.querySelector('#fillRoundRectCheckbox').checked),
-                  'fill':itemModal.querySelector('#inputFillShapeColor').value,
+                  'transform': 'translate(0 0)',
+                  'fill-opacity': Number(itemModal.querySelector('#fillRoundRectCheckbox').checked),
+                  'fill': itemModal.querySelector('#inputFillShapeColor').value,
                 });
 
                 var rect = document.getElementById(mouseEvent.target.id);
@@ -368,24 +352,20 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputPositionY').value = elemCy;
               itemModal.querySelector('#inputShapeLineWidth').value = elemLineWidth;
               itemModal.querySelector('#inputShapeColor').value = elemColor;
+              itemModal.querySelector('#fillCircleCheckbox').checked = element.attr('fill-opacity');
+              itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
 
-              if (elemIsFilled) {
-                itemModal.querySelector('#fillCircleCheckbox').checked = true;
-                itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
-              }
+              $('.saveChangeButton').on('click', function (event) {
 
-
-              $('.saveChangeButton').on('click',function (event) {
-                
                 element.attr({
-                  'r':itemModal.querySelector('#inputRadius').value,
-                  'stroke-width':itemModal.querySelector('#inputShapeLineWidth').value,
-                  'stroke':itemModal.querySelector('#inputShapeColor').value,
-                  'cx':itemModal.querySelector('#inputPositionX').value,
-                  'cy':itemModal.querySelector('#inputPositionY').value,
-                  'transform':'translate(0 0)',
-                  'fill-opacity':Number(itemModal.querySelector('#fillCircleCheckbox').checked),
-                  'fill':itemModal.querySelector('#inputFillShapeColor').value,
+                  'r': itemModal.querySelector('#inputRadius').value,
+                  'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
+                  'stroke': itemModal.querySelector('#inputShapeColor').value,
+                  'cx': itemModal.querySelector('#inputPositionX').value,
+                  'cy': itemModal.querySelector('#inputPositionY').value,
+                  'transform': 'translate(0 0)',
+                  'fill-opacity': Number(itemModal.querySelector('#fillCircleCheckbox').checked),
+                  'fill': itemModal.querySelector('#inputFillShapeColor').value,
                 });
 
                 var rect = document.getElementById(mouseEvent.target.id);
@@ -417,24 +397,22 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputPositionY').value = elemCy;
               itemModal.querySelector('#inputShapeLineWidth').value = elemLineWidth;
               itemModal.querySelector('#inputShapeColor').value = elemColor;
+              itemModal.querySelector('#fillEllipseCheckbox').checked = element.attr('fill-opacity');
+              itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
+              
 
-              if (elemIsFilled) {
-                itemModal.querySelector('#fillEllipseCheckbox').checked = true;
-                itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
-              }
+              $('.saveChangeButton').on('click', function (event) {
 
-              $('.saveChangeButton').on('click',function (event) {
-                
                 element.attr({
-                  'stroke-width':itemModal.querySelector('#inputShapeLineWidth').value,
-                  'stroke':itemModal.querySelector('#inputShapeColor').value,
-                  'cx':itemModal.querySelector('#inputPositionX').value,
-                  'cy':itemModal.querySelector('#inputPositionY').value,
-                  'transform':'translate(0 0)',
-                  'rx':itemModal.querySelector('#inputRadiusX').value,
+                  'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
+                  'stroke': itemModal.querySelector('#inputShapeColor').value,
+                  'cx': itemModal.querySelector('#inputPositionX').value,
+                  'cy': itemModal.querySelector('#inputPositionY').value,
+                  'transform': 'translate(0 0)',
+                  'rx': itemModal.querySelector('#inputRadiusX').value,
                   'ry': itemModal.querySelector('#inputRadiusY').value,
-                  'fill-opacity':Number(itemModal.querySelector('#fillEllipseCheckbox').checked),
-                  'fill':itemModal.querySelector('#inputFillShapeColor').value,
+                  'fill-opacity': Number(itemModal.querySelector('#fillEllipseCheckbox').checked),
+                  'fill': itemModal.querySelector('#inputFillShapeColor').value,
                 });
 
                 var rect = document.getElementById(mouseEvent.target.id);
@@ -448,7 +426,7 @@ var startDraw = function (shape) {
         }
       });
 
-      $(modalId).one('hide.bs.modal',function(hideEvent){
+      $(modalId).one('hide.bs.modal', function (hideEvent) {
         $('.saveChangeButton').off('click');
       });
 
@@ -515,23 +493,23 @@ var drawPolygon = function () {
           itemModal.querySelector('#inputShapeLineWidth').value = elemWidth;
           itemModal.querySelector('#inputShapeColor').value = elemColor;
 
-            itemModal.querySelector('#fillPolygonCheckbox').checked = element.attr('fill-opacity');
-            itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
+          itemModal.querySelector('#fillPolygonCheckbox').checked = element.attr('fill-opacity');
+          itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
 
-          $('.saveChangeButton').on('click',function (event) {
-                
+          $('.saveChangeButton').on('click', function (event) {
+
             element.attr({
-              'stroke-width':itemModal.querySelector('#inputShapeLineWidth').value,
-              'stroke':itemModal.querySelector('#inputShapeColor').value,
-              'fill-opacity':Number(itemModal.querySelector('#fillPolygonCheckbox').checked),
-              'fill':itemModal.querySelector('#inputFillShapeColor').value,
+              'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
+              'stroke': itemModal.querySelector('#inputShapeColor').value,
+              'fill-opacity': Number(itemModal.querySelector('#fillPolygonCheckbox').checked),
+              'fill': itemModal.querySelector('#inputFillShapeColor').value,
             });
           });
         }
 
       });
 
-      $('#polygonModal').one('hide.bs.modal',function(hideEvent){
+      $('#polygonModal').one('hide.bs.modal', function (hideEvent) {
         $('.saveChangeButton').off('click');
       });
 
@@ -602,17 +580,17 @@ var drawPolyline = function () {
           itemModal.querySelector('#inputWidth').value = elemWidth;
           itemModal.querySelector('#inputColor').value = elemColor;
 
-          $('.saveChangeButton').on('click',function (event) {
+          $('.saveChangeButton').on('click', function (event) {
             element.attr({
-              'stroke-width':itemModal.querySelector('#inputWidth').value,
-              'stroke':itemModal.querySelector('#inputColor').value,
+              'stroke-width': itemModal.querySelector('#inputWidth').value,
+              'stroke': itemModal.querySelector('#inputColor').value,
             });
           });
         }
       });
 
 
-      $('#polylineModal').one('hide.bs.modal',function(hideEvent){
+      $('#polylineModal').one('hide.bs.modal', function (hideEvent) {
         $('.saveChangeButton').off('click');
       });
 
@@ -776,7 +754,7 @@ function imageMouseDownEventHandler(event) {
     $('#imageModal').one('show.bs.modal', function (showEvent) {
 
       var elem = document.getElementById(mouseEvent.target.id);
-      
+
       var elemStyle = elem.style;
 
       var elemWidth = parseInt(elemStyle.width, 10),
@@ -785,7 +763,7 @@ function imageMouseDownEventHandler(event) {
         elemPositionY = parseInt(elemStyle.top, 10);
 
       //console.log('Target ' + mouseEvent.target.id);
-      
+
       var imageModal = document.getElementById('imageModal');
       imageModal.querySelector('#inputWidth').value = elemWidth;
       imageModal.querySelector('#inputHeight').value = elemHeight;
@@ -793,17 +771,21 @@ function imageMouseDownEventHandler(event) {
       imageModal.querySelector('#inputPositionY').value = elemPositionY;
 
       //Button save 
-      $('.saveChangeButton').on('click',function (event) {
+      $('.saveChangeButton').on('click', function (event) {
         console.log(document.getElementById(mouseEvent.target.id));
         elemStyle.width = imageModal.querySelector('#inputWidth').value + 'px';
         elemStyle.height = imageModal.querySelector('#inputHeight').value + 'px';
-        elemStyle.left =  imageModal.querySelector('#inputPositionX').value + 'px';
+        elemStyle.left = imageModal.querySelector('#inputPositionX').value + 'px';
         elemStyle.top = imageModal.querySelector('#inputPositionY').value + 'px';
-        
+
+        draggable = new PlainDraggable(mouseEvent.target, { leftTop: true });
+        draggable.autoScroll = true;
+        draggable.containment = document.getElementById('mainPage1');
+
       });
     });
 
-    $('#imageModal').one('hide.bs.modal',function(hideEvent){
+    $('#imageModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
     });
 
@@ -813,7 +795,7 @@ function imageMouseDownEventHandler(event) {
 
   $('#mainPage1').append(shapes[index]);
 
- 
+
 
   //Add draggable feature
   draggable = new PlainDraggable(shapes[index], { leftTop: true });
@@ -841,7 +823,7 @@ function textMouseDownEventHandler(event) {
   para.appendChild(text);
   para.id = 'text' + index;
   para.className += ' contextMenu ';
-  
+
 
   //Image css style
   para.style.fontSize = '30px';
@@ -874,26 +856,26 @@ function textMouseDownEventHandler(event) {
         elemText = mouseEvent.target.innerText;
 
       var itemModal = $('#textModal')[0];
-      
+
       itemModal.querySelector('#inputFontSize').value = elemFontsize;
       itemModal.querySelector('#fontPicker').value = elemFontFamily;
       itemModal.querySelector('#fontStyleForm').value = elemFontstyle;
       itemModal.querySelector('#inputTextColor').value = elemColor;
       itemModal.querySelector('#textContent').value = elemText;
-      
 
-      $('.saveChangeButton').on('click',function (event) {
-        
+
+      $('.saveChangeButton').on('click', function (event) {
+
         document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
         document.getElementById(elemId).style.fontFamily = itemModal.querySelector('#fontPicker').value;
         document.getElementById(elemId).style.color = itemModal.querySelector('#inputTextColor').value;
         document.getElementById(elemId).style.fontStyle = itemModal.querySelector('#fontStyleForm').value;
-        
+
         document.getElementById(elemId).innerHTML = itemModal.querySelector('#textContent').value;
       });
     });
 
-    $('#textModal').one('hide.bs.modal',function(hideEvent){
+    $('#textModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
     });
 
@@ -956,26 +938,26 @@ function displayValueMouseDownEventHandler(event) {
         elemText = mouseEvent.target.innerText;
 
       var itemModal = $('#displayValueModal')[0];
-      
+
       itemModal.querySelector('#inputFontSize').value = elemFontsize;
       itemModal.querySelector('#fontPicker').value = elemFontFamily;
       itemModal.querySelector('#fontStyleForm').value = elemFontstyle;
       itemModal.querySelector('#inputTextColor').value = elemColor;
       itemModal.querySelector('#textContent').value = elemText;
-  
 
-      $('.saveChangeButton').on('click',function (event) {
-        
+
+      $('.saveChangeButton').on('click', function (event) {
+
         document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
         document.getElementById(elemId).style.fontFamily = itemModal.querySelector('#fontPicker').value;
         document.getElementById(elemId).style.color = itemModal.querySelector('#inputTextColor').value;
         document.getElementById(elemId).style.fontStyle = itemModal.querySelector('#fontStyleForm').value;
-        
+
         document.getElementById(elemId).innerHTML = itemModal.querySelector('#textContent').value;
       });
     });
 
-    $('#displayValueModal').one('hide.bs.modal',function(hideEvent){
+    $('#displayValueModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
     });
 
@@ -991,7 +973,7 @@ function displayValueMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  
+
 }
 
 //Button mouse down event handler: To create new button
@@ -1044,15 +1026,15 @@ function buttonMouseDownEventHandler(event) {
         elemFontFamily = elemStyle.fontFamily.replace(/["']/g, ""), //Replace double quote from font with WHITESPACE
         elemColor = rgb2hex(elemStyle.color),
         elemBackground = rgb2hex(elemStyle.background),
-        elemWidth = parseInt(elemStyle.width,10),
-        elemHeight = parseInt(elemStyle.height,10),
+        elemWidth = Math.round(htmlElement.right - htmlElement.left),
+        elemHeight = Math.round(htmlElement.bottom - htmlElement.top),
         elemPositionX = Math.round(htmlElement.left - svgOffset.left),
         elemPositionY = Math.round(htmlElement.top - svgOffset.top),
         elemText = mouseEvent.target.innerText;
 
-        
+
       var itemModal = $('#buttonModal')[0];
-      
+
       itemModal.querySelector('#inputFontSize').value = elemFontsize;
       itemModal.querySelector('#fontPicker').value = elemFontFamily;
       itemModal.querySelector('#fontStyleForm').value = elemFontstyle;
@@ -1064,12 +1046,12 @@ function buttonMouseDownEventHandler(event) {
       itemModal.querySelector('#inputPositionX').value = elemPositionX;
       itemModal.querySelector('#inputPositionY').value = elemPositionY;
 
-      
-      
 
 
-      $('.saveChangeButton').on('click',function (event) {
-        
+
+
+      $('.saveChangeButton').on('click', function (event) {
+
         document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
         document.getElementById(elemId).style.fontFamily = itemModal.querySelector('#fontPicker').value;
         document.getElementById(elemId).style.color = itemModal.querySelector('#inputTextColor').value;
@@ -1081,18 +1063,13 @@ function buttonMouseDownEventHandler(event) {
         document.getElementById(elemId).style.width = itemModal.querySelector('#inputWidth').value + 'px';
         document.getElementById(elemId).style.height = itemModal.querySelector('#inputHeight').value + 'px';
 
-        if (itemModal.querySelector('#outlineButton').checked){
-          if(itemModal.querySelector('#outlineSelect').value != classOutline)
-            document.getElementById(elemId).classList.add(itemModal.querySelector('#outlineSelect').value);
-        }
-        else{
-          if (classOutline)
-            document.getElementById(elemId).classList.remove(classOutline);
-        }
+        draggable = new PlainDraggable(document.getElementById(elemId), { leftTop: true });
+        draggable.autoScroll = true;
+        draggable.containment = document.getElementById('mainPage1');
       });
     });
 
-    $('#buttonModal').one('hide.bs.modal',function(hideEvent){
+    $('#buttonModal').one('hide.bs.modal', function (hideEvent) {
       $('.saveChangeButton').off('click');
     });
 
@@ -1107,7 +1084,7 @@ function buttonMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
- 
+
 }
 
 //Switch mouse down event handler: To create new switch
@@ -1146,11 +1123,33 @@ function switchMouseDownEventHandler(event) {
     //event.target.style.cursor = 'move';
   });
   //Subscribe mouseout event for each polygon
-  $(sw).on('mouseout', function (event) {
+  $(sw).on('mouseout', function (vent) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(sw).on('dblclick', function (event) {
+  $(sw).on('dblclick', function (mouseEvent) {
+    $('#switchModal').one('show.bs.modal', function (showEvent) {
+
+
+      var itemModal = $('#switchModal')[0];
+
+      //itemModal.querySelector('#inputFontSize').value = elemFontsize;
+
+
+
+
+
+
+      $('.saveChangeButton').on('click', function (event) {
+
+
+      });
+    });
+
+    $('#switchModal').one('hide.bs.modal', function (hideEvent) {
+      $('.saveChangeButton').off('click');
+    });
+
     $('#switchModal').modal();
   });
 
@@ -1163,7 +1162,7 @@ function switchMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
- 
+
 }
 
 //Input mouse down event handler: To create new input
@@ -1198,7 +1197,30 @@ function inputMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(input).on('dblclick', function (event) {
+  $(input).on('dblclick', function (mouseEvent) {
+    $('#inputModal').one('show.bs.modal', function (showEvent) {
+      var elemStyle = mouseEvent.target.style;
+      var elemId = mouseEvent.target.id;
+      var elemBound = mouseEvent.target.getBoundingClientRect();
+
+      var elemWidth = parseInt(elemStyle.width, 10),
+        elemHeight = Math.round(elemBound.bottom - elemBound.top);
+
+
+      var itemModal = $('#inputModal')[0];
+      itemModal.querySelector('.inputWidth').value = elemWidth;
+      itemModal.querySelector('.inputHeight').value = elemHeight;
+
+      $('.saveChangeButton').on('click', function (event) {
+        document.getElementById(elemId).style.width = itemModal.querySelector('.inputWidth').value + 'px';
+        document.getElementById(elemId).style.height = itemModal.querySelector('.inputHeight').value + 'px';
+      });
+    });
+
+    $('#inputModal').one('hide.bs.modal', function (hideEvent) {
+      $('.saveChangeButton').off('click');
+    });
+
     $('#inputModal').modal();
   });
 
@@ -1211,7 +1233,7 @@ function inputMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
- 
+
 }
 
 //Checkbox mouse down event handler: To create new Checkbox
@@ -1257,7 +1279,21 @@ function checkboxMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe double click event
-  $(checkbox).on('dblclick', function (event) {
+  $(checkbox).on('dblclick', function (mouseEvent) {
+    $('#checkboxModal').one('show.bs.modal', function (showEvent) {
+      
+      var itemModal = $('#checkboxModal')[0];
+      itemModal.querySelector('.textContent').value = mouseEvent.target.innerText;
+
+      $('.saveChangeButton').on('click', function (event) {
+        mouseEvent.target.innerHTML = itemModal.querySelector('.textContent').value;
+      });
+    });
+
+    $('#checkboxModal').one('hide.bs.modal', function (hideEvent) {
+      $('.saveChangeButton').off('click');
+    });
+
     $('#checkboxModal').modal();
   });
 
@@ -1270,7 +1306,7 @@ function checkboxMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
-  
+
 }
 
 //Slider mouse down event handler: To create new Checkbox
@@ -1304,7 +1340,27 @@ function sliderMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(slider).on('dblclick', function (event) {
+  $(slider).on('dblclick', function (mouseEvent) {
+    $('#sliderModal').one('show.bs.modal', function (showEvent) {
+
+      var elem = document.getElementById(mouseEvent.target.id);
+      var elemStyle = elem.style;
+
+      var elemWidth = parseInt(elemStyle.width, 10);
+
+      var itemModal = $('#sliderModal')[0];
+      itemModal.querySelector('.inputWidth').value = elemWidth;
+
+      //Button save 
+      $('.saveChangeButton').on('click', function (event) {
+        elemStyle.width = itemModal.querySelector('.inputWidth').value + 'px';
+      });
+    });
+
+    $('#sliderModal').one('hide.bs.modal', function (hideEvent) {
+      $('.saveChangeButton').off('click');
+    });
+
     $('#sliderModal').modal();
   });
 
@@ -1359,7 +1415,43 @@ function processbarMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe mouse double click event
-  $(progressbar).on('dblclick', function (event) {
+  $(progressbar).on('dblclick', function (mouseEvent) {
+    $('#progressBarModal').one('show.bs.modal', function (showEvent) {
+
+      var selectedItem = mouseEvent.target;
+      var elemWidth, elemHeight;
+      
+      if (selectedItem.id){ //Progress is chosen
+        elemWidth = parseInt(selectedItem.style.width,10);
+        elemHeight = Math.round(selectedItem.getBoundingClientRect().bottom - selectedItem.getBoundingClientRect().top);
+      }
+      else { //Bar is chosen
+        elemWidth = parseInt(selectedItem.parentNode.style.width,10);
+        elemHeight = Math.round(selectedItem.getBoundingClientRect().bottom - selectedItem.getBoundingClientRect().top);
+      }
+
+      var itemModal = $('#progressBarModal')[0];      
+      itemModal.querySelector('.inputWidth').value = elemWidth;
+      itemModal.querySelector('.inputHeight').value = elemHeight;
+      
+      //Button save 
+      $('.saveChangeButton').on('click', function (event) {
+        if (selectedItem.id){ //Progress is chosen
+          selectedItem.style.width = itemModal.querySelector('.inputWidth').value + 'px';
+          selectedItem.style.height = itemModal.querySelector('.inputHeight').value + 'px';
+        }
+        else {  //Bar is chosen
+          selectedItem.parentNode.style.width = itemModal.querySelector('.inputWidth').value + 'px';
+          selectedItem.parentNode.style.height = itemModal.querySelector('.inputHeight').value + 'px';
+        }
+
+      });
+    });
+
+    $('#progressBarModal').one('hide.bs.modal', function (hideEvent) {
+      $('.saveChangeButton').off('click');
+    });
+
     $('#progressBarModal').modal();
   });
 
@@ -1372,7 +1464,7 @@ function processbarMouseDownEventHandler(event) {
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
 
- 
+
 }
 
 //Symbol Set mouse down event handler: To create new image
@@ -1408,7 +1500,41 @@ function symbolsetMouseDownEventHandler(event) {
     event.target.style.opacity = 1;
   });
   //Subscribe double click event
-  $(symbolSet).on('dblclick', function (event) {
+  $(symbolSet).on('dblclick', function (mouseEvent) {
+    $('#symbolSetModal').one('show.bs.modal', function (showEvent) {
+
+      var elem = document.getElementById(mouseEvent.target.id);
+      var elemStyle = elem.style;
+
+      var elemWidth = parseInt(elemStyle.width, 10),
+        elemHeight = parseInt(elemStyle.height, 10),
+        elemPositionX = parseInt(elemStyle.left, 10),
+        elemPositionY = parseInt(elemStyle.top, 10);
+
+      var itemModal = $('#symbolSetModal')[0];
+      itemModal.querySelector('.inputWidth').value = elemWidth;
+      itemModal.querySelector('.inputHeight').value = elemHeight;
+      itemModal.querySelector('.inputPositionX').value = elemPositionX;
+      itemModal.querySelector('.inputPositionY').value = elemPositionY;
+
+      //Button save 
+      $('.saveChangeButton').on('click', function (event) {
+        elemStyle.width = itemModal.querySelector('.inputWidth').value + 'px';
+        elemStyle.height = itemModal.querySelector('.inputHeight').value + 'px';
+        elemStyle.left = itemModal.querySelector('.inputPositionX').value + 'px';
+        elemStyle.top = itemModal.querySelector('.inputPositionY').value + 'px';
+
+        draggable = new PlainDraggable(mouseEvent.target, { leftTop: true });
+        draggable.autoScroll = true;
+        draggable.containment = document.getElementById('mainPage1');
+
+      });
+    });
+
+    $('#symbolSetModal').one('hide.bs.modal', function (hideEvent) {
+      $('.saveChangeButton').off('click');
+    });
+
     $('#symbolSetModal').modal();
   });
 
