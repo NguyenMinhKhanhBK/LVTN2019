@@ -24,6 +24,7 @@ $(document).ready(function () {
     draggableObjects.forEach(function (item) {
       item.disabled = true;
     });
+    $('.draggable').draggable('disable');
   });
 
   $('#btnStop').on('click', function (clickEvent) {
@@ -32,6 +33,7 @@ $(document).ready(function () {
     draggableObjects.forEach(function (item) {
       item.disabled = false;
     });
+    $('.draggable').draggable('enable');
     console.log(draggableObjects);
   });
 
@@ -272,8 +274,8 @@ var startDraw = function (shape) {
 
                 var html = document.getElementById(mouseEvent.target.id);
                 for (draggableItem of draggableObjects) {
-                  if(draggableItem.element.id == html.id){
-                    draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+                  if (draggableItem.element.id == html.id) {
+                    draggableObjects.splice(draggableObjects.indexOf(draggableItem), 1);
                     break;
                   }
                 }
@@ -340,8 +342,8 @@ var startDraw = function (shape) {
 
                 var html = document.getElementById(mouseEvent.target.id);
                 for (draggableItem of draggableObjects) {
-                  if(draggableItem.element.id == html.id){
-                    draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+                  if (draggableItem.element.id == html.id) {
+                    draggableObjects.splice(draggableObjects.indexOf(draggableItem), 1);
                     break;
                   }
                 }
@@ -413,8 +415,8 @@ var startDraw = function (shape) {
 
                 var html = document.getElementById(mouseEvent.target.id);
                 for (draggableItem of draggableObjects) {
-                  if(draggableItem.element.id == html.id){
-                    draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+                  if (draggableItem.element.id == html.id) {
+                    draggableObjects.splice(draggableObjects.indexOf(draggableItem), 1);
                     break;
                   }
                 }
@@ -479,8 +481,8 @@ var startDraw = function (shape) {
 
                 var html = document.getElementById(mouseEvent.target.id);
                 for (draggableItem of draggableObjects) {
-                  if(draggableItem.element.id == html.id){
-                    draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+                  if (draggableItem.element.id == html.id) {
+                    draggableObjects.splice(draggableObjects.indexOf(draggableItem), 1);
                     break;
                   }
                 }
@@ -548,8 +550,8 @@ var startDraw = function (shape) {
 
                 var html = document.getElementById(mouseEvent.target.id);
                 for (draggableItem of draggableObjects) {
-                  if(draggableItem.element.id == html.id){
-                    draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+                  if (draggableItem.element.id == html.id) {
+                    draggableObjects.splice(draggableObjects.indexOf(draggableItem), 1);
                     break;
                   }
                 }
@@ -930,6 +932,7 @@ function imageMouseDownEventHandler(event) {
 
   //Image mouse events
   $(shapes[index]).on('mouseover', function (event) {
+    event.target.style.cursor = 'pointer';
     event.target.style.opacity = 0.4;
     //event.target.style.cursor = 'move';
   });
@@ -973,11 +976,6 @@ function imageMouseDownEventHandler(event) {
         elemStyle.top = imageModal.querySelector('#inputPositionY').value + 'px';
         mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
 
-        draggable = new PlainDraggable(mouseEvent.target, { leftTop: true });
-        draggable.autoScroll = true;
-        draggable.containment = document.getElementById('mainPage1');
-        draggableObjects.push(draggable);
-
       });
 
       $('.btnHiddenWhen').on('click', function (onConditionClickEvent) {
@@ -1004,11 +1002,17 @@ function imageMouseDownEventHandler(event) {
 
 
   //Add draggable feature
-  draggable = new PlainDraggable(shapes[index], { leftTop: true });
-  draggable.position();
-  draggable.autoScroll = true;
-  draggable.containment = document.getElementById('mainPage1');
-  draggableObjects.push(draggable);
+  // draggable = new PlainDraggable(shapes[index], { leftTop: true });
+  // draggable.position();
+  // draggable.autoScroll = true;
+  // draggable.containment = document.getElementById('mainPage1');
+  // draggableObjects.push(draggable);
+
+  $(shapes[index]).addClass('draggable');
+  $('.draggable').draggable({
+    refreshPositions: true,
+    containment: $('#mainPage1'),
+  });
 
   index++;
 
@@ -1333,8 +1337,8 @@ function buttonMouseDownEventHandler(event) {
 
         var html = document.getElementById(elemId);
         for (draggableItem of draggableObjects) {
-          if(draggableItem.element.id == html.id){
-            draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+          if (draggableItem.element.id == html.id) {
+            draggableObjects.splice(draggableObjects.indexOf(draggableItem), 1);
             break;
           }
         }
@@ -2127,6 +2131,7 @@ function symbolsetMouseDownEventHandler(event) {
 
   //Image mouse events
   $(symbolSet).on('mouseover', function (event) {
+    event.target.style.cursor = 'pointer';
     event.target.style.opacity = 0.4;
     //event.target.style.cursor = 'move';
   });
@@ -2175,10 +2180,7 @@ function symbolsetMouseDownEventHandler(event) {
         mouseEvent.target.onCondition = itemModal.querySelector('.inputOnCondition').value;
         mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
 
-        draggable = new PlainDraggable(mouseEvent.target, { leftTop: true });
-        draggable.autoScroll = true;
-        draggable.containment = document.getElementById('mainPage1');
-        draggableObjects.push(draggable);
+      
       });
 
       //Browse Tag button
@@ -2215,10 +2217,16 @@ function symbolsetMouseDownEventHandler(event) {
   index++;
 
   //Add draggable feature
-  draggable = new PlainDraggable(symbolSet, { leftTop: true });
-  draggable.autoScroll = true;
-  draggable.containment = document.getElementById('mainPage1');
-  draggableObjects.push(draggable);
+  // draggable = new PlainDraggable(symbolSet, { leftTop: true });
+  // draggable.autoScroll = true;
+  // draggable.containment = document.getElementById('mainPage1');
+  // draggableObjects.push(draggable);
+  symbolSet.classList.add('draggable');
+  $('.draggable').draggable({
+    refreshPositions: true,
+    containment: $('#mainPage1'),
+  });
+
 }
 
 
