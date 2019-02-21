@@ -3,24 +3,29 @@
     src: url('../font/7Segment.ttf') format('opentype');
   }
 
+body{
+    background: #282d30;
+    height: 100%;
+}
+
 .no-gutter > [class*='col-'] {
     padding-right:0;
     padding-left:0;
 }
 
-.no-gutter-all  {
+.no-gutter-all  { 
     padding: 0;
     margin: 0;
 }
 
 .no-gutter-margin{
-    margin: 0;
+    margin: 1px;
     padding: 1px;
 }
 
 .icon-gutter{
     padding: 1px;
-    margin: 0;
+    margin: 1px;
 }
 
 .button-icon{
@@ -57,7 +62,7 @@
 }
 
 .full-height{
-    height: 800px;
+    height: 100vh;
 }
 
 .scrollable{

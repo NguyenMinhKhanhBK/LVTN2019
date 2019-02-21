@@ -13,25 +13,26 @@ $(document).ready(function () {
   });
 
   $('.table-body tr').click(function () {
-    $(this).children('td').children('div').children('input').prop('checked',true);
-     $('.table-body tr').removeClass('row-selected');
-     $(this).toggleClass('row-selected');
+    $(this).children('td').children('div').children('input').prop('checked', true);
+    $('.table-body tr').removeClass('row-selected');
+    $(this).toggleClass('row-selected');
   });
 
-  $('#btnRun').on('click',function (clickEvent) {
-    $(this).prop('disabled',true);
-    $('#btnStop').prop('disabled',false);
+  $('#btnRun').on('click', function (clickEvent) {
+    $(this).prop('disabled', true);
+    $('#btnStop').prop('disabled', false);
     draggableObjects.forEach(function (item) {
       item.disabled = true;
     });
   });
 
-  $('#btnStop').on('click',function (clickEvent) {
-    $(this).prop('disabled',true);
-    $('#btnRun').prop('disabled',false);
+  $('#btnStop').on('click', function (clickEvent) {
+    $(this).prop('disabled', true);
+    $('#btnRun').prop('disabled', false);
     draggableObjects.forEach(function (item) {
       item.disabled = false;
     });
+    console.log(draggableObjects);
   });
 
 });
@@ -116,9 +117,9 @@ function removeItem() {
     }
 
 
-    for (var draggableItem of draggableObjects){
+    for (var draggableItem of draggableObjects) {
       if (draggableItem.element.id == selectedItemId) {
-        draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+        draggableObjects.splice(draggableObjects.indexOf(draggableItem), 1);
         break;
       }
     }
@@ -248,10 +249,10 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputStrokeWidth').value = elemWidth;
               itemModal.querySelector('#inputColor').value = elemColor;
               itemModal.querySelector('#inputLinecap').value = elemLinecap;
-              
+
               if (mouseEvent.target.hiddenWhen) {
                 itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
-              } 
+              }
               else {
                 itemModal.querySelector('.inputHiddenWhen').value = '';
               }
@@ -266,22 +267,27 @@ var startDraw = function (shape) {
                   'x2': itemModal.querySelector('#inputX2').value,
                   'y2': itemModal.querySelector('#inputY2').value,
                   'transform': 'translate(0,0)',
-                });   
-                
+                });
                 mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
 
                 var html = document.getElementById(mouseEvent.target.id);
+                for (draggableItem of draggableObjects) {
+                  if(draggableItem.element.id == html.id){
+                    draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+                    break;
+                  }
+                }
                 draggable = new PlainDraggable(html, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
                 draggableObjects.push(draggable);
               });
 
-              $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
-                $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-                  if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-                    itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-                   }
+              $('.btnHiddenWhen').on('click', function (onConditionClickEvent) {
+                $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+                  if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+                    itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+                  }
                 });
               });
 
@@ -299,7 +305,7 @@ var startDraw = function (shape) {
                 elemLineWidth = element.attr('stroke-width'),
                 elemColor = element.attr('stroke');
 
-              
+
               var itemModal = $(modalId)[0];
 
               itemModal.querySelector('#inputWidth').value = elemWidth;
@@ -312,7 +318,7 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputFillRectColor').value = element.attr('fill');
               if (mouseEvent.target.hiddenWhen) {
                 itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
-              } 
+              }
               else {
                 itemModal.querySelector('.inputHiddenWhen').value = '';
               }
@@ -332,18 +338,24 @@ var startDraw = function (shape) {
 
                 mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
 
-                var rect = document.getElementById(mouseEvent.target.id);
-                draggable = new PlainDraggable(rect, { leftTop: true });
+                var html = document.getElementById(mouseEvent.target.id);
+                for (draggableItem of draggableObjects) {
+                  if(draggableItem.element.id == html.id){
+                    draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+                    break;
+                  }
+                }
+                draggable = new PlainDraggable(html, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
                 draggableObjects.push(draggable);
               });
 
-              $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
-                $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-                  if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-                    itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-                   }
+              $('.btnHiddenWhen').on('click', function (onConditionClickEvent) {
+                $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+                  if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+                    itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+                  }
                 });
               });
 
@@ -374,10 +386,10 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputShapeColor').value = elemColor;
               itemModal.querySelector('#fillRoundRectCheckbox').checked = element.attr('fill-opacity');
               itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
-              
+
               if (mouseEvent.target.hiddenWhen) {
                 itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
-              } 
+              }
               else {
                 itemModal.querySelector('.inputHiddenWhen').value = '';
               }
@@ -399,18 +411,24 @@ var startDraw = function (shape) {
 
                 mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
 
-                var rect = document.getElementById(mouseEvent.target.id);
-                draggable = new PlainDraggable(rect, { leftTop: true });
+                var html = document.getElementById(mouseEvent.target.id);
+                for (draggableItem of draggableObjects) {
+                  if(draggableItem.element.id == html.id){
+                    draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+                    break;
+                  }
+                }
+                draggable = new PlainDraggable(html, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
                 draggableObjects.push(draggable);
               });
 
-              $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
-                $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-                  if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-                    itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-                   }
+              $('.btnHiddenWhen').on('click', function (onConditionClickEvent) {
+                $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+                  if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+                    itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+                  }
                 });
               });
             }
@@ -440,7 +458,7 @@ var startDraw = function (shape) {
 
               if (mouseEvent.target.hiddenWhen) {
                 itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
-              } 
+              }
               else {
                 itemModal.querySelector('.inputHiddenWhen').value = '';
               }
@@ -459,18 +477,24 @@ var startDraw = function (shape) {
 
                 mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
 
-                var rect = document.getElementById(mouseEvent.target.id);
-                draggable = new PlainDraggable(rect, { leftTop: true });
+                var html = document.getElementById(mouseEvent.target.id);
+                for (draggableItem of draggableObjects) {
+                  if(draggableItem.element.id == html.id){
+                    draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+                    break;
+                  }
+                }
+                draggable = new PlainDraggable(html, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
                 draggableObjects.push(draggable);
               });
 
-              $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
-                $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-                  if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-                    itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-                   }
+              $('.btnHiddenWhen').on('click', function (onConditionClickEvent) {
+                $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+                  if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+                    itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+                  }
                 });
               });
             }
@@ -499,10 +523,10 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputShapeColor').value = elemColor;
               itemModal.querySelector('#fillEllipseCheckbox').checked = element.attr('fill-opacity');
               itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
-              
+
               if (mouseEvent.target.hiddenWhen) {
                 itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
-              } 
+              }
               else {
                 itemModal.querySelector('.inputHiddenWhen').value = '';
               }
@@ -522,18 +546,24 @@ var startDraw = function (shape) {
 
                 mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
 
-                var rect = document.getElementById(mouseEvent.target.id);
-                draggable = new PlainDraggable(rect, { leftTop: true });
+                var html = document.getElementById(mouseEvent.target.id);
+                for (draggableItem of draggableObjects) {
+                  if(draggableItem.element.id == html.id){
+                    draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+                    break;
+                  }
+                }
+                draggable = new PlainDraggable(html, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
                 draggableObjects.push(draggable);
               });
 
-              $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
-                $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-                  if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-                    itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-                   }
+              $('.btnHiddenWhen').on('click', function (onConditionClickEvent) {
+                $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+                  if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+                    itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+                  }
                 });
               });
             }
@@ -557,7 +587,7 @@ var startDraw = function (shape) {
     draggable.autoScroll = true;
     draggable.containment = document.getElementById('mainPage1');
     draggableObjects.push(draggable);
-    
+
     console.log(draggableObjects);
 
 
@@ -618,7 +648,7 @@ var drawPolygon = function () {
 
           if (mouseEvent.target.hiddenWhen) {
             itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
-          } 
+          }
           else {
             itemModal.querySelector('.inputHiddenWhen').value = '';
           }
@@ -635,11 +665,11 @@ var drawPolygon = function () {
 
           });
 
-          $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
-            $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-              if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-                itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-               }
+          $('.btnHiddenWhen').on('click', function (onConditionClickEvent) {
+            $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+              if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+                itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+              }
             });
           });
         }
@@ -721,7 +751,7 @@ var drawPolyline = function () {
 
           if (mouseEvent.target.hiddenWhen) {
             itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
-          } 
+          }
           else {
             itemModal.querySelector('.inputHiddenWhen').value = '';
           }
@@ -735,11 +765,11 @@ var drawPolyline = function () {
             mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
           });
 
-          $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
-            $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-              if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-                itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-               }
+          $('.btnHiddenWhen').on('click', function (onConditionClickEvent) {
+            $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+              if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+                itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+              }
             });
           });
         }
@@ -930,7 +960,7 @@ function imageMouseDownEventHandler(event) {
 
       if (mouseEvent.target.hiddenWhen) {
         itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
-      } 
+      }
       else {
         itemModal.querySelector('.inputHiddenWhen').value = '';
       }
@@ -950,11 +980,11 @@ function imageMouseDownEventHandler(event) {
 
       });
 
-      $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnHiddenWhen').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
@@ -1041,7 +1071,7 @@ function textMouseDownEventHandler(event) {
       itemModal.querySelector('#textContent').value = elemText;
       if (mouseEvent.target.hiddenWhen) {
         itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
-      } 
+      }
       else {
         itemModal.querySelector('.inputHiddenWhen').value = '';
       }
@@ -1056,11 +1086,11 @@ function textMouseDownEventHandler(event) {
         mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
       });
 
-      $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnHiddenWhen').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
@@ -1140,14 +1170,14 @@ function displayValueMouseDownEventHandler(event) {
 
       if (mouseEvent.target.hiddenWhen) {
         itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
-      } 
+      }
       else {
         itemModal.querySelector('.inputHiddenWhen').value = '';
       }
 
       if (mouseEvent.target.tag) {
         itemModal.querySelector('.inputTag').value = mouseEvent.target.tag;
-      } 
+      }
       else {
         itemModal.querySelector('.inputTag').value = '';
       }
@@ -1160,22 +1190,22 @@ function displayValueMouseDownEventHandler(event) {
         document.getElementById(elemId).innerHTML = itemModal.querySelector('#textContent').value;
         mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
         mouseEvent.target.tag = itemModal.querySelector('.inputTag').value;
-	
+
       });
 
-      $('.btnTag').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnTag').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputTag').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnHiddenWhen').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
@@ -1272,17 +1302,17 @@ function buttonMouseDownEventHandler(event) {
       itemModal.querySelector('#inputHeight').value = elemHeight;
       itemModal.querySelector('#inputPositionX').value = elemPositionX;
       itemModal.querySelector('#inputPositionY').value = elemPositionY;
-      
+
       if (mouseEvent.target.command) {
         itemModal.querySelector('.inputCommand').value = mouseEvent.target.command;
-      } 
+      }
       else {
         itemModal.querySelector('.inputCommand').value = '';
       }
 
       if (mouseEvent.target.disableWhen) {
         itemModal.querySelector('.inputDisableWhen').value = mouseEvent.target.disableWhen;
-      } 
+      }
       else {
         itemModal.querySelector('.inputDisableWhen').value = '';
       }
@@ -1301,25 +1331,32 @@ function buttonMouseDownEventHandler(event) {
         mouseEvent.target.command = itemModal.querySelector('.inputCommand').value;
         mouseEvent.target.disableWhen = itemModal.querySelector('.inputDisableWhen').value;
 
-        draggable = new PlainDraggable(document.getElementById(elemId), { leftTop: true });
+        var html = document.getElementById(elemId);
+        for (draggableItem of draggableObjects) {
+          if(draggableItem.element.id == html.id){
+            draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+            break;
+          }
+        }
+        draggable = new PlainDraggable(html, { leftTop: true });
         draggable.autoScroll = true;
         draggable.containment = document.getElementById('mainPage1');
         draggableObjects.push(draggable);
       });
 
-      $('.btnCommand').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputCommand').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnCommand').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputCommand').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnDisableWhen').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputDisableWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnDisableWhen').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputDisableWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
@@ -1392,21 +1429,21 @@ function switchMouseDownEventHandler(event) {
 
       if (mouseEvent.target.onCommand) {
         itemModal.querySelector('.inputOnCommand').value = mouseEvent.target.onCommand;
-      } 
+      }
       else {
         itemModal.querySelector('.inputOnCommand').value = '';
       }
 
       if (mouseEvent.target.offCommand) {
         itemModal.querySelector('.inputOffCommand').value = mouseEvent.target.offCommand;
-      } 
+      }
       else {
         itemModal.querySelector('.inputOffCommand').value = '';
       }
 
       if (mouseEvent.target.disableWhen) {
         itemModal.querySelector('.inputDisableWhen').value = mouseEvent.target.disableWhen;
-      } 
+      }
       else {
         itemModal.querySelector('.inputDisableWhen').value = '';
       }
@@ -1417,27 +1454,27 @@ function switchMouseDownEventHandler(event) {
         mouseEvent.target.disableWhen = itemModal.querySelector('.inputDisableWhen').value;
       });
 
-      $('.btnOnCommand').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputOnCommand').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnOnCommand').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputOnCommand').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnOffCommand').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputOffCommand').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnOffCommand').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputOffCommand').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnDisableWhen').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputDisableWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnDisableWhen').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputDisableWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
@@ -1514,14 +1551,14 @@ function inputMouseDownEventHandler(event) {
 
       if (mouseEvent.target.tag) {
         itemModal.querySelector('.inputTag').value = mouseEvent.target.tag;
-      } 
+      }
       else {
         itemModal.querySelector('.inputTag').value = '';
       }
 
       if (mouseEvent.target.disableWhen) {
         itemModal.querySelector('.inputDisableWhen').value = mouseEvent.target.disableWhen;
-      } 
+      }
       else {
         itemModal.querySelector('.inputDisableWhen').value = '';
       }
@@ -1533,19 +1570,19 @@ function inputMouseDownEventHandler(event) {
         mouseEvent.target.disableWhen = itemModal.querySelector('.inputDisableWhen').value;
       });
 
-      $('.btnTag').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnTag').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputTag').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnDisableWhen').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputDisableWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnDisableWhen').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputDisableWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
@@ -1618,27 +1655,27 @@ function checkboxMouseDownEventHandler(event) {
   //Subscribe double click event
   $(checkbox).on('dblclick', function (mouseEvent) {
     $('#checkboxModal').one('show.bs.modal', function (showEvent) {
-      
+
       var itemModal = $('#checkboxModal')[0];
       itemModal.querySelector('.textContent').value = mouseEvent.target.innerText;
 
       if (mouseEvent.target.checkedCommand) {
         itemModal.querySelector('.inputChecked').value = mouseEvent.target.checkedCommand;
-      } 
+      }
       else {
         itemModal.querySelector('.inputChecked').value = '';
       }
 
       if (mouseEvent.target.unCheckedCommand) {
         itemModal.querySelector('.inputUnchecked').value = mouseEvent.target.unCheckedCommand;
-      } 
+      }
       else {
         itemModal.querySelector('.inputUnchecked').value = '';
       }
 
       if (mouseEvent.target.disableWhen) {
         itemModal.querySelector('.inputDisableWhen').value = mouseEvent.target.disableWhen;
-      } 
+      }
       else {
         itemModal.querySelector('.inputDisableWhen').value = '';
       }
@@ -1650,27 +1687,27 @@ function checkboxMouseDownEventHandler(event) {
         mouseEvent.target.disableWhen = itemModal.querySelector('.inputDisableWhen').value;
       });
 
-      $('.btnChecked').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputChecked').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnChecked').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputChecked').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnUnchecked').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputUnchecked').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnUnchecked').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputUnchecked').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnDisableWhen').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputDisableWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnDisableWhen').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputDisableWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
@@ -1743,42 +1780,42 @@ function sliderMouseDownEventHandler(event) {
 
       if (mouseEvent.target.tag) {
         itemModal.querySelector('.inputValue').value = mouseEvent.target.tag;
-      } 
+      }
       else {
         itemModal.querySelector('.inputValue').value = '';
       }
 
       if (mouseEvent.target.minTag) {
         itemModal.querySelector('.inputMinTag').value = mouseEvent.target.minTag;
-      } 
+      }
       else {
         itemModal.querySelector('.inputMinTag').value = '';
       }
 
       if (mouseEvent.target.minValue) {
         itemModal.querySelector('.inputMinValue').value = mouseEvent.target.minValue;
-      } 
+      }
       else {
         itemModal.querySelector('.inputMinValue').value = '';
       }
 
       if (mouseEvent.target.maxTag) {
         itemModal.querySelector('.inputMaxTag').value = mouseEvent.target.maxTag;
-      } 
+      }
       else {
         itemModal.querySelector('.inputMaxTag').value = '';
       }
 
       if (mouseEvent.target.maxValue) {
         itemModal.querySelector('.inputMaxValue').value = mouseEvent.target.maxValue;
-      } 
+      }
       else {
         itemModal.querySelector('.inputMaxValue').value = '';
       }
 
       if (mouseEvent.target.disableWhen) {
         itemModal.querySelector('.inputDisableWhen').value = mouseEvent.target.disableWhen;
-      } 
+      }
       else {
         itemModal.querySelector('.inputDisableWhen').value = '';
       }
@@ -1805,35 +1842,35 @@ function sliderMouseDownEventHandler(event) {
       });
 
       //Browse button
-      $('.btnValue').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputValue').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnValue').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputValue').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnMinTag').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputMinTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnMinTag').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputMinTag').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnMaxTag').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputMaxTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnMaxTag').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputMaxTag').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnDisableWhen').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputDisableWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnDisableWhen').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputDisableWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
@@ -1908,68 +1945,68 @@ function processbarMouseDownEventHandler(event) {
       var selectedItem = mouseEvent.target;
       var elemWidth, elemHeight;
       var progressElement;
-      
-      if (selectedItem.id){ //Progress is chosen
+
+      if (selectedItem.id) { //Progress is chosen
         progressElement = selectedItem;
-        elemWidth = parseInt(selectedItem.style.width,10);
+        elemWidth = parseInt(selectedItem.style.width, 10);
         elemHeight = Math.round(selectedItem.getBoundingClientRect().bottom - selectedItem.getBoundingClientRect().top);
       }
       else { //Bar is chosen
         progressElement = selectedItem.parentNode;
-        elemWidth = parseInt(selectedItem.parentNode.style.width,10);
+        elemWidth = parseInt(selectedItem.parentNode.style.width, 10);
         elemHeight = Math.round(selectedItem.getBoundingClientRect().bottom - selectedItem.getBoundingClientRect().top);
       }
 
-      var itemModal = $('#progressBarModal')[0];      
+      var itemModal = $('#progressBarModal')[0];
       itemModal.querySelector('.inputWidth').value = elemWidth;
       itemModal.querySelector('.inputHeight').value = elemHeight;
 
       if (progressElement.tag) {
         itemModal.querySelector('.inputValue').value = progressElement.tag;
-      } 
+      }
       else {
         itemModal.querySelector('.inputValue').value = '';
       }
 
       if (progressElement.minTag) {
         itemModal.querySelector('.inputMinTag').value = progressElement.minTag;
-      } 
+      }
       else {
         itemModal.querySelector('.inputMinTag').value = '';
       }
 
       if (progressElement.minValue) {
         itemModal.querySelector('.inputMinValue').value = progressElement.minValue;
-      } 
+      }
       else {
         itemModal.querySelector('.inputMinValue').value = '';
       }
 
       if (progressElement.maxTag) {
         itemModal.querySelector('.inputMaxTag').value = progressElement.maxTag;
-      } 
+      }
       else {
         itemModal.querySelector('.inputMaxTag').value = '';
       }
 
       if (progressElement.maxValue) {
         itemModal.querySelector('.inputMaxValue').value = progressElement.maxValue;
-      } 
+      }
       else {
         itemModal.querySelector('.inputMaxValue').value = '';
       }
 
       if (progressElement.hiddenWhen) {
         itemModal.querySelector('.inputHiddenWhen').value = progressElement.hiddenWhen;
-      } 
+      }
       else {
         itemModal.querySelector('.inputHiddenWhen').value = '';
       }
-     
-      
+
+
       //Button save 
       $('.saveChangeButton').on('click', function (event) {
-        if (selectedItem.id){ //Progress is chosen
+        if (selectedItem.id) { //Progress is chosen
           selectedItem.style.width = itemModal.querySelector('.inputWidth').value + 'px';
           selectedItem.style.height = itemModal.querySelector('.inputHeight').value + 'px';
         }
@@ -2002,42 +2039,42 @@ function processbarMouseDownEventHandler(event) {
         console.log(progressElement.isMinTag);
         console.log(progressElement.isMaxTag);
 
-       
+
       });
 
       //Button Value browse tag
-      $('.btnValueTag').on('click',function (valueEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputValue').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnValueTag').on('click', function (valueEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputValue').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnMinTag').on('click',function (valueEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputMinTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
-        });
-      });
-      
-      $('.btnMaxTag').on('click',function (valueEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputMaxTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnMinTag').on('click', function (valueEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputMinTag').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
-      $('.btnHiddenWhen').on('click',function (valueEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnMaxTag').on('click', function (valueEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputMaxTag').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
-      
+
+      $('.btnHiddenWhen').on('click', function (valueEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
+        });
+      });
+
     });
 
     $('#progressBarModal').one('hide.bs.modal', function (hideEvent) {
@@ -2078,7 +2115,7 @@ function symbolsetMouseDownEventHandler(event) {
   symbolSet.id = 'symbolSet' + index;
   symbolSet.className += ' contextMenu ';
 
-  
+
 
   //Image css style
   symbolSet.src = defaultSymbolSet;
@@ -2117,14 +2154,14 @@ function symbolsetMouseDownEventHandler(event) {
 
       if (mouseEvent.target.onCondition) {
         itemModal.querySelector('.inputOnCondition').value = mouseEvent.target.onCondition;
-      } 
+      }
       else {
         itemModal.querySelector('.inputOnCondition').value = '';
       }
 
       if (mouseEvent.target.hiddenWhen) {
         itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
-      } 
+      }
       else {
         itemModal.querySelector('.inputHiddenWhen').value = '';
       }
@@ -2145,20 +2182,20 @@ function symbolsetMouseDownEventHandler(event) {
       });
 
       //Browse Tag button
-      $('#btnOnCondition').on('click',function (onConditionClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputOnCondition').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('#btnOnCondition').on('click', function (onConditionClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputOnCondition').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 
       //Browse Tag button
-      $('.btnHiddenWhen').on('click',function (onHiddenWhenClickEvent) {
-        $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
-          if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
-           }
+      $('.btnHiddenWhen').on('click', function (onHiddenWhenClickEvent) {
+        $('#tagModal').one('hide.bs.modal', function (modalHideEvent) {
+          if ($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')) {
+            itemModal.querySelector('.inputHiddenWhen').value += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+          }
         });
       });
 

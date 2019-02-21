@@ -15,7 +15,7 @@
 
 <body>
 
-  <div class="container" style="height:1000px" id="drawing">
+  <div class="container" style="width: 1000px; height:1000px; background: green" id="drawing">
 
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-backdrop="static"
       style="width:100px;height:100px;background:red">
@@ -103,6 +103,8 @@
   <script src="../public/js/contextmenu.js"></script>
   <!-- SVG script -->
   <script src="../public/js/svg.min.js"></script>
+
+  <script src="../public/jquery-ui/jquery-ui.min.js"></script>
   <!-- /SVG script -->
 
   <!-- SVG draw script -->
@@ -139,18 +141,17 @@
 
       //Image css style
       img.src = defaultImageSrc;
-      img.style.height = '100px';
-      img.style.width = '150px';
       img.style.position = 'absolute';
       img.style.top = '500px';
       img.style.left = '500px';
       img.style.border = '2px solid black';
 
-      document.body.appendChild(img);
+      $('#drawing').append(img);
       shapes.push(img);
-      draggable = new PlainDraggable(img);
+      $(img).draggable({
+        containment:$('#drawing'),
+      });
       
-  
 
     }
 
@@ -161,7 +162,7 @@
       });
     }
   </script>
-  <script src="../public/js/plain-draggable.min.js"></script>
+
 </body>
 
 </html>
