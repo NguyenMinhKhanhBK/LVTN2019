@@ -21,13 +21,9 @@
       style="width:100px;height:100px;background:red">
       Open modal
     </button>
-    <h1>Input group</h1>
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" id="inputText" placeholder="Insert tag">
-        <div class="input-group-append">
-          <button class="btn btn-primary" data-toggle="modal" data-target="#myModal" data-backdrop="static">Browse tag</button> 
-        </div>
-      </div>
+
+    <button class="btn btn-info" onclick="addNewImage()">Thêm hình ảnh mới</button>
+    <button class="btn btn-success" onclick="increaseSize()">Tăng kích thước</button>
 
 
 
@@ -57,9 +53,8 @@
                 <tr class="row-pointer">
                   <td>
                     <div class="custom-control custom-radio">
-                      <input type="radio" class="custom-control-input"   name="example1"
-                        value="Val-1">
-                      <label class="custom-control-label" for="tr1" ></label>
+                      <input type="radio" class="custom-control-input" name="example1" value="Val-1">
+                      <label class="custom-control-label" for="tr1"></label>
                     </div>
                   </td>
                   <td>Val-1</td>
@@ -70,9 +65,8 @@
                 <tr class="row-pointer">
                   <td>
                     <div class="custom-control custom-radio">
-                      <input type="radio" class="custom-control-input"  name="example1"
-                        value="Val-2">
-                      <label class="custom-control-label" for="tr2" ></label>
+                      <input type="radio" class="custom-control-input" name="example1" value="Val-2">
+                      <label class="custom-control-label" for="tr2"></label>
                     </div>
                   </td>
                   <td>Val-2</td>
@@ -87,7 +81,8 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" style="min-width:100px" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" style="min-width:100px" data-dismiss="modal" id="btnTagOK">OK</button>
+            <button type="button" class="btn btn-primary" style="min-width:100px" data-dismiss="modal"
+              id="btnTagOK">OK</button>
 
           </div>
         </div>
@@ -116,25 +111,57 @@
 
   <script src="../js/bootstrap-formhelpers.min.js"></script>
   <script>
-    $(document).ready(function ($) {
-     $('.table-body tr').click(function () {
-      $(this).children('td').children('div').children('input').prop('checked',true);
-      
-       $('.table-body tr').removeClass('row-selected');
-       $(this).toggleClass('row-selected');
-    });
+    const shapes = [];
 
-    $('#myModal').one('show.bs.modal',function (showEvent) {
-      $('#btnTagOK').on('click',function (btnEvent) {
-        if($('#myModal')[0].querySelector('input[name="example1"]:checked')){
-         document.getElementById('inputText').value  += $('#myModal')[0].querySelector('input[name="example1"]:checked').value;
-        }
+    $(document).ready(function ($) {
+      $('.table-body tr').click(function () {
+        $(this).children('td').children('div').children('input').prop('checked', true);
+
+        $('.table-body tr').removeClass('row-selected');
+        $(this).toggleClass('row-selected');
+      });
+
+      $('#myModal').one('show.bs.modal', function (showEvent) {
+        $('#btnTagOK').on('click', function (btnEvent) {
+          if ($('#myModal')[0].querySelector('input[name="example1"]:checked')) {
+            document.getElementById('inputText').hiddenWhen = 'tag';
+          }
+          console.log(document.getElementById('inputText').hiddenWhen);
+        });
       });
     });
 
+    function addNewImage() {
+      var defaultImageSrc = '../public/img/png/default-image.png';
+      var img = document.createElement('img')
+      img.className += ' contextMenu '
 
-  });
+
+      //Image css style
+      img.src = defaultImageSrc;
+      img.style.height = '100px';
+      img.style.width = '150px';
+      img.style.position = 'absolute';
+      img.style.top = '500px';
+      img.style.left = '500px';
+      img.style.border = '2px solid black';
+
+      document.body.appendChild(img);
+      shapes.push(img);
+      draggable = new PlainDraggable(img);
+      
+  
+
+    }
+
+    function increaseSize() {
+      shapes.forEach(function (item) {
+        item.style.height = '200px';
+        item.style.width = '200px';
+      });
+    }
   </script>
+  <script src="../public/js/plain-draggable.min.js"></script>
 </body>
 
 </html>

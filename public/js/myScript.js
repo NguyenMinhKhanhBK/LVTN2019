@@ -18,6 +18,22 @@ $(document).ready(function () {
      $(this).toggleClass('row-selected');
   });
 
+  $('#btnRun').on('click',function (clickEvent) {
+    $(this).prop('disabled',true);
+    $('#btnStop').prop('disabled',false);
+    draggableObjects.forEach(function (item) {
+      item.disabled = true;
+    });
+  });
+
+  $('#btnStop').on('click',function (clickEvent) {
+    $(this).prop('disabled',true);
+    $('#btnRun').prop('disabled',false);
+    draggableObjects.forEach(function (item) {
+      item.disabled = false;
+    });
+  });
+
 });
 
 /*
@@ -28,6 +44,7 @@ $(document).ready(function () {
 //SVG global variable
 const draw = SVG('mainPage1');
 const shapes = [];
+const draggableObjects = [];
 let index = 0;
 let shape;
 let selectedItemId;
@@ -97,7 +114,14 @@ function removeItem() {
         }
       }
     }
-    //console.log(shapes);
+
+
+    for (var draggableItem of draggableObjects){
+      if (draggableItem.element.id == selectedItemId) {
+        draggableObjects.splice(draggableObjects.indexOf(draggableItem),1);
+        break;
+      }
+    }
 
   };
 
@@ -224,6 +248,13 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputStrokeWidth').value = elemWidth;
               itemModal.querySelector('#inputColor').value = elemColor;
               itemModal.querySelector('#inputLinecap').value = elemLinecap;
+              
+              if (mouseEvent.target.hiddenWhen) {
+                itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
+              } 
+              else {
+                itemModal.querySelector('.inputHiddenWhen').value = '';
+              }
 
               $('.saveChangeButton').on('click', function (event) {
                 element.attr({
@@ -235,12 +266,15 @@ var startDraw = function (shape) {
                   'x2': itemModal.querySelector('#inputX2').value,
                   'y2': itemModal.querySelector('#inputY2').value,
                   'transform': 'translate(0,0)',
-                });
+                });   
+                
+                mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
 
                 var html = document.getElementById(mouseEvent.target.id);
                 draggable = new PlainDraggable(html, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
+                draggableObjects.push(draggable);
               });
 
               $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
@@ -276,6 +310,12 @@ var startDraw = function (shape) {
               itemModal.querySelector('#inputLineColor').value = elemColor;
               itemModal.querySelector('#fillRectCheckbox').checked = element.attr('fill-opacity');
               itemModal.querySelector('#inputFillRectColor').value = element.attr('fill');
+              if (mouseEvent.target.hiddenWhen) {
+                itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
+              } 
+              else {
+                itemModal.querySelector('.inputHiddenWhen').value = '';
+              }
 
               $('.saveChangeButton').on('click', function (event) {
                 element.attr({
@@ -290,10 +330,13 @@ var startDraw = function (shape) {
                   'fill': itemModal.querySelector('#inputFillRectColor').value,
                 });
 
+                mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
+
                 var rect = document.getElementById(mouseEvent.target.id);
                 draggable = new PlainDraggable(rect, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
+                draggableObjects.push(draggable);
               });
 
               $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
@@ -332,6 +375,13 @@ var startDraw = function (shape) {
               itemModal.querySelector('#fillRoundRectCheckbox').checked = element.attr('fill-opacity');
               itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
               
+              if (mouseEvent.target.hiddenWhen) {
+                itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
+              } 
+              else {
+                itemModal.querySelector('.inputHiddenWhen').value = '';
+              }
+
               $('.saveChangeButton').on('click', function (event) {
                 element.attr({
                   'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
@@ -347,10 +397,13 @@ var startDraw = function (shape) {
                   'fill': itemModal.querySelector('#inputFillShapeColor').value,
                 });
 
+                mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
+
                 var rect = document.getElementById(mouseEvent.target.id);
                 draggable = new PlainDraggable(rect, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
+                draggableObjects.push(draggable);
               });
 
               $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
@@ -385,6 +438,13 @@ var startDraw = function (shape) {
               itemModal.querySelector('#fillCircleCheckbox').checked = element.attr('fill-opacity');
               itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
 
+              if (mouseEvent.target.hiddenWhen) {
+                itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
+              } 
+              else {
+                itemModal.querySelector('.inputHiddenWhen').value = '';
+              }
+
               $('.saveChangeButton').on('click', function (event) {
                 element.attr({
                   'r': itemModal.querySelector('#inputRadius').value,
@@ -397,10 +457,13 @@ var startDraw = function (shape) {
                   'fill': itemModal.querySelector('#inputFillShapeColor').value,
                 });
 
+                mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
+
                 var rect = document.getElementById(mouseEvent.target.id);
                 draggable = new PlainDraggable(rect, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
+                draggableObjects.push(draggable);
               });
 
               $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
@@ -437,6 +500,12 @@ var startDraw = function (shape) {
               itemModal.querySelector('#fillEllipseCheckbox').checked = element.attr('fill-opacity');
               itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
               
+              if (mouseEvent.target.hiddenWhen) {
+                itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
+              } 
+              else {
+                itemModal.querySelector('.inputHiddenWhen').value = '';
+              }
 
               $('.saveChangeButton').on('click', function (event) {
                 element.attr({
@@ -451,10 +520,13 @@ var startDraw = function (shape) {
                   'fill': itemModal.querySelector('#inputFillShapeColor').value,
                 });
 
+                mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
+
                 var rect = document.getElementById(mouseEvent.target.id);
                 draggable = new PlainDraggable(rect, { leftTop: true });
                 draggable.autoScroll = true;
                 draggable.containment = document.getElementById('mainPage1');
+                draggableObjects.push(draggable);
               });
 
               $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
@@ -484,6 +556,9 @@ var startDraw = function (shape) {
     draggable = new PlainDraggable(element, { leftTop: true });
     draggable.autoScroll = true;
     draggable.containment = document.getElementById('mainPage1');
+    draggableObjects.push(draggable);
+    
+    console.log(draggableObjects);
 
 
     //Add contextMenu class
@@ -541,6 +616,13 @@ var drawPolygon = function () {
           itemModal.querySelector('#fillPolygonCheckbox').checked = element.attr('fill-opacity');
           itemModal.querySelector('#inputFillShapeColor').value = element.attr('fill');
 
+          if (mouseEvent.target.hiddenWhen) {
+            itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
+          } 
+          else {
+            itemModal.querySelector('.inputHiddenWhen').value = '';
+          }
+
           $('.saveChangeButton').on('click', function (event) {
             element.attr({
               'stroke-width': itemModal.querySelector('#inputShapeLineWidth').value,
@@ -548,6 +630,9 @@ var drawPolygon = function () {
               'fill-opacity': Number(itemModal.querySelector('#fillPolygonCheckbox').checked),
               'fill': itemModal.querySelector('#inputFillShapeColor').value,
             });
+
+            mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
+
           });
 
           $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
@@ -574,6 +659,7 @@ var drawPolygon = function () {
     draggable = new PlainDraggable(element, { leftTop: true });
     draggable.autoScroll = true;
     draggable.containment = document.getElementById('mainPage1');
+    draggableObjects.push(draggable);
 
     //Add contextMenu class
     $(element).addClass('contextMenu');
@@ -633,11 +719,20 @@ var drawPolyline = function () {
           itemModal.querySelector('#inputWidth').value = elemWidth;
           itemModal.querySelector('#inputColor').value = elemColor;
 
+          if (mouseEvent.target.hiddenWhen) {
+            itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
+          } 
+          else {
+            itemModal.querySelector('.inputHiddenWhen').value = '';
+          }
+
           $('.saveChangeButton').on('click', function (event) {
             element.attr({
               'stroke-width': itemModal.querySelector('#inputWidth').value,
               'stroke': itemModal.querySelector('#inputColor').value,
             });
+
+            mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
           });
 
           $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
@@ -664,6 +759,7 @@ var drawPolyline = function () {
     draggable = new PlainDraggable(element, { leftTop: true });
     draggable.autoScroll = true;
     draggable.containment = document.getElementById('mainPage1');
+    draggableObjects.push(draggable);
 
     //Add contextMenu class
     $(element).addClass('contextMenu');
@@ -826,30 +922,38 @@ function imageMouseDownEventHandler(event) {
 
       //console.log('Target ' + mouseEvent.target.id);
 
-      var imageModal = document.getElementById('imageModal');
-      imageModal.querySelector('#inputWidth').value = elemWidth;
-      imageModal.querySelector('#inputHeight').value = elemHeight;
-      imageModal.querySelector('#inputPositionX').value = elemPositionX;
-      imageModal.querySelector('#inputPositionY').value = elemPositionY;
+      var itemModal = document.getElementById('imageModal');
+      itemModal.querySelector('#inputWidth').value = elemWidth;
+      itemModal.querySelector('#inputHeight').value = elemHeight;
+      itemModal.querySelector('#inputPositionX').value = elemPositionX;
+      itemModal.querySelector('#inputPositionY').value = elemPositionY;
+
+      if (mouseEvent.target.hiddenWhen) {
+        itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
+      } 
+      else {
+        itemModal.querySelector('.inputHiddenWhen').value = '';
+      }
 
       //Button save 
       $('.saveChangeButton').on('click', function (event) {
-        console.log(document.getElementById(mouseEvent.target.id));
         elemStyle.width = imageModal.querySelector('#inputWidth').value + 'px';
         elemStyle.height = imageModal.querySelector('#inputHeight').value + 'px';
         elemStyle.left = imageModal.querySelector('#inputPositionX').value + 'px';
         elemStyle.top = imageModal.querySelector('#inputPositionY').value + 'px';
+        mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
 
         draggable = new PlainDraggable(mouseEvent.target, { leftTop: true });
         draggable.autoScroll = true;
         draggable.containment = document.getElementById('mainPage1');
+        draggableObjects.push(draggable);
 
       });
 
       $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
         $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
           if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            imageModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+            itemModal.querySelector('.inputHiddenWhen').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
            }
         });
       });
@@ -874,6 +978,7 @@ function imageMouseDownEventHandler(event) {
   draggable.position();
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
+  draggableObjects.push(draggable);
 
   index++;
 
@@ -934,6 +1039,12 @@ function textMouseDownEventHandler(event) {
       itemModal.querySelector('#fontStyleForm').value = elemFontstyle;
       itemModal.querySelector('#inputTextColor').value = elemColor;
       itemModal.querySelector('#textContent').value = elemText;
+      if (mouseEvent.target.hiddenWhen) {
+        itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
+      } 
+      else {
+        itemModal.querySelector('.inputHiddenWhen').value = '';
+      }
 
 
       $('.saveChangeButton').on('click', function (event) {
@@ -942,6 +1053,7 @@ function textMouseDownEventHandler(event) {
         document.getElementById(elemId).style.color = itemModal.querySelector('#inputTextColor').value;
         document.getElementById(elemId).style.fontStyle = itemModal.querySelector('#fontStyleForm').value;
         document.getElementById(elemId).innerHTML = itemModal.querySelector('#textContent').value;
+        mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
       });
 
       $('.btnHiddenWhen').on('click',function (onConditionClickEvent) {
@@ -970,6 +1082,7 @@ function textMouseDownEventHandler(event) {
   draggable = new PlainDraggable(para, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
+  draggableObjects.push(draggable);
 }
 
 //Display Value mouse down event handler: To create new DisplayValue
@@ -1025,14 +1138,29 @@ function displayValueMouseDownEventHandler(event) {
       itemModal.querySelector('#inputTextColor').value = elemColor;
       itemModal.querySelector('#textContent').value = elemText;
 
+      if (mouseEvent.target.hiddenWhen) {
+        itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
+      } 
+      else {
+        itemModal.querySelector('.inputHiddenWhen').value = '';
+      }
+
+      if (mouseEvent.target.tag) {
+        itemModal.querySelector('.inputTag').value = mouseEvent.target.tag;
+      } 
+      else {
+        itemModal.querySelector('.inputTag').value = '';
+      }
 
       $('.saveChangeButton').on('click', function (event) {
         document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
         document.getElementById(elemId).style.fontFamily = itemModal.querySelector('#fontPicker').value;
         document.getElementById(elemId).style.color = itemModal.querySelector('#inputTextColor').value;
         document.getElementById(elemId).style.fontStyle = itemModal.querySelector('#fontStyleForm').value;
-
         document.getElementById(elemId).innerHTML = itemModal.querySelector('#textContent').value;
+        mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
+        mouseEvent.target.tag = itemModal.querySelector('.inputTag').value;
+	
       });
 
       $('.btnTag').on('click',function (onConditionClickEvent) {
@@ -1070,6 +1198,7 @@ function displayValueMouseDownEventHandler(event) {
   draggable = new PlainDraggable(para, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
+  draggableObjects.push(draggable);
 
 
 }
@@ -1143,10 +1272,20 @@ function buttonMouseDownEventHandler(event) {
       itemModal.querySelector('#inputHeight').value = elemHeight;
       itemModal.querySelector('#inputPositionX').value = elemPositionX;
       itemModal.querySelector('#inputPositionY').value = elemPositionY;
+      
+      if (mouseEvent.target.command) {
+        itemModal.querySelector('.inputCommand').value = mouseEvent.target.command;
+      } 
+      else {
+        itemModal.querySelector('.inputCommand').value = '';
+      }
 
-
-
-
+      if (mouseEvent.target.disableWhen) {
+        itemModal.querySelector('.inputDisableWhen').value = mouseEvent.target.disableWhen;
+      } 
+      else {
+        itemModal.querySelector('.inputDisableWhen').value = '';
+      }
 
       $('.saveChangeButton').on('click', function (event) {
         document.getElementById(elemId).style.fontSize = itemModal.querySelector('#inputFontSize').value + 'px';
@@ -1159,10 +1298,13 @@ function buttonMouseDownEventHandler(event) {
         document.getElementById(elemId).style.top = Number(itemModal.querySelector('#inputPositionY').value) + 43 + 'px';
         document.getElementById(elemId).style.width = itemModal.querySelector('#inputWidth').value + 'px';
         document.getElementById(elemId).style.height = itemModal.querySelector('#inputHeight').value + 'px';
+        mouseEvent.target.command = itemModal.querySelector('.inputCommand').value;
+        mouseEvent.target.disableWhen = itemModal.querySelector('.inputDisableWhen').value;
 
         draggable = new PlainDraggable(document.getElementById(elemId), { leftTop: true });
         draggable.autoScroll = true;
         draggable.containment = document.getElementById('mainPage1');
+        draggableObjects.push(draggable);
       });
 
       $('.btnCommand').on('click',function (onConditionClickEvent) {
@@ -1199,6 +1341,7 @@ function buttonMouseDownEventHandler(event) {
   draggable = new PlainDraggable(btn, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
+  draggableObjects.push(draggable);
 
 
 }
@@ -1247,13 +1390,37 @@ function switchMouseDownEventHandler(event) {
     $('#switchModal').one('show.bs.modal', function (showEvent) {
       var itemModal = $('#switchModal')[0];
 
+      if (mouseEvent.target.onCommand) {
+        itemModal.querySelector('.inputOnCommand').value = mouseEvent.target.onCommand;
+      } 
+      else {
+        itemModal.querySelector('.inputOnCommand').value = '';
+      }
+
+      if (mouseEvent.target.offCommand) {
+        itemModal.querySelector('.inputOffCommand').value = mouseEvent.target.offCommand;
+      } 
+      else {
+        itemModal.querySelector('.inputOffCommand').value = '';
+      }
+
+      if (mouseEvent.target.disableWhen) {
+        itemModal.querySelector('.inputDisableWhen').value = mouseEvent.target.disableWhen;
+      } 
+      else {
+        itemModal.querySelector('.inputDisableWhen').value = '';
+      }
+
       $('.saveChangeButton').on('click', function (event) {
+        mouseEvent.target.onCommand = itemModal.querySelector('.inputOnCommand').value;
+        mouseEvent.target.offCommand = itemModal.querySelector('.inputOffCommand').value;
+        mouseEvent.target.disableWhen = itemModal.querySelector('.inputDisableWhen').value;
       });
 
       $('.btnOnCommand').on('click',function (onConditionClickEvent) {
         $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
           if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputOnCammand').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+            itemModal.querySelector('.inputOnCommand').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
            }
         });
       });
@@ -1261,7 +1428,7 @@ function switchMouseDownEventHandler(event) {
       $('.btnOffCommand').on('click',function (onConditionClickEvent) {
         $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
           if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputOffCammand').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+            itemModal.querySelector('.inputOffCommand').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
            }
         });
       });
@@ -1294,6 +1461,7 @@ function switchMouseDownEventHandler(event) {
   draggable = new PlainDraggable(sw, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
+  draggableObjects.push(draggable);
 
 
 }
@@ -1344,9 +1512,25 @@ function inputMouseDownEventHandler(event) {
       itemModal.querySelector('.inputWidth').value = elemWidth;
       itemModal.querySelector('.inputHeight').value = elemHeight;
 
+      if (mouseEvent.target.tag) {
+        itemModal.querySelector('.inputTag').value = mouseEvent.target.tag;
+      } 
+      else {
+        itemModal.querySelector('.inputTag').value = '';
+      }
+
+      if (mouseEvent.target.disableWhen) {
+        itemModal.querySelector('.inputDisableWhen').value = mouseEvent.target.disableWhen;
+      } 
+      else {
+        itemModal.querySelector('.inputDisableWhen').value = '';
+      }
+
       $('.saveChangeButton').on('click', function (event) {
         document.getElementById(elemId).style.width = itemModal.querySelector('.inputWidth').value + 'px';
         document.getElementById(elemId).style.height = itemModal.querySelector('.inputHeight').value + 'px';
+        mouseEvent.target.tag = itemModal.querySelector('.inputTag').value;
+        mouseEvent.target.disableWhen = itemModal.querySelector('.inputDisableWhen').value;
       });
 
       $('.btnTag').on('click',function (onConditionClickEvent) {
@@ -1384,6 +1568,7 @@ function inputMouseDownEventHandler(event) {
   draggable = new PlainDraggable(input, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
+  draggableObjects.push(draggable);
 
 
 }
@@ -1437,8 +1622,32 @@ function checkboxMouseDownEventHandler(event) {
       var itemModal = $('#checkboxModal')[0];
       itemModal.querySelector('.textContent').value = mouseEvent.target.innerText;
 
+      if (mouseEvent.target.checkedCommand) {
+        itemModal.querySelector('.inputChecked').value = mouseEvent.target.checkedCommand;
+      } 
+      else {
+        itemModal.querySelector('.inputChecked').value = '';
+      }
+
+      if (mouseEvent.target.unCheckedCommand) {
+        itemModal.querySelector('.inputUnchecked').value = mouseEvent.target.unCheckedCommand;
+      } 
+      else {
+        itemModal.querySelector('.inputUnchecked').value = '';
+      }
+
+      if (mouseEvent.target.disableWhen) {
+        itemModal.querySelector('.inputDisableWhen').value = mouseEvent.target.disableWhen;
+      } 
+      else {
+        itemModal.querySelector('.inputDisableWhen').value = '';
+      }
+
       $('.saveChangeButton').on('click', function (event) {
         mouseEvent.target.innerHTML = itemModal.querySelector('.textContent').value;
+        mouseEvent.target.checkedCommand = itemModal.querySelector('.inputChecked').value;
+        mouseEvent.target.unCheckedCommand = itemModal.querySelector('.inputUnchecked').value;
+        mouseEvent.target.disableWhen = itemModal.querySelector('.inputDisableWhen').value;
       });
 
       $('.btnChecked').on('click',function (onConditionClickEvent) {
@@ -1485,6 +1694,7 @@ function checkboxMouseDownEventHandler(event) {
   draggable = new PlainDraggable(checkbox, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
+  draggableObjects.push(draggable);
 
 
 }
@@ -1531,9 +1741,67 @@ function sliderMouseDownEventHandler(event) {
       var itemModal = $('#sliderModal')[0];
       itemModal.querySelector('.inputWidth').value = elemWidth;
 
+      if (mouseEvent.target.tag) {
+        itemModal.querySelector('.inputValue').value = mouseEvent.target.tag;
+      } 
+      else {
+        itemModal.querySelector('.inputValue').value = '';
+      }
+
+      if (mouseEvent.target.minTag) {
+        itemModal.querySelector('.inputMinTag').value = mouseEvent.target.minTag;
+      } 
+      else {
+        itemModal.querySelector('.inputMinTag').value = '';
+      }
+
+      if (mouseEvent.target.minValue) {
+        itemModal.querySelector('.inputMinValue').value = mouseEvent.target.minValue;
+      } 
+      else {
+        itemModal.querySelector('.inputMinValue').value = '';
+      }
+
+      if (mouseEvent.target.maxTag) {
+        itemModal.querySelector('.inputMaxTag').value = mouseEvent.target.maxTag;
+      } 
+      else {
+        itemModal.querySelector('.inputMaxTag').value = '';
+      }
+
+      if (mouseEvent.target.maxValue) {
+        itemModal.querySelector('.inputMaxValue').value = mouseEvent.target.maxValue;
+      } 
+      else {
+        itemModal.querySelector('.inputMaxValue').value = '';
+      }
+
+      if (mouseEvent.target.disableWhen) {
+        itemModal.querySelector('.inputDisableWhen').value = mouseEvent.target.disableWhen;
+      } 
+      else {
+        itemModal.querySelector('.inputDisableWhen').value = '';
+      }
+
       //Button save 
       $('.saveChangeButton').on('click', function (event) {
         elemStyle.width = itemModal.querySelector('.inputWidth').value + 'px';
+        mouseEvent.target.tag = itemModal.querySelector('.inputValue').value;
+        mouseEvent.target.minTag = itemModal.querySelector('.inputMinTag').value;
+        mouseEvent.target.minValue = itemModal.querySelector('.inputMinValue').value;
+        mouseEvent.target.maxTag = itemModal.querySelector('.inputMaxTag').value;
+        mouseEvent.target.maxValue = itemModal.querySelector('.inputMaxValue').value;
+        mouseEvent.target.disableWhen = itemModal.querySelector('.inputDisableWhen').value;
+
+        if (itemModal.querySelector('.inputMinTag').value)
+          mouseEvent.target.isMinTag = true;
+        else mouseEvent.target.isMinTag = false;
+
+        if (itemModal.querySelector('.inputMaxTag').value)
+          mouseEvent.target.isMaxTag = true;
+        else mouseEvent.target.isMaxTag = false;
+
+
       });
 
       //Browse button
@@ -1590,6 +1858,7 @@ function sliderMouseDownEventHandler(event) {
   draggable = new PlainDraggable(slider, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
+  draggableObjects.push(draggable);
 
 }
 
@@ -1638,12 +1907,15 @@ function processbarMouseDownEventHandler(event) {
 
       var selectedItem = mouseEvent.target;
       var elemWidth, elemHeight;
+      var progressElement;
       
       if (selectedItem.id){ //Progress is chosen
+        progressElement = selectedItem;
         elemWidth = parseInt(selectedItem.style.width,10);
         elemHeight = Math.round(selectedItem.getBoundingClientRect().bottom - selectedItem.getBoundingClientRect().top);
       }
       else { //Bar is chosen
+        progressElement = selectedItem.parentNode;
         elemWidth = parseInt(selectedItem.parentNode.style.width,10);
         elemHeight = Math.round(selectedItem.getBoundingClientRect().bottom - selectedItem.getBoundingClientRect().top);
       }
@@ -1651,6 +1923,49 @@ function processbarMouseDownEventHandler(event) {
       var itemModal = $('#progressBarModal')[0];      
       itemModal.querySelector('.inputWidth').value = elemWidth;
       itemModal.querySelector('.inputHeight').value = elemHeight;
+
+      if (progressElement.tag) {
+        itemModal.querySelector('.inputValue').value = progressElement.tag;
+      } 
+      else {
+        itemModal.querySelector('.inputValue').value = '';
+      }
+
+      if (progressElement.minTag) {
+        itemModal.querySelector('.inputMinTag').value = progressElement.minTag;
+      } 
+      else {
+        itemModal.querySelector('.inputMinTag').value = '';
+      }
+
+      if (progressElement.minValue) {
+        itemModal.querySelector('.inputMinValue').value = progressElement.minValue;
+      } 
+      else {
+        itemModal.querySelector('.inputMinValue').value = '';
+      }
+
+      if (progressElement.maxTag) {
+        itemModal.querySelector('.inputMaxTag').value = progressElement.maxTag;
+      } 
+      else {
+        itemModal.querySelector('.inputMaxTag').value = '';
+      }
+
+      if (progressElement.maxValue) {
+        itemModal.querySelector('.inputMaxValue').value = progressElement.maxValue;
+      } 
+      else {
+        itemModal.querySelector('.inputMaxValue').value = '';
+      }
+
+      if (progressElement.hiddenWhen) {
+        itemModal.querySelector('.inputHiddenWhen').value = progressElement.hiddenWhen;
+      } 
+      else {
+        itemModal.querySelector('.inputHiddenWhen').value = '';
+      }
+     
       
       //Button save 
       $('.saveChangeButton').on('click', function (event) {
@@ -1662,13 +1977,39 @@ function processbarMouseDownEventHandler(event) {
           selectedItem.parentNode.style.width = itemModal.querySelector('.inputWidth').value + 'px';
           selectedItem.parentNode.style.height = itemModal.querySelector('.inputHeight').value + 'px';
         }
+
+        progressElement.tag = itemModal.querySelector('.inputValue').value;
+        progressElement.minTag = itemModal.querySelector('.inputMinTag').value;
+        progressElement.minValue = itemModal.querySelector('.inputMinValue').value;
+        progressElement.maxTag = itemModal.querySelector('.inputMaxTag').value;
+        progressElement.maxValue = itemModal.querySelector('.inputMaxValue').value;
+        progressElement.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
+
+        if (itemModal.querySelector('.inputMinTag').value)
+          progressElement.isMinTag = true;
+        else progressElement.isMinTag = false;
+
+        if (itemModal.querySelector('.inputMaxTag').value)
+          progressElement.isMaxTag = true;
+        else progressElement.isMaxTag = false;
+
+        console.log(progressElement.tag);
+        console.log(progressElement.minTag);
+        console.log(progressElement.minValue);
+        console.log(progressElement.maxTag);
+        console.log(progressElement.maxValue);
+        console.log(progressElement.hiddenWhen);
+        console.log(progressElement.isMinTag);
+        console.log(progressElement.isMaxTag);
+
+       
       });
 
       //Button Value browse tag
       $('.btnValueTag').on('click',function (valueEvent) {
         $('#tagModal').one('hide.bs.modal',function (modalHideEvent) {
           if($('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked')){
-            itemModal.querySelector('.inputValueTag').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
+            itemModal.querySelector('.inputValue').value  += $('#tagModal')[0].querySelector('input[name="rdoChoseTag"]:checked').value;
            }
         });
       });
@@ -1718,6 +2059,7 @@ function processbarMouseDownEventHandler(event) {
   draggable = new PlainDraggable(progressbar, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
+  draggableObjects.push(draggable);
 
 
 }
@@ -1736,6 +2078,7 @@ function symbolsetMouseDownEventHandler(event) {
   symbolSet.id = 'symbolSet' + index;
   symbolSet.className += ' contextMenu ';
 
+  
 
   //Image css style
   symbolSet.src = defaultSymbolSet;
@@ -1772,16 +2115,33 @@ function symbolsetMouseDownEventHandler(event) {
       itemModal.querySelector('.inputPositionX').value = elemPositionX;
       itemModal.querySelector('.inputPositionY').value = elemPositionY;
 
+      if (mouseEvent.target.onCondition) {
+        itemModal.querySelector('.inputOnCondition').value = mouseEvent.target.onCondition;
+      } 
+      else {
+        itemModal.querySelector('.inputOnCondition').value = '';
+      }
+
+      if (mouseEvent.target.hiddenWhen) {
+        itemModal.querySelector('.inputHiddenWhen').value = mouseEvent.target.hiddenWhen;
+      } 
+      else {
+        itemModal.querySelector('.inputHiddenWhen').value = '';
+      }
+
       //Button save 
       $('.saveChangeButton').on('click', function (event) {
         elemStyle.width = itemModal.querySelector('.inputWidth').value + 'px';
         elemStyle.height = itemModal.querySelector('.inputHeight').value + 'px';
         elemStyle.left = itemModal.querySelector('.inputPositionX').value + 'px';
         elemStyle.top = itemModal.querySelector('.inputPositionY').value + 'px';
+        mouseEvent.target.onCondition = itemModal.querySelector('.inputOnCondition').value;
+        mouseEvent.target.hiddenWhen = itemModal.querySelector('.inputHiddenWhen').value;
 
         draggable = new PlainDraggable(mouseEvent.target, { leftTop: true });
         draggable.autoScroll = true;
         draggable.containment = document.getElementById('mainPage1');
+        draggableObjects.push(draggable);
       });
 
       //Browse Tag button
@@ -1821,8 +2181,7 @@ function symbolsetMouseDownEventHandler(event) {
   draggable = new PlainDraggable(symbolSet, { leftTop: true });
   draggable.autoScroll = true;
   draggable.containment = document.getElementById('mainPage1');
-
-
+  draggableObjects.push(draggable);
 }
 
 
