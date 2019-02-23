@@ -42,3 +42,12 @@
     color: #4285F4;
 }
 
+.navbar-color{
+    background: #7386D5;
+    color:white;
+}
+
+.alert{
+    display: none;
+}
+
